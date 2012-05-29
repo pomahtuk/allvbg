@@ -1,0 +1,66 @@
+﻿{% load allvbg_extras %}
+{% load thumbnail %}
+{% load ratings %}
+{% load i18n %}
+
+{% for firm in firms.object_list %}
+	<div class="list_element">
+		<a href="/{{firm.id}}"><h3>{{firm.name}}</h3></a>
+		<img src="{% thumbnail firm.image1 120x0 %}" width="120px">
+		{% do_rating_by_object request on firm.rating as vote %}
+		<div class="rateit" data-pageid="{{firm.id}}" data-rateit-value="{{vote}}" data-rateit-resetable="false">
+		</div>
+		<hr>
+		<p>{{firm.short|safe}}</p>
+	</div>
+{% endfor %}
+
+<div id="pager">
+	<center>
+		<ul>
+			{% if pagecode %}
+				{% if firms.has_previous %}
+					<li class="control page_switch"><a class="page_switch" href="/ajax_list/?pagecode={{pagecode}}&page={{ firms.previous_page_number }}&limit={{lmt}}">{% trans "Предыдущие" %}</a><li>
+				{% endif %}
+
+				{% for i in firms|pagination %}
+					{% ifequal i "." %}		
+						<li>...</li>
+					{% else %}
+						{% if i = firms.number %}
+							<li><a class="active_page page_switch" href="/ajax_list/?pagecode={{pagecode}}&page={{i}}&limit={{lmt}}">{{i}}</a></li>
+						{% else %}
+							<li><a class="page_switch" href="/ajax_list/?pagecode={{pagecode}}&page={{i}}&limit={{lmt}}">{{i}}</a></li>
+						{% endif %}
+					{% endifequal %}
+				{% endfor %}		
+
+				{% if firms.has_next %}
+					<li class="control page_switch"><a class="page_switch" href="/ajax_list/?pagecode={{pagecode}}&page={{firms.next_page_number }}&limit={{lmt}}">{% trans "Следующие" %}</a></li>
+				{% endif %}
+			{% else %}
+				{% if firms.has_previous %}
+					<li class="control page_switch"><a class="page_switch" href="/ajax_list/?page={{ firms.previous_page_number }}&limit={{lmt}}">{% trans "Предыдущие" %}</a><li>
+				{% endif %}
+
+				{% for i in firms|pagination %}
+					{% ifequal i "." %}		
+						<li>...</li>
+					{% else %}				
+						{% if i = firms.number %}
+							<li><a class="active_page page_switch" href="/ajax_list/?page={{i}}&limit={{lmt}}">{{i}}</a></li>
+						{% else %}
+							<li><a class="page_switch" href="/ajax_list/?page={{i}}&limit={{lmt}}">{{i}}</a></li>
+						{% endif %}
+					{% endifequal %}
+				{% endfor %}		
+
+				{% if firms.has_next %}
+					<li class="control page_switch"><a class="page_switch" href="/ajax_list/?page={{firms.next_page_number }}&limit={{lmt}}">{% trans "Следующие" %}</a></li>
+				{% endif %}
+			
+			{% endif %}
+			<div class="clear">
+		</ul>
+	</center>
+</div>

@@ -1,0 +1,255 @@
+{% load mptt_tags %}
+{% load allvbg_extras %}
+{% load cache %}
+{% load i18n %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
+	<title>{% trans "Весь Выборг - Результаты поиска" %}</title>
+  	<base href="http://allvbg.ru/" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	
+	<meta name="description" content="результаты поиска">
+	<meta name="author" content="pman">
+	<meta name="keywords" content="Выборг, карта, организации, новости, события, объявления">
+	
+	<meta name='yandex-verification' content='6d7dc13dd2380f0f' />
+	
+	<link rel="shortcut icon" href="{{ STATIC_URL }}/allvbg/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="Весь Выборг - Лента обновлений" href="[[~343]]" />
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/allvbg/main_2.css">
+	
+	<link href='http://fonts.googleapis.com/css?family=PT+Serif:400,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>	  
+  
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+  	<script src="{{ STATIC_URL }}/allvbg/js/bootstrap-dropdown.js"></script>
+	{% block metrics %}
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-11551414-4']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+
+	<!-- Yandex.Metrika counter -->
+	<div style="display:none;"><script type="text/javascript">
+	(function(w, c) {
+		(w[c] = w[c] || []).push(function() {
+			try {
+				w.yaCounter9754210 = new Ya.Metrika({id:9754210, enableAll: true});
+			}
+			catch(e) { }
+		});
+	})(window, "yandex_metrika_callbacks");
+	</script></div>
+	<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+	<noscript><div><img src="//mc.yandex.ru/watch/9754210" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+	<!-- /Yandex.Metrika counter -->
+	{% endblock %}
+</head>
+<body>
+  <div id="fast-feedback-btn">
+	<img class="deleter" title="Обратная связь" alt="X" src="{{ STATIC_URL }}/allvbg/img/delete-black.gif">
+  </div>  
+  
+	<div class="container_12">
+	  	<div class="headerimg"></div>
+		<div class="grid_12 site_title">
+			<a class="logo" href="/"><img src="{{ STATIC_URL }}/allvbg/img/lg1.png" align="left" width="100px" height="100px"><h1>Весь Выборг</h1></a>
+		</div>  
+		<div class="grid_12 header">
+		  <div id="search">
+			{% block search %}
+				<form class="sisea-search-form" action="/" method="get">
+				  <fieldset>
+					<input type="text" name="searchIndex" id="search_value" value="" />
+					<input type="hidden" name="id" value="11" />
+					<input type="submit" value=" " />
+				  </fieldset>
+				</form>	
+			{% endblock %}
+		  </div>
+		    <div class="topbar-wrapper" style="z-index: 5;">
+		      <div class="topbar" data-dropdown="dropdown" >
+			<div class="topbar-inner">
+			  <div class="container">
+				{% block menu %}
+			    <ul class="nav">		
+					{% cache 3600 menu %}				
+						{% full_tree_for_model allvbg.firm as firms %}
+										
+						{% recursetree firms %}
+							<li {% if node.level == 0 %} class="dropdown" {% endif %}>
+								<a href="#" {% if node.level == 0 %} class="dropdown-toggle" {% endif %} >{{ node.name }}</a>
+								{% if not node.is_leaf_node and node.level == 0 %}
+									<ul class="dropdown-menu">
+										{{ children }}
+									</ul>
+								{% endif %}
+							</li>
+						{% endrecursetree %}
+						
+					{% endcache %}					
+			    </ul>
+				{% endblock %}
+			  </div>
+			</div><!-- /topbar-inner -->
+		      </div><!-- /topbar -->
+		    </div><!-- /topbar-wrapper -->
+		  	<div class="social">
+				<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+				<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook"></div> 
+		  	</div>
+		  	<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+  
+	<div class="container_12">
+		<div class="upper_indent"></div>
+		<div class="grid_12 bread">
+			<div id="here">{% trans "Вы тут:" %}</div>
+				<span class="B_crumbBox"><span class="B_firstCrumb"><a class="B_homeCrumb" href="/" title="Главная">{% trans "Главная"%}</a></span>
+				 &raquo; <span class="B_lastCrumb"><span class="B_currentCrumb">{% trans "Результаты поиска"%}</span></span>
+				</span>			
+		</div>
+	</div>  
+  
+	<div class="container_12">
+		<div class="grid_12 main_container">
+			<div id="layers">
+			
+				<p>
+					<center>
+						<strong>
+							<img src="/static/allvbg/404.png" alt="" height="169" width="400"/>
+							<br>
+							Запрашиваемый документ не найден. Попробуйте воспользоваться поиском.
+						</strong>
+					</center>
+				</p>
+				<hr>
+				
+				<form class="sisea-search-form" action="/search/" method="get">
+				  <fieldset>
+					<input style="width:95%" type="text" name="q" id="q" value="" />
+					<input type="submit" value=" " />
+				  </fieldset>
+				</form>	
+			</div>
+		</div>		
+	</div>
+	<div class="clear"></div>  
+  
+{% block footer %}
+	<div class="container_12">
+	  <div class="grid_12">
+		<div class="grid_4 bottom_blocks">
+			<h2>{% trans "Новости" %}</h2>
+			<div id="news">
+			  	{% pull_feed 'http://pipes.yahoo.com/pipes/pipe.run?_id=49ff1ad887cc682ac49447b475603743&_render=rss' 3 %}
+		  	</div>
+		</div>
+		<div class="grid_4 bottom_blocks">
+			<h2>{% trans "События" %}</h2>
+		  	<div id="events">
+			  	{% month_cal %}
+				<!--что-то-->
+		  	</div>
+		</div>
+		<div class="grid_4 bottom_blocks">
+			<h2>{% trans "Объявления" %}</h2>
+		  	<div id="ads">
+				{% get_hello %}
+		  	</div>
+		</div>
+	  </div>
+	</div>
+
+	<div class="container_12 ftwrp">	
+		<div id="contactinfo" class="grid_12">
+			<span>
+				{% trans "© 2011 ВесьВыборг - информационный сайт для горожан и гостей города. By PMaN" %}
+				<br>
+				e-mail: <a href="mailto:admin@allvbg.ru">admin@allvbg.ru</a>
+				<br>
+			</span>
+			<center>
+				<ul>
+				  	<li><a href="http://board.allvbg.ru">{% trans "Доска объявлений" %}</a></li>
+					<li><a href="about.html">{% trans "О проекте" %}</a></li>
+					<li><a href="#">{% trans "Для компаний" %}</a></li>
+					<li><a href="/754">{% trans "Демо-магазин" %}</a></li>
+				</ul>
+			  <br>
+{% block counters %}			  
+<!-- begin of Top100 code -->
+
+<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?2563801"></script>
+<noscript>
+<a href="http://top100.rambler.ru/navi/2563801/">
+<img src="http://counter.rambler.ru/top100.cnt?2563801" alt="Rambler's Top100" border="0" />
+</a>
+
+</noscript>
+<!-- end of Top100 code -->
+			  
+<!--LiveInternet counter--><script type="text/javascript">document.write("<a href='http://www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t44.6;r" + escape(document.referrer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) +";h"+escape(document.title.substring(0,80)) +  ";" + Math.random() + "' border=0 width=31 height=31 alt='' title='LiveInternet'><\/a>")</script><!--/LiveInternet-->
+{% endblock %}			  
+			  
+			</center>
+		</div>
+	</div> 
+  
+  	<script type="text/javascript">
+	{% block scripts %}
+		$(document).ready(function() {
+			$('.parent > a').mouseenter(function() {
+				var menu=$('.dropped_menu');
+				$('.parent > a').removeClass('active_menu');
+				menu.remove();
+				$('body').append('<div class="dropped_menu rounder_transpoarent">'+$(this).next().html()+'</div>');
+				menu=$('.dropped_menu');
+				menu.append('<div class="clear"></div>');
+				var position=$(this).offset();
+				menu.offset({left:position.left, top:position.top+35});
+				menu.animate({ opacity: "show" }, "500");
+				$('.antimouse').show();				
+				$('.antimouse').mouseenter(function() {
+					menu.animate({ opacity: "hide" }, "500");
+					menu.remove();
+					$('.antimouse').hide();
+					$('.parent > a').removeClass('active_menu');					
+				});
+				$(this).addClass('active_menu');
+			});		
+
+			$('.deleter').click(function(){
+				$('#fast-feedback-btn').hide();
+			})
+
+			$('#fast-feedback-btn').click(function(){
+				var contact_form = '<div id="contact_form">';
+					contact_form   +=  '    <iframe src="/contact/" width="600" height="450"  scrolling="no" allowtransparency>Ваш браузер не поддерживает плавающие фреймы!</iframe>' ;
+					contact_form   +=  '</div>';
+				$('body').prepend(contact_form);
+			})				
+				 
+		});
+		
+	{% endblock %}
+	</script>
+  <div class="antimouse"></div>
+ {% endblock %} 
+<!--[if lte IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+<![endif]-->    
+</body>				

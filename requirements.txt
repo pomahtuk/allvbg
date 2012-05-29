@@ -1,0 +1,21 @@
+Django==1.2.3
+FeinCMS==1.5.3
+MySQL-python==1.2.2
+PIL==1.1.7
+South==0.7.4
+distribute==0.6.14
+django-admin-tools==0.4.1
+django-appconf==0.5
+django-debug-toolbar==0.9.4
+django-filebrowser==3.4.2
+django-grappelli==2.3.8
+django-modeltranslation==0.3.3
+django-mptt==0.5.2
+django-ratings==0.3.6
+django-staticfiles==1.2.1
+django-tinymce==1.5.1b2
+easy-thumbnails==1.0-alpha-21
+## FIXME: could not find svn URL in dependency_links for this package:
+flup==1.0.3.dev-20110405
+mod-python==3.3.1
+wsgiref==0.1.2

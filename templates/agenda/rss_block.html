@@ -1,0 +1,5 @@
+{% for post in posts %}
+	<li class="rssBody">
+		<a href={{post.link}}>{{post.title}}</a><br>{{post.date|date:"d-m-Y"}}
+	</li>
+{% endfor %}
