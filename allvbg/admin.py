@@ -1,4 +1,5 @@
-﻿from allvbg.models import *
+# -*- coding: utf-8 -*-
+from allvbg.models import *
 from django.contrib import admin
 from feincms.admin import editor
 from mptt.admin import MPTTModelAdmin #зависимость для отображения материалов в виде дерева в админке

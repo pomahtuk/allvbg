@@ -2,6 +2,8 @@ import os
 
 #PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 
+VIRTUALENV = "/root/.virtualenvs/django_test/lib/python2.6/site-packages"
+
 PROJECT_PATH = '/var/www/pman/data/www/allvbgru'
 
 # Django settings for allvbgru project.
@@ -124,16 +126,15 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-	'django.middleware.cache.CacheMiddleware',
+    'django.middleware.cache.CacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-	'debug_toolbar.middleware.DebugToolbarMiddleware',
-	'django.middleware.locale.LocaleMiddleware',
-	'allvbg.middleware.UserBasedExceptionMiddleware',
-
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'allvbg.middleware.UserBasedExceptionMiddleware',
 )
 
 INTERNAL_IPS = (
@@ -200,6 +201,8 @@ INSTALLED_APPS = (
 	'modeltranslation',
 	#'south',
 )
+
+#DIRECTORY = getattr(SETTINGS, "FILEBROWSER_DIRECTORY", 'uploads/')
 
 YANDEX_MAP_KEY = "AK8Ikk0BAAAAdOLMOgIAjpzOBoj6rXFSZEs52f88oUaPYDAAAAAAAAAAAAB3amaZkCtWNLQzxgaVFWYr-ymltQ==~AFuUaU4BAAAA_nfgKgIA-66Q4jxwCOFrx2v8U1aa6UzHDrYAAAAAAAAAAADAFR7JmJumtVbHoQjeteNT2GZJjA==~AFuUaU4BAAAA_nfgKgIA-66Q4jxwCOFrx2v8U1aa6UzHDrYAAAAAAAAAAADAFR7JmJumtVbHoQjeteNT2GZJjA=="
 
