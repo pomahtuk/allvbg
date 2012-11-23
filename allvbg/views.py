@@ -262,7 +262,7 @@ def manage_Firm(request):
 #payment functions
 
 def result(request):
-	mrh_pass2 = "T7XxT3nnkX";
+	mrh_pass2 = "";
 	out_summ = request.GET['OutSum']
 	inv_id = request.GET['InvId']
 	crc = request.GET['SignatureValue']
@@ -296,8 +296,8 @@ def pay(request):
 		elif out_summ=="450":
 			mth="12"
 		inv_desc="Payment for editing firm by user with id = "+request.POST['desc']+" for "+mth+" month(s)"
-		mrh_login = "pman89"
-		mrh_pass1 = "ipauk17y"
+		mrh_login = ""
+		mrh_pass1 = ""
 		
 		m = str(date.today().month)
 		if len(m)==1:
@@ -329,9 +329,9 @@ def pay_ok(request):
 		out_summ = request.GET['OutSum']
 		inv_id = request.GET['InvId']
 		crc = request.GET['SignatureValue']
-		mrh_pass1 = "ipauk17y"
-		mrh_login = "pman89"
-		mrh_pass2 = "T7XxT3nnkX"
+		mrh_pass1 = ""
+		mrh_login = ""
+		mrh_pass2 = ""
 		
 		temp = out_summ+":"+inv_id+":"+mrh_pass1		
 		my_crc = hashlib.md5(temp).hexdigest()
