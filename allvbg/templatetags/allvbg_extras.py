@@ -1,6 +1,6 @@
 from django.template import Library, TemplateSyntaxError
 import os
-import Image
+from PIL import Image
 from datetime import date, timedelta, time
 from allvbg.models import Event, Firm, Article
 import urllib, feedparser

@@ -139,7 +139,7 @@ MIDDLEWARE_CLASSES = (
 
 INTERNAL_IPS = (
 	'127.0.0.1',
-	'194.105.194.66',
+	'194.105.194.66'
 )
 
 ROOT_URLCONF = 'allvbgru.urls'
@@ -171,7 +171,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'treenav.context_processors.treenav_active',
-    'django.core.context_processors.auth',
+#    'django.core.context_processors.auth',
     'django.core.context_processors.debug',
     'django.contrib.messages.context_processors.messages',	
 )

@@ -5,7 +5,7 @@ from django import forms
 from django.db import models
 from allvbgru import settings
 import os
-import Image
+from PIL import Image
 
 try:
     from easy_thumbnails.files import get_thumbnailer
