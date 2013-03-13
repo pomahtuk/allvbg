@@ -1,8 +1,5 @@
 import os
 
-#PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
-
-VIRTUALENV = "/root/.virtualenvs/django_test/lib/python2.6/site-packages"
 
 PROJECT_PATH = '/var/www/pman/data/www/allvbgru'
 
@@ -21,29 +18,20 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'django',                      # Or path to database file if using sqlite3.
-        'USER': 'django_user',                      # Not used with sqlite3.
-        'PASSWORD': '177591',                  # Not used with sqlite3.
+        'NAME': '',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
 TIME_ZONE = 'Europe/Moscow'
 
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'ru-ru'
 
 SITE_ID = 1
 
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
 USE_L10N = True
 
 # Absolute path to the directory static files should be collected to.
@@ -145,8 +133,6 @@ INTERNAL_IPS = (
 ROOT_URLCONF = 'allvbgru.urls'
 
 TEMPLATE_DIRS = (
-    # The docs say it should be absolute path: PROJECT_PATH is precisely one.
-    # Life is wonderful!
     os.path.join(PROJECT_PATH, "templates"),
 )
 
@@ -209,13 +195,6 @@ YANDEX_MAP_KEY = "AK8Ikk0BAAAAdOLMOgIAjpzOBoj6rXFSZEs52f88oUaPYDAAAAAAAAAAAAB3am
 MPTT_ADMIN_LEVEL_INDENT = 20
 
 AUTH_PROFILE_MODULE = 'allvbg.UserProfile'
-
-#CACHES = {
-#    'default': {
-#        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-#        'LOCATION': '127.0.0.1:11211',
-#    }
-#}
 
 CACHES = {
     'default': {
