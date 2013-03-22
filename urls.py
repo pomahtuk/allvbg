@@ -6,12 +6,23 @@ from filebrowser.sites import site
 from allvbg.models import Firm
 from djangoratings.views import AddRatingFromModel
 from django.conf.urls import *
+from tastypie.api import Api
+from allvbg.api import FirmResource, MapStyleResource
 
 admin.autodiscover()
+
+v1_api = Api(api_name='v1')
+v1_api.register(FirmResource())
+v1_api.register(MapStyleResource())
+
 
 urlpatterns = patterns('',
 	url(r'^admin/', include(admin.site.urls)),
 	url(r'^admin_tools/', include('admin_tools.urls')),
+
+	url(r'^test/', 'allvbg.views.test_page'),
+
+	url(r'^api/', include(v1_api.urls)),
 	
 	url(r'^tinymce/', include('tinymce.urls')),
 	url(r'^admin/filebrowser/', include(site.urls)),
@@ -50,8 +61,8 @@ urlpatterns = patterns('',
 	url(r'^about.html', 'allvbg.views.about'),
 	url(r'^%D0%BE-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B5.html', 'allvbg.views.about'),
 	
-    url(r'^contact/send/', 'allvbg.views.thankyou'),
-    url(r'^contact/', 'allvbg.views.contactview'),	
+  url(r'^contact/send/', 'allvbg.views.thankyou'),
+  url(r'^contact/', 'allvbg.views.contactview'),	
 	url(r'^mobile/(?P<firm_id>\d+)$', 'allvbg.views.mobileitem'),		
 	url(r'^article/(?P<article_id>\d+)$', 'allvbg.views.articles'),
 	url(r'^search/$', 'allvbg.views.search'),

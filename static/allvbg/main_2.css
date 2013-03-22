@@ -334,10 +334,13 @@ button, input, select, textarea {
 }
 .site_title h1 {
     color: #FFFFFF;
-    display: block;
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: middle;
+    zoom: 1;
     font: bold 2.3em 'PT Serif',serif;
-    margin-left: 50px;
-    padding: 15px 0 20px;
+    /*margin-left: 50px;*/
+    padding: 15px 0 0 0;
     text-shadow: -2px 2px 2px #000000;
 }
 .site_title a {
@@ -726,10 +729,27 @@ label {
     color: #000000;
     display: inline-block;
     margin: 4px;
-    min-height: 130px;
+    height: 130px;
     padding: 10px;
     vertical-align: top;
-    width: 320px;
+    width: 23%;
+    margin-left: 0.3%;
+    margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+}
+.list_element:after {
+    position: absolute;
+    top: 135px;
+    left: 0px;
+    display: block;
+    width: 100%;
+    height: 15px;
+    content: '';
+    background: url(/static/allvbg/images/item_bottom.png);
+}
+.list_element:nth-child(4n+4) {
+  margin-left: 0px; 
 }
 .list_element img {
     float: left;
@@ -1224,6 +1244,12 @@ div.list_element hr {
 .topbar ul .menu-dropdown li a, .topbar ul .dropdown-menu li a {
   padding: 4px 15px;
 }
+.dropdown-menu li:first-child a{
+    padding-top: 10px;
+}
+.dropdown-menu li:last-child a{
+    padding-bottom: 10px;
+}
 li.menu, .dropdown {
   position: relative;
 }
@@ -1256,7 +1282,7 @@ a.menu:after, .dropdown-toggle:after {
   _width: 280px;
   margin-left: 0;
   margin-right: 0;
-  padding: 6px 0;
+  /*padding: 6px 0;*/
   zoom: 1;
   border-color: #999;
   border-color: rgba(0, 0, 0, 0.2);
@@ -1323,6 +1349,7 @@ a.menu:after, .dropdown-toggle:after {
 .open .dropdown-menu,
 .dropdown.open .dropdown-menu {
   display: block;
+  margin-top: 5px;
 }
 #Calendar .calendar {
 border-collapse:collapse;

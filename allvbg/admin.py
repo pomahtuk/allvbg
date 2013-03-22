@@ -10,14 +10,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
 class FirmAdmin(editor.TreeEditor): #класс для админ-панели фирм
-	list_display = ('name', 'short', 'map_style', 'isstore', 'pub_date') #список полей, выводимых в админке
+	list_display = ('name', 'short', 'map_style', 'isstore', 'published', 'pub_date') #список полей, выводимых в админке
 	#list_filter = ['pub_date'] #поле, по которому возможна фильрация
 	search_fields = ['name'] #поле, по которому возможен поиск
 	#date_hierarchy = 'pub_date' #порядок сортировки по умолчанию дял дат
 	#ordering = ('-pub_date',) #поле и порядок сортировки
 	ordering = ('-id',) #поле и порядок сортировки
 	fieldsets = [ #наборы полей
-		('Основное', {'fields': ['name', 'alias', 'parent', 'container', 'short', 'description']}),
+		('Основное', {'fields': ['name', 'alias', 'parent', 'container', 'short', 'description', 'published']}),
 		('Изображения', {'fields': ['image1', 'image2', 'image3', 'image4']}),
 		#('Карта', {'fields': ['location', 'map_style'], 'classes': ['collapse']}),
 		('Карта', {'fields': ['lat', 'lng', 'location', 'map_style']}),

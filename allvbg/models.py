@@ -38,48 +38,49 @@ class tst_r(models.Model):
 class Firm(MPTTModel):#модель БД для фирм и организаций, наследуется от класса. поддерживающего дерево
 	#далее просто указываеются все необходимые поля
 	#поле "имя" - не проверяется, но должно быть уникально в пределах категории.
-	name = models.CharField(max_length=50, verbose_name='Название')
+  name = models.CharField(max_length=50, verbose_name='Название')
 	#поле "псевдоним" - не проверяется, но должно быть уникально в пределах категории.
-	alias = models.CharField(max_length=50, unique=True, verbose_name='Псевдоним')	
+  alias = models.CharField(max_length=50, unique=True, verbose_name='Псевдоним')	
 	#указание поля, благодаря которому древовидная стукрута вообще работает
-	parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
+  parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
 	#Логическая переменная, определяющая, по сути, в каком шаблоне отображать модель
-	container = models.BooleanField(verbose_name='Контейнер?')
+  container = models.BooleanField(verbose_name='Контейнер?')
 	#короткое описание, показывается на карте и в отображении списком
-	short = tinymce_models.HTMLField(verbose_name='Короткое описание', null=True, blank=True)
+  short = tinymce_models.HTMLField(verbose_name='Короткое описание', null=True, blank=True)
 	#Полный текст описания фирмы
-	description = tinymce_models.HTMLField(verbose_name='Полный текст', null=True, blank=True)
+  description = tinymce_models.HTMLField(verbose_name='Полный текст', null=True, blank=True)
 	#изображения, привязанные к фирме
 	#image1 = models.ImageField(upload_to='uploads', verbose_name='Изображение 1', null=True, blank=True)
-	image1 = models.ImageField(upload_to='uploads', verbose_name='Изображение 1', null=True, blank=True)
-	image2 = models.ImageField(upload_to='uploads', verbose_name='Изображение 2', null=True, blank=True)
-	image3 = models.ImageField(upload_to='uploads', verbose_name='Изображение 3', null=True, blank=True)
-	image4 = models.ImageField(upload_to='uploads', verbose_name='Изображение 4', null=True, blank=True)
+  image1 = models.ImageField(upload_to='uploads', verbose_name='Изображение 1', null=True, blank=True)
+  image2 = models.ImageField(upload_to='uploads', verbose_name='Изображение 2', null=True, blank=True)
+  image3 = models.ImageField(upload_to='uploads', verbose_name='Изображение 3', null=True, blank=True)
+  image4 = models.ImageField(upload_to='uploads', verbose_name='Изображение 4', null=True, blank=True)
 	#ключевые слова
-	meta_key = models.CharField(max_length=100, verbose_name='Ключевые слова', null=True, blank=True)
+  meta_key = models.CharField(max_length=100, verbose_name='Ключевые слова', null=True, blank=True)
 	#строка адреса фирмы
-	location = models.CharField(max_length=100, verbose_name='Адрес', null=True, blank=True)
-	lat = models.CharField(max_length=255, verbose_name='Широта', null=True, blank=True)
-	lng = models.CharField(max_length=255, verbose_name='Долгота', null=True, blank=True)
+  location = models.CharField(max_length=100, verbose_name='Адрес', null=True, blank=True)
+  lat = models.CharField(max_length=255, verbose_name='Широта', null=True, blank=True)
+  lng = models.CharField(max_length=255, verbose_name='Долгота', null=True, blank=True)
 	#стиль отображения на карте. Проще сделать отдельной таблицей все значения.
-	map_style = models.ForeignKey(MapStyle, verbose_name='Стиль на карте', null=True, blank=True)
+  map_style = models.ForeignKey(MapStyle, verbose_name='Стиль на карте', null=True, blank=True)
 	#Логическая переменная, определяющая, является ли данный объект магазином
-	isstore = models.BooleanField(verbose_name='Магазин?')
+  isstore = models.BooleanField(verbose_name='Магазин?')
 	#поле "ecwid" - необходимое поле в случае, если ресурс - магазин.
-	ecwid = models.CharField(max_length=50, verbose_name='ID магазина ECWID', null=True, blank=True)
+  ecwid = models.CharField(max_length=50, verbose_name='ID магазина ECWID', null=True, blank=True)
 	#дата создания ресурса
-	pub_date = models.DateTimeField('Дата публикации')	
+  pub_date = models.DateTimeField('Дата публикации')	
 	#переменная для количества голосов
-	totalvotes = models.BigIntegerField(verbose_name='Количество проголосовавших', null=True)
+  totalvotes = models.BigIntegerField(verbose_name='Количество проголосовавших', null=True)
 	#переменная для подсчёта рейтинга
-	raiting = models.FloatField(verbose_name='Рейтинг', null=True)
-	rating = RatingField(range=5, allow_anonymous = True, use_cookies = True)	
+  raiting = models.FloatField(verbose_name='Рейтинг', null=True)
+  rating = RatingField(range=5, allow_anonymous = True, use_cookies = True)
+  published = models.BooleanField(verbose_name='Опубликовано?')
 
-	class MPTTMeta:#метадата для деревьев
-		order_insertion_by = ['name']
+  class MPTTMeta:#метадата для деревьев
+    order_insertion_by = ['name']
 		
-	def __unicode__(self): #дополнительное поле, определяет информацию. выводимю на экран
-		return self.name	
+  def __unicode__(self): #дополнительное поле, определяет информацию. выводимю на экран
+    return self.name	
 		
 class Event(models.Model):
 	#поле "имя" - должно быть уникально.
@@ -136,7 +137,6 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = User
         exclude = ('password','editor_for','is_staff','is_active','is_superuser','last_login','date_joined','groups','user_permissions')
-
 			
 class FirmUserForm(forms.ModelForm):
     class Meta:

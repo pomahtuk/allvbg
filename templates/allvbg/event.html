@@ -29,7 +29,7 @@
   	<script src="{{ STATIC_URL }}/allvbg/js/bootstrap-dropdown.js"></script>	
 	
 	<!-- Put this script tag to the <head> of your page -->
-      	<script type="text/javascript" src="http://userapi.com/js/api/openapi.js?34"></script>
+   <!--   	<script type="text/javascript" src="http://userapi.com/js/api/openapi.js?34"></script>
       
       	<script type="text/javascript">
 	  if (window.location.hostname=='xn--90abafh0doe5gi.xn--p1ai') {
@@ -38,7 +38,7 @@
 	  else {
 	    	VK.init({apiId: 2468137, onlyWidgets: true});
 	  }
-	</script>
+	</script> -->
 	
 	{% block metrics %}
 	<script type="text/javascript">
@@ -158,10 +158,17 @@
 					  <center>		    
 					    <br><br>
 					    <!-- Put this div tag to the place, where the Comments block will be -->
-					    <div id="vk_comments"></div>
-					    <script type="text/javascript">
-					    VK.Widgets.Comments("vk_comments", {limit: 5, width: "500", attach: false});
-					    </script>
+							<div id="mc-container"></div>
+							<script type="text/javascript">
+							var mcSite = '21518';
+							(function() {
+							    var mc = document.createElement('script');
+							    mc.type = 'text/javascript';
+							    mc.async = true;
+							    mc.src = '//cackle.me/mc.widget-min.js';
+							    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mc);
+							})();
+							</script>
 					  </center>
 					</div>
 				</div>
@@ -201,7 +208,6 @@
 			<span>© 2011 ВесьВыборг - информационный сайт для горожан и гостей города. By PMaN</span>
 			<center>
 				<ul>
-				  	<li><a href="http://board.allvbg.ru">Доска объявлений</a></li>
 					<li><a href="[[~233]]">О проекте</a></li>
 					<li><a href="#">Для компаний</a></li>
 					<li><a href="[[~99]]">Демо-магазин</a></li>

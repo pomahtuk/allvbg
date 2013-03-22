@@ -30,6 +30,16 @@ def is_mobile(request):
 			is_mobile =  True
 	return is_mobile
 
+
+########################## testing
+
+# def test(request):
+# 	return render_to_response('allvbg/test.html')
+# 	#return render_to_response('allvbg/test.html', {}, context_instance=RequestContext(request))
+
+def test_page(request):
+	return render_to_response('allvbg/test.html')
+
 #full version functions
 
 def ajax_firm_list(request):
@@ -39,13 +49,13 @@ def ajax_firm_list(request):
 		try:
 			tmp2 = get_object_or_404(Firm, pk=tmp.parent.id)
 			if tmp.container:
-				firm_list = Firm.objects.filter(container=False, parent=tmp.id).order_by("-pub_date")
+				firm_list = Firm.objects.filter(container=False, parent=tmp.id, published=True).order_by("-pub_date")
 			else:
-				firm_list = Firm.objects.filter(container=False, parent=pagecode).order_by("-pub_date")
+				firm_list = Firm.objects.filter(container=False, parent=pagecode, published=True).order_by("-pub_date")
 		except:
-			firm_list = Firm.objects.filter(container=False, lft__gt=tmp.lft, rght__lt=tmp.rght).order_by("-pub_date")
+			firm_list = Firm.objects.filter(container=False, lft__gt=tmp.lft, rght__lt=tmp.rght, published=True).order_by("-pub_date")
 	else:
-		firm_list = Firm.objects.filter(container=False).order_by("-pub_date")
+		firm_list = Firm.objects.filter(container=False, published=True).order_by("-pub_date")
 	
 	limit = request.GET.get('limit')
 	if limit is not None:
@@ -87,7 +97,7 @@ def map_main_xml(request):
 	
 def map_unmain(request, firm_id):
 	s=MapStyle.objects.order_by('-title')[:500]
-	p = get_object_or_404(Firm, pk=firm_id)
+	p = get_object_or_404(Firm, Q(published=True), pk=firm_id)
 	return render_to_response('allvbg/map2.js', {
 		'styles':s,
 		'page':p,
@@ -95,35 +105,35 @@ def map_unmain(request, firm_id):
 	
 def map_unmain_xml(request, firm_id):
 	s=MapStyle.objects.order_by('-title')[:500]
-	p = get_object_or_404(Firm, pk=firm_id)
+	p = get_object_or_404(Firm, Q(published=True), pk=firm_id)
 	return render_to_response('allvbg/map.xml', {
 		'styles':s,
 		'page':p,
 	}, context_instance=RequestContext(request), mimetype="application/xml")
 	
 def contactview(request):
-		subject = request.POST.get('topic', '')
-		message = request.POST.get('message', '')
-		from_email = request.POST.get('email', '')
-		name = request.POST.get('name', '')
+	subject = request.POST.get('topic', '')
+	message = request.POST.get('message', '')
+	from_email = request.POST.get('email', '')
+	name = request.POST.get('name', '')
 
-		if subject and message and name and from_email:
-			sbj = 'Message from allvbg.ru. Subject:'+subject
-			msg = 'From '+name+':        '+message
-			try:
-				send_mail(sbj, msg, from_email, ['pman89@ya.ru'])
-			except BadHeaderError:
-				return HttpResponse('Invalid header found.')
-			return HttpResponseRedirect('/contact/send/')
-		else:
-			return render_to_response('allvbg/contact.html', {'form': ContactForm()},
-			RequestContext(request))
-	
+	if subject and message and name and from_email:
+		sbj = 'Message from allvbg.ru. Subject:'+subject
+		msg = 'From '+name+':        '+message
+		try:
+			send_mail(sbj, msg, from_email, ['pman89@ya.ru'])
+		except BadHeaderError:
+			return HttpResponse('Invalid header found.')
+		return HttpResponseRedirect('/contact/send/')
+	else:
 		return render_to_response('allvbg/contact.html', {'form': ContactForm()},
-			RequestContext(request))
+		RequestContext(request))
+
+	return render_to_response('allvbg/contact.html', {'form': ContactForm()},
+		RequestContext(request))
 
 def thankyou(request):
-		return render_to_response('allvbg/contact_send.html')
+	return render_to_response('allvbg/contact_send.html')
 
 def print_event(request, event_id):
 	p = get_object_or_404(Event, pk=event_id)
@@ -132,7 +142,7 @@ def print_event(request, event_id):
 def search(request):
     if 'q' in request.GET and request.GET['q']:
         q = request.GET['q']
-        frm = Firm.objects.filter(Q(name__search = q)|Q(short__search = q)|Q(meta_key__search = q)).filter(container=False)
+        frm = Firm.objects.filter(Q(name__search = q)|Q(short__search = q)|Q(meta_key__search = q)).filter(container=False, published=True)
         total = frm.count()
         page = request.GET.get('page')
         if page is not None:
@@ -161,24 +171,24 @@ def articles(request, article_id):
 	return render_to_response('allvbg/event.html', {'event':p}, context_instance=RequestContext(request))			
 
 def v1(request, variable_a, variable_b):
-	a = get_object_or_404(Firm, alias=variable_a)
-	b = get_object_or_404(Firm, alias=variable_b)
+	a = get_object_or_404(Firm, Q(published=True), alias=variable_a)
+	b = get_object_or_404(Firm, Q(published=True), alias=variable_b)
 	if a.level==0 and b.parent.id == a.id:
 		return render_to_response('allvbg/unmainpage.html', {'firm': b},RequestContext(request))	
 	else:
 		raise Http404
 		
 def v2(request, variable_a):
-	a = get_object_or_404(Firm, alias=variable_a)
+	a = get_object_or_404(Firm, Q(published=True), alias=variable_a)
 	if a.level == 0:
 		return render_to_response('allvbg/unmainpage.html', {'firm': a},RequestContext(request))
 	else:
 		raise Http404
 
 def v3(request, variable_a, variable_b, variable_c):
-	a = get_object_or_404(Firm, alias=variable_a)
-	b = get_object_or_404(Firm, alias=variable_b)
-	c = get_object_or_404(Firm, alias=variable_c)
+	a = get_object_or_404(Firm, Q(published=True), alias=variable_a)
+	b = get_object_or_404(Firm, Q(published=True), alias=variable_b)
+	c = get_object_or_404(Firm, Q(published=True), alias=variable_c)
 	if c.parent.id==b.id and b.parent.id == a.id:
 		return render_to_response('allvbg/firmpage.html', {'firm': c},RequestContext(request))	
 	else:
@@ -187,7 +197,7 @@ def v3(request, variable_a, variable_b, variable_c):
 #both version functions
 	
 def print_page(request, firm_id):
-	item = get_object_or_404(Firm, pk=firm_id)	
+	item = get_object_or_404(Firm, Q(published=True), pk=firm_id)	
 	if not is_mobile(request):
 		if item.level == 0:
 			return render_to_response('allvbg/unmainpage.html', {'firm': item},RequestContext(request))
@@ -374,7 +384,7 @@ def mobile(request):
 def mobilesearch(request):
     if 'q' in request.GET and request.GET['q']:
         q = request.GET['q']
-        frm = Firm.objects.filter(Q(name__search = q)|Q(short__search = q)|Q(meta_key__search = q)).filter(container=False)
+        frm = Firm.objects.filter(Q(name__search = q)|Q(short__search = q)|Q(meta_key__search = q)).filter(container=False, published=True)
         total = frm.count()
         page = request.GET.get('page')
         if page is not None:
@@ -394,7 +404,7 @@ def mobilesearch(request):
         return render_to_response('allvbg/mobile_search.html', {'error': True}, context_instance=RequestContext(request))
 	
 def mobileitem(request, firm_id):
-	item = get_object_or_404(Firm, pk=firm_id)	
+	item = get_object_or_404(Firm, Q(published=True), pk=firm_id)	
 	if item.level == 0:
 		return render_to_response('allvbg/mobile_list.html', {'firm': item}, context_instance=RequestContext(request))			
 	elif item.level == 1:
@@ -409,7 +419,7 @@ def mobilemap(request):
 		lng1 = float(request.GET['lng']) + (0.00001 * 228)
 		lat2 = float(request.GET['lat']) - (0.00001 * 228)
 		lng2 = float(request.GET['lng']) - (0.00001 * 228)		
-		firm_list = Firm.objects.filter(container=False, lat__lte=lat1, lat__gte=lat2 ,lng__lte=lng1, lng__gte=lng2)
+		firm_list = Firm.objects.filter(container=False, lat__lte=lat1, lat__gte=lat2 ,lng__lte=lng1, lng__gte=lng2, published=True)
 		s=MapStyle.objects.order_by('-title')[:500]
 		return render_to_response('allvbg/mobile_map.xml', {
 			'styles':s,
@@ -435,7 +445,7 @@ def rss(request):
 def widget(request):
     if 'search' in request.GET and request.GET['search']:
         q = request.GET['search']
-        frm = Firm.objects.filter(Q(name__search = q)|Q(short__search = q)|Q(meta_key__search = q)).filter(container=False)
+        frm = Firm.objects.filter(Q(name__search = q)|Q(short__search = q)|Q(meta_key__search = q)).filter(container=False, published=True)
         total = frm.count()
         page = request.GET.get('page')
         if page is not None:

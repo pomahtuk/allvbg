@@ -21,45 +21,47 @@
         <gml:featureMembers>
 			{% drilldown_tree_for_node page as drilldown %}
 			{% for node in drilldown %}
-				{% if node.level > page.level %}
-					{% if node.level = 1 %}
-					<ymaps:GeoObjectCollection>
-						<gml:name>{{node.name}}</gml:name>
-						<gml:description>{{node.id}}</gml:description>
-						<gml:featureMembers>
-						{% drilldown_tree_for_node node as nodedrill %}
-						{% for node in nodedrill %}
-							{% if node.level > 1 %}
-							<ymaps:GeoObject>
-								<gml:name><center style="padding-bottom:5px;">{{ node.name }}</center></gml:name>
-								<gml:description><img src="{{ STATIC_URL }}allvbg/{{ node.image1 }}" align="left" width="80" height="80" alt="{{ node.name }}" /><div style="width:150px; margin-left:85px;">{{ node.short }}<br /><a class="pdr" href="{{ node.id }}">Подробнее...</a></div></gml:description>
-								<gml:Point>
-									<gml:pos>{{node.lat}} {{node.lng}}</gml:pos>
-								</gml:Point>
-								<ymaps:style>#{{node.map_style}}</ymaps:style>
-							</ymaps:GeoObject>
-							{% endif %}
-						{% endfor %}
-						</gml:featureMembers>
-						<ymaps:style>default#redPoint</ymaps:style>
-					</ymaps:GeoObjectCollection>			 
-				{% else %}
-				<ymaps:GeoObjectCollection>
-					<gml:name>{{node.name}}</gml:name>
-					<gml:description>{{node.id}}</gml:description>
-					<gml:featureMembers>
-						<ymaps:GeoObject>
-							<gml:name><center style="padding-bottom:5px;">{{ node.name }}</center></gml:name>
-							<gml:description><img src="{{ STATIC_URL }}allvbg/{{ node.image1 }}" align="left" width="80" height="80" alt="{{ node.name }}" /><div style="width:150px; margin-left:85px;">{{ node.short }}<br /><a class="pdr" href="{{ node.id }}">Подробнее...</a></div></gml:description>
-							<gml:Point>
-								<gml:pos>{{node.lat}} {{node.lng}}</gml:pos>
-							</gml:Point>
-							<ymaps:style>#{{node.map_style}}</ymaps:style>
-						</ymaps:GeoObject>
-					</gml:featureMembers>
-					<ymaps:style>default#redPoint</ymaps:style>
-				</ymaps:GeoObjectCollection>
-				{% endif %}
+        {% if node.published %}
+  				{% if node.level > page.level %}
+  					{% if node.level = 1 %}
+  					<ymaps:GeoObjectCollection>
+  						<gml:name>{{node.name}}</gml:name>
+  						<gml:description>{{node.id}}</gml:description>
+  						<gml:featureMembers>
+  						{% drilldown_tree_for_node node as nodedrill %}
+  						{% for node in nodedrill %}
+  							{% if node.level > 1 %}
+  							<ymaps:GeoObject>
+  								<gml:name><center style="padding-bottom:5px;">{{ node.name }}</center></gml:name>
+  								<gml:description><img src="{{ STATIC_URL }}allvbg/{{ node.image1 }}" align="left" width="80" height="80" alt="{{ node.name }}" /><div style="width:150px; margin-left:85px;">{{ node.short }}<br /><a class="pdr" href="http://allvbg.ru/{{ node.id }}">Подробнее...</a></div></gml:description>
+  								<gml:Point>
+  									<gml:pos>{{node.lat}} {{node.lng}}</gml:pos>
+  								</gml:Point>
+  								<ymaps:style>#{{node.map_style}}</ymaps:style>
+  							</ymaps:GeoObject>
+  							{% endif %}
+  						{% endfor %}
+  						</gml:featureMembers>
+  						<ymaps:style>default#redPoint</ymaps:style>
+  					</ymaps:GeoObjectCollection>			 
+  				{% else %}
+  				<ymaps:GeoObjectCollection>
+  					<gml:name>{{node.name}}</gml:name>
+  					<gml:description>{{node.id}}</gml:description>
+  					<gml:featureMembers>
+  						<ymaps:GeoObject>
+  							<gml:name><center style="padding-bottom:5px;">{{ node.name }}</center></gml:name>
+  							<gml:description><img src="{{ STATIC_URL }}allvbg/{{ node.image1 }}" align="left" width="80" height="80" alt="{{ node.name }}" /><div style="width:150px; margin-left:85px;">{{ node.short }}<br /><a class="pdr" href="{{ node.id }}">Подробнее...</a></div></gml:description>
+  							<gml:Point>
+  								<gml:pos>{{node.lat}} {{node.lng}}</gml:pos>
+  							</gml:Point>
+  							<ymaps:style>#{{node.map_style}}</ymaps:style>
+  						</ymaps:GeoObject>
+  					</gml:featureMembers>
+  					<ymaps:style>default#redPoint</ymaps:style>
+  				</ymaps:GeoObjectCollection>
+  				{% endif %}
+        {% endif %}
 			{% endif %}
 		{% endfor %}
         </gml:featureMembers>

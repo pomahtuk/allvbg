@@ -1,5 +1,6 @@
 import os
 
+ROOT_PATH = os.path.dirname(__file__)
 
 PROJECT_PATH = '/var/www/pman/data/www/allvbgru'
 
@@ -18,9 +19,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
+        'NAME': 'django',                      # Or path to database file if using sqlite3.
+        'USER': 'root',                      # Not used with sqlite3.
+        'PASSWORD': '177591',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -52,7 +53,7 @@ ST_ROOT = '/var/www/pman/data/www/allvbgru/static/allvbg/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Absolute path to the directory that holds media.
@@ -97,13 +98,17 @@ TINYMCE_DEFAULT_CONFIG = {
 TINYMCE_SPELLCHECKER = True
 TINYMCE_COMPRESSOR = False
 
+#STATICFILES_DIRS = (
+#	os.path.join(ROOT_PATH, 'static'),
+#)
+
 STATICFILES_DIRS = (
-    "/var/lib/python-support/python2.5/django/contrib/admin/media",
+#    "/var/lib/python-support/python2.5/django/contrib/admin/media",
 #    "/usr/lib/python2.5/site-packages/django_admin_tools-0.4.0-py2.5.egg/admin_tools/media/admin_tools",
 #	"/usr/lib/python2.5/site-packages/django_cms-2.2-py2.5.egg/cms/static/cms",
 #	"/usr/lib/python2.5/site-packages/django_cms-2.2-py2.5.egg/cms/static/cms",
-	"/usr/lib/python2.5/site-packages/django_debug_toolbar-0.8.5-py2.5.egg/debug_toolbar/media",
-	"/usr/lib/python2.5/site-packages/filebrowser/media"
+#	"/usr/lib/python2.5/site-packages/django_debug_toolbar-0.8.5-py2.5.egg/debug_toolbar/media",
+#	"/usr/lib/python2.5/site-packages/filebrowser/media"
 )
 
 # List of callables that know how to import templates from various sources.
@@ -164,14 +169,15 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 
 INSTALLED_APPS = (
+	'django.contrib.auth',
+	'django.contrib.contenttypes',
+	'django.contrib.sessions',
+	'django.contrib.sites',
+#	'admintools_bootstrap',
 	'admin_tools',
 	'admin_tools.theming',
 	'admin_tools.menu',
 	'admin_tools.dashboard',
-	'django.contrib.auth',
-	'django.contrib.contenttypes',
-	'django.contrib.sessions',
-	#'django.contrib.sites',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'django.contrib.admin',
@@ -185,6 +191,7 @@ INSTALLED_APPS = (
 	'debug_toolbar',
 	'djangoratings',
 	'modeltranslation',
+	'tastypie',
 	#'south',
 )
 
@@ -221,6 +228,7 @@ LOGGING = {
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
+            'filters': [],
             'class': 'django.utils.log.AdminEmailHandler'
        }
     },

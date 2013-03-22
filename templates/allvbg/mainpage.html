@@ -102,14 +102,16 @@
 						{% full_tree_for_model allvbg.firm as firms %}
 										
 						{% recursetree firms %}
-							<li {% if node.level == 0 %} class="dropdown" {% endif %}>
-								<a href="/{{node.id}}" {% if node.level == 0 %} class="dropdown-toggle" {% endif %} >{{ node.name }}</a>
-								{% if not node.is_leaf_node and node.level == 0 %}
-									<ul class="dropdown-menu">
-										{{ children }}
-									</ul>
-								{% endif %}
-							</li>
+							{% if node.published %}
+								<li {% if node.level == 0 %} class="dropdown" {% endif %}>
+									<a href="/{{node.id}}" {% if node.level == 0 %} class="dropdown-toggle" {% endif %} >{{ node.name }}</a>
+									{% if not node.is_leaf_node and node.level == 0 %}
+										<ul class="dropdown-menu">
+											{{ children }}
+										</ul>
+									{% endif %}
+								</li>
+							{% endif %}
 						{% endrecursetree %}
 					{% endcache %}					
 			    </ul>
@@ -194,7 +196,7 @@
 		<div class="grid_4 bottom_blocks">
 			<h2>{% trans "Новости" %}</h2>
 			<div id="news">
-
+				{% pull_feed 'http://pipes.yahoo.com/pipes/pipe.run?_id=49ff1ad887cc682ac49447b475603743&_render=rss' 3 %}
 		  	</div>
 		</div>
 		<div class="grid_4 bottom_blocks">
@@ -223,7 +225,6 @@
 			</span>
 			<center>
 				<ul>
-				  	<li><a href="http://board.allvbg.ru">{% trans "Доска объявлений" %}</a></li>
 					<li><a href="about.html">{% trans "О проекте" %}</a></li>
 					<li><a href="#">{% trans "Для компаний" %}</a></li>
 					<li><a href="/754">{% trans "Демо-магазин" %}</a></li>
@@ -373,12 +374,12 @@
 			}
 		
         
-            ymaps.ready(function () {
-                // Создание экземпляра карты
-                var myMap = new ymaps.Map('YMapsID', {
-                    center: [28.762311,60.705288],
-                    zoom: 14
-                });
+	    ymaps.ready(function () {
+        // Создание экземпляра карты
+        var myMap = new ymaps.Map('YMapsID', {
+            center: [28.762311,60.705288],
+            zoom: 14
+        });
 				// В метод add можно передать строковый идентификатор
 				// элемента управления и его параметры.
 				myMap.controls
@@ -393,40 +394,40 @@
 				// Например, линейка масштаба ('scaleLine')
 				myMap.controls.add(new ymaps.control.ScaleLine())
       
-                // Загрузка YMapsMl-файла
-                ymaps.geoXml.load("http://allvbg.ru/main_map.xml")
-                        .then(function (res) {
-                            res.geoObjects.each(function (item) {
-                                addMenuItem(item, myMap, $("#menu"));
+        // Загрузка YMapsMl-файла
+        ymaps.geoXml.load("http://allvbg.ru/main_map.xml")
+	        .then(function (res) {
+            res.geoObjects.each(function (item) {
+                addMenuItem(item, myMap, $("#menu"));
 								item.each(function (item2) {
 									var cnt = "#menu"+item.properties.get('description');
 									addMenuItem2(item2, myMap, cnt);
 									//myMap.geoObjects.add(item2);
 								});					
-                            });
-                        },
-                        function (error) {   // Вызывается в случае неудачной загрузки YMapsMl-файла
-                            alert("При загрузке YMapsMl-файла произошла ошибка: " + error);
-                        });
+             });
+            },
+          function (error) {   // Вызывается в случае неудачной загрузки YMapsMl-файла
+              alert("При загрузке YMapsMl-файла произошла ошибка: " + error);
+          });
 						
-				// Добавление одного пункта в список
-				function addMenuItem (group, map, menuContainer) {
-					// Показать/скрыть группу на карте
-					$("<a class=\"title active\" href=\"#\">" + group.properties.get('name') + "</a><img src=\"http://allvbg.ru/static/allvbg/img/sld.png\" width=\"16px\" height=\"16px\" alt=\" \" style=\"margin-left:5px; position:relative; top:4px;\" >")
-						.bind("click", function () {
-							$("#menu"+group.properties.get('description')).slideToggle("slow");
-							return false;
-						})
-						// Добавление нового пункта меню в список
-						.appendTo(
-							$("<li></li>").appendTo(menuContainer)
-						)
-					$("<div id=\"menu"+group.properties.get('description')+"\"></div>").appendTo(menuContainer);
-				};			
+					// Добавление одного пункта в список
+					function addMenuItem (group, map, menuContainer) {
+						// Показать/скрыть группу на карте
+						$("<a class=\"title active\" href=\"#\">" + group.properties.get('name') + "</a><img src=\"http://allvbg.ru/static/allvbg/img/sld.png\" width=\"16px\" height=\"16px\" alt=\" \" style=\"margin-left:5px; position:relative; top:4px;\" >")
+							.bind("click", function () {
+								$("#menu"+group.properties.get('description')).slideToggle("slow");
+								return false;
+							})
+							// Добавление нового пункта меню в список
+							.appendTo(
+								$("<li></li>").appendTo(menuContainer)
+							)
+						$("<div id=\"menu"+group.properties.get('description')+"\"></div>").appendTo(menuContainer);
+					};			
 						
-                // Добавление элемента в список
-                function addMenuItem2(group, map, container) {
-                // Показать/скрыть группу геообъектов на карте
+          // Добавление элемента в список
+          function addMenuItem2(group, map, container) {
+          // Показать/скрыть группу геообъектов на карте
 					var img="";
 					if (group.getLength() != 0) {
 						img = group.get(0).options.get('iconImageHref');
@@ -434,27 +435,27 @@
 						img = "{{ STATIC_URL }}allvbg/img/transparent.png";
 					}
 					var item = $("<img src=\""+img+"\" width=\"24\" height=\"27\" align=\"left\" style=\"margin-right:5px;\" alt=\" \" /><a class=\"title_sub\" href=\"#\">" + group.properties.get('name') + "</a>");
-                    item
-                        /*.appendTo(
-                            $("<li></li>").appendTo($(container))
-                        )*/
-                        .bind("click", function () {
-                            var link = $(this);
-                            // Если пункт меню "неактивный", то добавляем группу на карту,
-                            // иначе - удаляем с карты
-                            if (link.hasClass("active_sub")) {
-                                map.geoObjects.remove(group);
-                            } else {
-                                map.geoObjects.add(group);
-                            }
-                            // Меняем "активность" пункта меню
-                            link.toggleClass("active_sub");
-                            return false;
-                        })
-                        // Добавление нового пункта меню в список
-                        .appendTo(
-                            $("<li></li>").appendTo($(container))
-                        );
+              item
+                  /*.appendTo(
+                      $("<li></li>").appendTo($(container))
+                  )*/
+                  .bind("click", function () {
+                      var link = $(this);
+                      // Если пункт меню "неактивный", то добавляем группу на карту,
+                      // иначе - удаляем с карты
+                      if (link.hasClass("active_sub")) {
+                          map.geoObjects.remove(group);
+                      } else {
+                          map.geoObjects.add(group);
+                      }
+                      // Меняем "активность" пункта меню
+                      link.toggleClass("active_sub");
+                      return false;
+                  })
+                  // Добавление нового пункта меню в список
+                  .appendTo(
+                      $("<li></li>").appendTo($(container))
+                  );
                 }
             });						 
 				 
