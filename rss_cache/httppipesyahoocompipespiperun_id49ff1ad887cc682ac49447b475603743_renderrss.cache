@@ -5,7 +5,7 @@
       <description>Pipes Output</description>
       <link>http://pipes.yahoo.com/pipes/pipe.info?_id=49ff1ad887cc682ac49447b475603743</link>
       <atom:link rel="next" href="http://pipes.yahoo.com/pipes/pipe.run?_id=49ff1ad887cc682ac49447b475603743&amp;_render=rss"/>
-      <pubDate>Fri, 22 Mar 2013 12:24:15 +0000</pubDate>
+      <pubDate>Sat, 23 Mar 2013 15:32:36 +0000</pubDate>
       <generator>http://pipes.yahoo.com/pipes/</generator>
       <item>
          <title>Жители Выборга ждут изменений в проекте</title>
@@ -579,6 +579,15 @@ color:#6d87a2;font-weight:bold;font-family:Tahoma;}
          <pubDate>Mon, 23 Jan 2012 12:25:00 +0000</pubDate>
       </item>
       <item>
+         <title>На открытой кухне ТНТ вам расскажут, чем порадовать своих бабушек</title>
+         <link>http://vyborg.tv/news_14926.html</link>
+         <description>В воскресенье, 24 марта, на открытую кухню телеканала ТНТ придет замечательная семья, которая хочет научиться готовить, чтобы порадовать своих бабушек, у которых  ...</description>
+         <guid isPermaLink="false"></guid>
+         <pubDate>Fri, 22 Mar 2013 13:40:00 +0000</pubDate>
+         <category>Новости телеканалов</category>
+         <enclosure type="image/jpeg" url="http://vyborg.tv/image/texts/45/60/d9/199/6e522f2c0cc5.jpg"/>
+      </item>
+      <item>
          <title>В субботу &quot;Два с половиной повара&quot; приготовят абсолютно постный обед</title>
          <link>http://vyborg.tv/news_14925.html</link>
          <description>В субботу, 23 марта, &quot; два с половиной повара&quot; приготовят обед для тех, кто соблюдает пост, а также для всех тех, кто предпочитает вегетарианскую пищу. В меню  ...</description>
@@ -1002,15 +1011,6 @@ color:#6d87a2;font-weight:bold;font-family:Tahoma;}
          <category>Новости Финляндии</category>
          <enclosure type="image/jpeg" url="http://vyborg.tv/image/texts/7c/b4/4c/199/94f1b0231615.jpg"/>
       </item>
-      <item>
-         <title>Первенство Ленобласти по легкой атлетике среди юношей и девушек завершилось в Санкт-Петербурге</title>
-         <link>http://vyborg.tv/news_14886.html</link>
-         <description>В соревнованиях, проходивших на Зимнем стадионе Санкт-Петербурга, принимали участие легкоатлеты 1998-1999 и 2000-2001 года рождения со всей Ленинградской области.
-  ...</description>
-         <guid isPermaLink="false"></guid>
-         <pubDate>Mon, 18 Mar 2013 08:25:00 +0000</pubDate>
-         <category>Спорт</category>
-      </item>
    </channel>
 </rss>
-<!-- fe3.pipes.ch1.yahoo.com uncompressed/chunked Fri Mar 22 12:24:13 UTC 2013 -->
+<!-- fe1.pipes.ch1.yahoo.com uncompressed/chunked Sat Mar 23 15:32:34 UTC 2013 -->

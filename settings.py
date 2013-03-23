@@ -173,7 +173,6 @@ INSTALLED_APPS = (
 	'django.contrib.contenttypes',
 	'django.contrib.sessions',
 	'django.contrib.sites',
-#	'admintools_bootstrap',
 	'admin_tools',
 	'admin_tools.theming',
 	'admin_tools.menu',
