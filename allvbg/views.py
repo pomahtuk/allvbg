@@ -37,6 +37,17 @@ def is_mobile(request):
 # 	return render_to_response('allvbg/test.html')
 # 	#return render_to_response('allvbg/test.html', {}, context_instance=RequestContext(request))
 
+def firm_add(request):
+  form = FirmForm(request.POST, request.FILES)
+  if form.is_valid():
+    cmodel = form.save()
+    cmodel.pub_date = datetime.now()
+    cmodel.alias = hashlib.md5(str(datetime.now())).hexdigest()
+    cmodel.save()
+    return render_to_response('allvbg/test.html')
+
+  return render_to_response('allvbg/firm_form.html', {'form': form}, context_instance=RequestContext(request))
+
 def test_page(request):
 	return render_to_response('allvbg/test.html')
 
@@ -160,8 +171,7 @@ def search(request):
         return render_to_response('allvbg/search_results.html', {'firms': firms, 'query': q, 'total':total}, context_instance=RequestContext(request))
     else:
         return render_to_response('allvbg/search_results.html', {'error': True}, context_instance=RequestContext(request))
-
-		
+	
 def about(request):
 	p = get_object_or_404(Article, pk=1)
 	return render_to_response('allvbg/event.html', {'event':p}, context_instance=RequestContext(request))			

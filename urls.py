@@ -21,6 +21,7 @@ urlpatterns = patterns('',
 	url(r'^admin_tools/', include('admin_tools.urls')),
 
 	url(r'^test/', 'allvbg.views.test_page'),
+	url(r'^firm/add/', 'allvbg.views.firm_add'),
 
 	url(r'^api/', include(v1_api.urls)),
 	
