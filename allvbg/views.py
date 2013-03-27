@@ -31,12 +31,6 @@ def is_mobile(request):
 	return is_mobile
 
 
-########################## testing
-
-# def test(request):
-# 	return render_to_response('allvbg/test.html')
-# 	#return render_to_response('allvbg/test.html', {}, context_instance=RequestContext(request))
-
 def firm_add(request):
   form = FirmForm(request.POST, request.FILES)
   if form.is_valid():
@@ -94,11 +88,11 @@ def calend_ajax(request):
 	dt = request.GET.get('date')
 	return render_to_response('allvbg/calend_ajax.html', {'y':int(dt.split(',',1)[0]),'m':int(dt.split(',',1)[1])})	
 	
-def map_main(request):
-	s=MapStyle.objects.order_by('-title')[:500]
-	return render_to_response('allvbg/map.js', {
-		'styles':s,
-	}, context_instance=RequestContext(request), mimetype="text/javascript")
+# def map_main(request):
+# 	s=MapStyle.objects.order_by('-title')[:500]
+# 	return render_to_response('allvbg/map.js', {
+# 		'styles':s,
+# 	}, context_instance=RequestContext(request), mimetype="text/javascript")
 
 def map_main_xml(request):
 	s=MapStyle.objects.order_by('-title')[:500]
@@ -106,13 +100,13 @@ def map_main_xml(request):
 		'styles':s,
 	}, context_instance=RequestContext(request), mimetype="application/xml")
 	
-def map_unmain(request, firm_id):
-	s=MapStyle.objects.order_by('-title')[:500]
-	p = get_object_or_404(Firm, Q(published=True), pk=firm_id)
-	return render_to_response('allvbg/map2.js', {
-		'styles':s,
-		'page':p,
-	}, context_instance=RequestContext(request), mimetype="text/javascript")
+# def map_unmain(request, firm_id):
+# 	s=MapStyle.objects.order_by('-title')[:500]
+# 	p = get_object_or_404(Firm, Q(published=True), pk=firm_id)
+# 	return render_to_response('allvbg/map2.js', {
+# 		'styles':s,
+# 		'page':p,
+# 	}, context_instance=RequestContext(request), mimetype="text/javascript")
 	
 def map_unmain_xml(request, firm_id):
 	s=MapStyle.objects.order_by('-title')[:500]
@@ -210,11 +204,11 @@ def print_page(request, firm_id):
 	item = get_object_or_404(Firm, Q(published=True), pk=firm_id)	
 	if not is_mobile(request):
 		if item.level == 0:
-			return render_to_response('allvbg/unmainpage.html', {'firm': item},RequestContext(request))
+			return render_to_response('allvbg/main_templates/container.html', {'firm': item},RequestContext(request))
 		elif item.level == 1:
-			return render_to_response('allvbg/unmainpage.html', {'firm': item},RequestContext(request))
+			return render_to_response('allvbg/main_templates/container.html', {'firm': item},RequestContext(request))
 		else:
-			return render_to_response('allvbg/firmpage.html', {'firm': item},RequestContext(request))
+			return render_to_response('allvbg/main_templates/firm.html', {'firm': item},RequestContext(request))
 	else:
 		if item.level == 0:
 			return render_to_response('allvbg/mobile_list.html', {'firm': item}, context_instance=RequestContext(request))			
@@ -226,7 +220,8 @@ def print_page(request, firm_id):
 
 def print_main_page(request):
 	if not is_mobile(request):
-		return render_to_response('allvbg/mainpage.html', {'firm':0}, context_instance=RequestContext(request))
+		# return render_to_response('allvbg/mainpage.html', {'firm':0}, context_instance=RequestContext(request))
+		return render_to_response('allvbg/main_templates/base.html', {'firm':0}, context_instance=RequestContext(request))
 	else:
 		return redirect('http://allvbg.ru/mobile/', permanent=True)
 
@@ -298,10 +293,10 @@ def result(request):
 
 def pay(request):
 
-############################################################
-############################################################
-############################################################
-############################################################
+	############################################################
+	############################################################
+	############################################################
+	############################################################
 
 	if request.method == 'POST':
 		out_summ=request.POST['OutSum']
@@ -476,9 +471,9 @@ def widget(request):
 		
 #caching
 	
-map_unmain = cache_page(map_unmain, 60 * 60)		
+#map_unmain = cache_page(map_unmain, 60 * 60)		
 map_main_xml = cache_page(map_main_xml, 60 * 60)
 map_unmain_xml = cache_page(map_unmain_xml, 60 * 60)
 mobilemap = cache_page(mobilemap, 60 * 60)
-map_main = cache_page(map_main, 60 * 60)	
+#map_main = cache_page(map_main, 60 * 60)	
 ajax_firm_list = cache_page(ajax_firm_list, 60 * 10)

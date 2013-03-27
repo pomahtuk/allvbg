@@ -20,11 +20,10 @@
   </head>
   <body>
 
-<!--     <div class="container-fluid"> -->
     <div class="container">
       <div class="row">
         <div class"span9">
-<!--           {% for key, value in form.errors.items %}
+          <!-- {% for key, value in form.errors.items %}
             {{key}} - {{value}}<br>
           {% endfor %} -->
           <form action="http://allvbg.ru:8000/firm/add/" method="post" class="form-horizontal"  enctype="multipart/form-data">          
@@ -117,7 +116,11 @@
                   </div>
                 </div>
 
-              <input type="submit" value="Submit" />
+                <div class="form-actions">
+                  <input type="submit" class="btn btn-primary" value="Добавить" />
+<!--                   <input type="button" name="Отменить" class="btn" value="Отменить" onclick="window.location = '/firm/add/' " /> -->
+                </div>
+
              </fieldset>
           </form>
         </div>   

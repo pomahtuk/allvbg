@@ -334,7 +334,11 @@ button, input, select, textarea {
 }
 .site_title h1 {
     color: #FFFFFF;
-    display: block;
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: top;
+    zoom: 1;
+    *display: inline;
     font: bold 2.3em 'PT Serif',serif;
     margin-left: 50px;
     padding: 15px 0 20px;
@@ -1439,4 +1443,21 @@ padding:5px;
 
 .switcher{
 	cursor:pointer;
+}
+
+.add_firm{
+   display: -moz-inline-stack;
+   display: inline-block;
+   vertical-align: top;
+   zoom: 1;
+   *display: inline;
+   width: 250px;
+   height: 43px;
+   margin-top: 18px;
+   margin-left: 20px;
+   background: url(/static/allvbg/images/add_firm.png) 0px 0px;
+}
+
+.add_firm:hover{
+    background: url(/static/allvbg/images/add_firm.png) 0px -43px;
 }
