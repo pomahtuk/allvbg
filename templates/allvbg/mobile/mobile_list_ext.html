@@ -1,0 +1,16 @@
+{% extends "allvbg/mobile/mobile_list.html" %}
+
+			{% block content %}
+				<ul data-role="listview" data-divider-theme="b" data-inset="true">
+					{% for node in firm %}		
+						<li data-role="list-divider" role="heading">
+							{{node.name|safe}}
+						</li>
+						<li data-theme="c">
+							<a href="/mobile/{{node.id}}" data-transition="slide">
+								{{node.short|safe}}
+							</a>
+						</li>	
+					{% endfor %}
+				</ul>
+			{% endblock %}

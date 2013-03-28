@@ -1,0 +1,46 @@
+﻿{% extends "allvbg/mobile/mobile_index.html" %}
+{% load mptt_tags %}
+{% load allvbg_extras %}
+{% load cache %}
+{% load i18n %}
+		{% block title %}<title>{% trans "Весь Выборг - "%}{{firm.name}}</title>{% endblock %}
+			{% block content %}
+                <h2>
+                    {{firm.name|safe}}
+                </h2>
+                <p>
+					{{firm.short|safe}}
+                </p>
+                <div data-role="collapsible-set" data-theme="" data-content-theme="">
+                    <div data-role="collapsible" data-collapsed="true">
+                        <h3>
+                            Описание
+                        </h3>
+                        <p>
+                            {{ firm.description|safe }}
+                        </p>
+                    </div>
+                    <div data-role="collapsible" data-collapsed="true">
+                        <h3>
+                            Изображения
+                        </h3>
+                        <div>
+							<img src="{{ STATIC_URL }}allvbg/{{ firm.image1}}" class="switcher" width="100%">
+							{% if firm.image2 and not firm.image2 == 'NULL' %}
+								<img src="{{ STATIC_URL }}allvbg/{{ firm.image2}}" class="switcher" width="100%">
+							{% endif %}
+							{% if firm.image3 and not firm.image3 == 'NULL' %}
+								<img src="{{ STATIC_URL }}allvbg/{{ firm.image3}}" class="switcher" width="100%">
+							{% endif %}							
+							{% if firm.image4 and not firm.image4 == 'NULL' %}
+								<img src="{{ STATIC_URL }}allvbg/{{ firm.image4}}" class="switcher" width="100%">
+							{% endif %}
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                    <img width="100%" src="http://static-maps.yandex.ru/1.x/?ll={{ firm.location }}&size=500,250&z=16&l=map&pt={{ firm.location }},pmwtl&key=ANB3w04BAAAAmXg6WgMAPsVhnwFWuB_D0oiZLIwF_etiUmMAAAAAAAAAAADhtFjrQLvxgXwjGhzNCZHDt05C6A==">
+                </div>
+				{% endblock %}
+				{% block extrascript %}{% endblock %}

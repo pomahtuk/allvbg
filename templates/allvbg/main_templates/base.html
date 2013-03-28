@@ -30,7 +30,7 @@
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}allvbg/main_2.css">
       <link rel="stylesheet" href="{{ STATIC_URL }}allvbg/css/anythingslider.css">  
       <link href="{{ STATIC_URL }}allvbg/css/rateit.css" rel="stylesheet" type="text/css">
-      <link rel="stylesheet" href="{{ STATIC_URL }}allvbg/colorbox.css" /> 
+      <link rel="stylesheet" href="{{ STATIC_URL }}allvbg/colorbox.css" />
     {% endblock %}
       
     {% block javascripts %}
@@ -41,6 +41,7 @@
       <script src="{{ STATIC_URL }}allvbg/js/jquery.anythingslider.js"></script>
       <script src="{{ STATIC_URL }}allvbg/js/bootstrap-dropdown.js"></script>
       <script src="{{ STATIC_URL }}allvbg/jquery.colorbox.js"></script>
+      <script src="{{ STATIC_URL }}allvbg/js/all_site.js"></script>
     {% endblock %}
 
     {% block metrics %}
@@ -92,7 +93,8 @@
       <div class="headerimg"></div>
       <div class="grid_12 site_title">
         <a class="logo" href="/"><img src="{{ STATIC_URL }}/allvbg/img/lg1.png" align="left" width="100px" height="100px"><h1>Весь Выборг</h1></a>
-        <a class='add_firm' href='/firm/add/'></a>
+        <a class='ajax add_firm' href="/firm/add/" title="Добавить организацию"></a>
+        <!-- <a class='add_firm' href='/firm/add/'></a> -->
       </div>  
 
       <div class="grid_12 header">
@@ -255,52 +257,7 @@
         
       <script type="text/javascript">
         {% block scripts %}
-          $(document).ready(function() {  
-        
-            $('.parent > a').mouseenter(function() {
-              var menu=$('.dropped_menu');
-              $('.parent > a').removeClass('active_menu');
-              menu.remove();
-              $('body').append('<div class="dropped_menu rounder_transpoarent">'+$(this).next().html()+'</div>');
-              menu=$('.dropped_menu');
-              menu.append('<div class="clear"></div>');
-              var position=$(this).offset();
-              menu.offset({left:position.left, top:position.top+35});
-              menu.animate({ opacity: "show" }, "500");
-              $('.antimouse').show();       
-              $('.antimouse').mouseenter(function() {
-                menu.animate({ opacity: "hide" }, "500");
-                menu.remove();
-                $('.antimouse').hide();
-                $('.parent > a').removeClass('active_menu');          
-              });
-              $(this).addClass('active_menu');
-            });
-            
-            $('.deleter').click(function(){
-              $('#fast-feedback-btn').hide();
-            })
-
-            $('#fast-feedback-btn').click(function(){
-              var contact_form = '<div id="contact_form">';
-                contact_form   +=  '    <iframe src="/contact/" width="600" height="450"  scrolling="no" allowtransparency>Ваш браузер не поддерживает плавающие фреймы!</iframe>' ;
-                contact_form   +=  '</div>';
-              $('body').prepend(contact_form);
-            })
-
-            $('#slider1').anythingSlider({
-              easing          : 'linear',
-              buildArrows     : false,
-              buildNavigation : false,
-              animationTime   : 500
-            });
-            
-            $(".xtrig").click(function(){
-              $('.xtrig').removeClass('activetab');
-              $('#slider1').anythingSlider($(this).attr('rel'));
-              $(this).addClass('activetab');
-              return false;
-            });
+          $(document).ready(function() { 
             
             var page = 1;
             var limit = 12;

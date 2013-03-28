@@ -340,7 +340,6 @@ button, input, select, textarea {
     zoom: 1;
     *display: inline;
     font: bold 2.3em 'PT Serif',serif;
-    margin-left: 50px;
     padding: 15px 0 20px;
     text-shadow: -2px 2px 2px #000000;
 }

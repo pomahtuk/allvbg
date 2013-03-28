@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+{% load mptt_tags %}
+{% load allvbg_extras %}
+{% load cache %}
+{% load i18n %}
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1" />
+        {% block title %}<title>{% trans "Весь Выборг - для выборжан и гостей города!"%}</title>{% endblock %}
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+        <style>
+        </style>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js">
+        </script>
+        <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js">
+        </script>
+<script src="http://api-maps.yandex.ru/1.1/index.xml?loadByRequire=1&key=AK8Ikk0BAAAAdOLMOgIAjpzOBoj6rXFSZEs52f88oUaPYDAAAAAAAAAAAAB3amaZkCtWNLQzxgaVFWYr-ymltQ==~AFuUaU4BAAAA_nfgKgIA-66Q4jxwCOFrx2v8U1aa6UzHDrYAAAAAAAAAAADAFR7JmJumtVbHoQjeteNT2GZJjA==~AFuUaU4BAAAA_nfgKgIA-66Q4jxwCOFrx2v8U1aa6UzHDrYAAAAAAAAAAADAFR7JmJumtVbHoQjeteNT2GZJjA==" type="text/javascript"></script>		
+		
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-11551414-4']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	  
+	</script>
+	
+		
+    </head>
+    <body>
+        <div data-role="page" data-theme="b" id="page1">
+            <div data-theme="b" data-role="header">
+                <h3>
+                    Весь Выборг
+                </h3>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                    </ul>
+                </div>
+                <div data-role="navbar" data-iconpos="left">
+                    <ul>
+                        <li>
+                            <a href="/mobile" data-theme="" data-icon="home">
+                                Главная
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/mobile-search" data-theme="" data-icon="search">
+                                Поиск
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="content">
+			{% block content %}
+                <div id="YMapsID" style="height:310px;">
+             
+                </div>		
+				
+				<div id="info"></div>
+				
+                <div data-role="collapsible-set" data-theme="" data-content-theme="">
+                    <div data-role="collapsible" data-collapsed="false">
+                        <h3>
+                            Категории
+                        </h3>
+
+						{% full_tree_for_model allvbg.firm as firms %}
+										
+						{% recursetree firms %}
+						    <a data-role="button" data-transition="fade" href="/mobile/{{node.id}}">
+								{{ node.name }}
+							</a>
+						{% endrecursetree %}						
+                    </div>
+                </div>
+			{% endblock %}
+            </div>
+        </div>
+		{% block extrascript %}
+		<script>
+			$(document).ready(function() {	
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition( function(position) {
+						var lat = position.coords.longitude;
+						var lng = position.coords.latitude;					
+						
+						YMaps.load(function () {
+							// Создание экземпляра карты и его привязка к созданному контейнеру
+							var map = new YMaps.Map(YMaps.jQuery("#YMapsID")[0]);					
+							
+							// Установка для карты ее центра и масштаба
+							map.setCenter(new YMaps.GeoPoint(lat,lng), 16);
+
+							// Добавление элементов управления
+							map.addControl(new YMaps.ToolBar());
+							map.addControl(new YMaps.Zoom());
+							map.disableScrollZoom();	
+							
+							var placemark = new YMaps.Placemark(new YMaps.GeoPoint(lat,lng));
+							
+							placemark.name = "Вы тут";
+							placemark.description = "По данным, которое выдаёт ваше устройство";
+							
+							map.addOverlay(placemark);	
+							
+							// Создание и добавление YMapsML-документа на карту
+							var ml = new YMaps.YMapsML('http://allvbg.ru/mobile-map/?lat='+lat+'&lng='+lng);
+							map.addOverlay(ml);
+							
+							// Обработчик неудачной загрузки YMapsML
+							YMaps.Events.observe(ml, ml.Events.Fault, function (ml, error) {
+								alert('Ошибка: ' + error);
+							});
+							
+							
+						})				
+						
+					}, function(position) {
+							var lat = 28.738031;
+							var lng = 60.713432;
+							YMaps.load(function () {
+								// Создание экземпляра карты и его привязка к созданному контейнеру
+								var map = new YMaps.Map(YMaps.jQuery("#YMapsID")[0]);					
+								
+								// Установка для карты ее центра и масштаба
+								map.setCenter(new YMaps.GeoPoint(lat,lng), 14);
+
+								// Добавление элементов управления
+								map.addControl(new YMaps.ToolBar());
+								map.addControl(new YMaps.Zoom());
+								map.disableScrollZoom();
+								
+								var placemark = new YMaps.Placemark(new YMaps.GeoPoint(lat,lng));
+								
+								placemark.name = "Вы тут";
+								placemark.description = "По данным, которое выдаёт ваше устройство";
+								
+								map.addOverlay(placemark);
+
+								// Создание и добавление YMapsML-документа на карту
+								var ml = new YMaps.YMapsML('http://allvbg.ru/mobile-map/?lat='+lat+'&lng='+lng);
+								map.addOverlay(ml);
+								
+								// Обработчик неудачной загрузки YMapsML
+								YMaps.Events.observe(ml, ml.Events.Fault, function (ml, error) {
+									alert('Ошибка: ' + error);
+								});								
+								
+							})								
+					});
+				} else {
+					var lat = 28.738031;
+					var lng = 60.713432;
+					YMaps.load(function () {
+						// Создание экземпляра карты и его привязка к созданному контейнеру
+						var map = new YMaps.Map(YMaps.jQuery("#YMapsID")[0]);					
+						
+						// Установка для карты ее центра и масштаба
+						map.setCenter(new YMaps.GeoPoint(lat,lng), 14);
+
+						// Добавление элементов управления
+						map.addControl(new YMaps.ToolBar());
+						map.addControl(new YMaps.Zoom());
+						map.disableScrollZoom();			
+						
+						var placemark = new YMaps.Placemark(new YMaps.GeoPoint(lat,lng));
+						
+						placemark.name = "Вы тут";
+						placemark.description = "По данным, которое выдаёт ваше устройство";
+						
+						map.addOverlay(placemark);
+						
+						// Создание и добавление YMapsML-документа на карту
+						var ml = new YMaps.YMapsML('http://allvbg.ru/mobile-map/?lat='+lat+'&lng='+lng);
+						map.addOverlay(ml);
+						
+						// Обработчик неудачной загрузки YMapsML
+						YMaps.Events.observe(ml, ml.Events.Fault, function (ml, error) {
+							alert('Ошибка: ' + error);
+						});						
+						
+					})			
+					
+				}					
+				
+			})
+        </script>
+		{% endblock %}
+	<script type="text/javascript">
+	(function(w, c) {
+		(w[c] = w[c] || []).push(function() {
+			try {
+				w.yaCounter9754210 = new Ya.Metrika({id:9754210, enableAll: true});
+			}
+			catch(e) { }
+		});
+	})(window, "yandex_metrika_callbacks");
+	</script>
+	<script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script>
+	<!-- /Yandex.Metrika counter -->		
+    </body>
+</html>

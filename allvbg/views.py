@@ -142,7 +142,7 @@ def thankyou(request):
 
 def print_event(request, event_id):
 	p = get_object_or_404(Event, pk=event_id)
-	return render_to_response('allvbg/event.html', {'event':p}, context_instance=RequestContext(request))	
+	return render_to_response('allvbg/main_templates/event.html', {'event':p}, context_instance=RequestContext(request))	
 
 def search(request):
     if 'q' in request.GET and request.GET['q']:
@@ -162,30 +162,30 @@ def search(request):
             firms = paginator.page(1)
         except EmptyPage:
             firms = paginator.page(paginator.num_pages)		
-        return render_to_response('allvbg/search_results.html', {'firms': firms, 'query': q, 'total':total}, context_instance=RequestContext(request))
+        return render_to_response('allvbg/main_templates/search.html', {'firms': firms, 'query': q, 'total':total}, context_instance=RequestContext(request))
     else:
-        return render_to_response('allvbg/search_results.html', {'error': True}, context_instance=RequestContext(request))
+        return render_to_response('allvbg/main_templates/search.html', {'error': True}, context_instance=RequestContext(request))
 	
 def about(request):
 	p = get_object_or_404(Article, pk=1)
-	return render_to_response('allvbg/event.html', {'event':p}, context_instance=RequestContext(request))			
+	return render_to_response('allvbg/main_templates/event.html', {'event':p}, context_instance=RequestContext(request))			
 
 def articles(request, article_id):
 	p = get_object_or_404(Article, pk=article_id)
-	return render_to_response('allvbg/event.html', {'event':p}, context_instance=RequestContext(request))			
+	return render_to_response('allvbg/main_templates/event.html', {'event':p}, context_instance=RequestContext(request))			
 
 def v1(request, variable_a, variable_b):
 	a = get_object_or_404(Firm, Q(published=True), alias=variable_a)
 	b = get_object_or_404(Firm, Q(published=True), alias=variable_b)
 	if a.level==0 and b.parent.id == a.id:
-		return render_to_response('allvbg/unmainpage.html', {'firm': b},RequestContext(request))	
+		return render_to_response('allvbg/main_templates/container.html', {'firm': b},RequestContext(request))	
 	else:
 		raise Http404
 		
 def v2(request, variable_a):
 	a = get_object_or_404(Firm, Q(published=True), alias=variable_a)
 	if a.level == 0:
-		return render_to_response('allvbg/unmainpage.html', {'firm': a},RequestContext(request))
+		return render_to_response('allvbg/main_templates/container.html', {'firm': a},RequestContext(request))
 	else:
 		raise Http404
 
@@ -194,7 +194,7 @@ def v3(request, variable_a, variable_b, variable_c):
 	b = get_object_or_404(Firm, Q(published=True), alias=variable_b)
 	c = get_object_or_404(Firm, Q(published=True), alias=variable_c)
 	if c.parent.id==b.id and b.parent.id == a.id:
-		return render_to_response('allvbg/firmpage.html', {'firm': c},RequestContext(request))	
+		return render_to_response('allvbg/main_templates/firm.html', {'firm': c},RequestContext(request))	
 	else:
 		raise Http404
 	
@@ -211,12 +211,12 @@ def print_page(request, firm_id):
 			return render_to_response('allvbg/main_templates/firm.html', {'firm': item},RequestContext(request))
 	else:
 		if item.level == 0:
-			return render_to_response('allvbg/mobile_list.html', {'firm': item}, context_instance=RequestContext(request))			
+			return render_to_response('allvbg/mobile/mobile_list.html', {'firm': item}, context_instance=RequestContext(request))			
 		elif item.level == 1:
 			list = get_list_or_404(Firm, parent=item.id)
-			return render_to_response('allvbg/mobile_list_ext.html', {'firm': list}, context_instance=RequestContext(request))			
+			return render_to_response('allvbg/mobile/mobile_list_ext.html', {'firm': list}, context_instance=RequestContext(request))			
 		else:
-			return render_to_response('allvbg/mobile_item.html', {'firm': item}, context_instance=RequestContext(request))			
+			return render_to_response('allvbg/mobile/mobile_item.html', {'firm': item}, context_instance=RequestContext(request))			
 
 def print_main_page(request):
 	if not is_mobile(request):
@@ -384,7 +384,7 @@ def pay_ok(request):
 		
 def mobile(request):
 	s=MapStyle.objects.order_by('-title')[:500]
-	return render_to_response('allvbg/mobile_index.html', {'styles': s},RequestContext(request))
+	return render_to_response('allvbg/mobile/mobile_index.html', {'styles': s},RequestContext(request))
 
 def mobilesearch(request):
     if 'q' in request.GET and request.GET['q']:
@@ -404,19 +404,19 @@ def mobilesearch(request):
             firms = paginator.page(1)
         except EmptyPage:
             firms = paginator.page(paginator.num_pages)		
-        return render_to_response('allvbg/mobile_search.html', {'firms': firms, 'query': q, 'total':total}, context_instance=RequestContext(request))
+        return render_to_response('allvbg/mobile/mobile_search.html', {'firms': firms, 'query': q, 'total':total}, context_instance=RequestContext(request))
     else:
-        return render_to_response('allvbg/mobile_search.html', {'error': True}, context_instance=RequestContext(request))
+        return render_to_response('allvbg/mobile/mobile_search.html', {'error': True}, context_instance=RequestContext(request))
 	
 def mobileitem(request, firm_id):
 	item = get_object_or_404(Firm, Q(published=True), pk=firm_id)	
 	if item.level == 0:
-		return render_to_response('allvbg/mobile_list.html', {'firm': item}, context_instance=RequestContext(request))			
+		return render_to_response('allvbg/mobile/mobile_list.html', {'firm': item}, context_instance=RequestContext(request))			
 	elif item.level == 1:
 		list = get_list_or_404(Firm, parent=item.id)
-		return render_to_response('allvbg/mobile_list_ext.html', {'firm': list}, context_instance=RequestContext(request))			
+		return render_to_response('allvbg/mobile/mobile_list_ext.html', {'firm': list}, context_instance=RequestContext(request))			
 	else:
-		return render_to_response('allvbg/mobile_item.html', {'firm': item}, context_instance=RequestContext(request))			
+		return render_to_response('allvbg/mobile/mobile_item.html', {'firm': item}, context_instance=RequestContext(request))			
 	
 def mobilemap(request):
 	if ('lat' in request.GET and request.GET['lat']) and ('lng' in request.GET and request.GET['lng']):
@@ -426,7 +426,7 @@ def mobilemap(request):
 		lng2 = float(request.GET['lng']) - (0.00001 * 228)		
 		firm_list = Firm.objects.filter(container=False, lat__lte=lat1, lat__gte=lat2 ,lng__lte=lng1, lng__gte=lng2, published=True)
 		s=MapStyle.objects.order_by('-title')[:500]
-		return render_to_response('allvbg/mobile_map.xml', {
+		return render_to_response('allvbg/mobile/mobile_map.xml', {
 			'styles':s,
 			'firm_list':firm_list,
 			'lat':request.GET['lat'],
