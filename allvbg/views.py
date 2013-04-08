@@ -30,15 +30,15 @@ def is_mobile(request):
 			is_mobile =  True
 	return is_mobile
 
-
 def firm_add(request):
   form = FirmForm(request.POST, request.FILES)
   if form.is_valid():
     cmodel = form.save()
-    cmodel.pub_date = datetime.now()
-    cmodel.alias = hashlib.md5(str(datetime.now())).hexdigest()
+    cmodel.pub_date  = datetime.now()
+    cmodel.alias     = hashlib.md5(str(datetime.now())).hexdigest()
+    cmodel.map_style = MapStyle.objects.get(id=105) #in my database this id belongs to 'empty' style
     cmodel.save()
-    return render_to_response('allvbg/test.html')
+    return HttpResponseRedirect('/contact/send/')
 
   return render_to_response('allvbg/firm_form.html', {'form': form}, context_instance=RequestContext(request))
 
@@ -87,26 +87,13 @@ def ajax_firm_list(request):
 def calend_ajax(request):
 	dt = request.GET.get('date')
 	return render_to_response('allvbg/calend_ajax.html', {'y':int(dt.split(',',1)[0]),'m':int(dt.split(',',1)[1])})	
-	
-# def map_main(request):
-# 	s=MapStyle.objects.order_by('-title')[:500]
-# 	return render_to_response('allvbg/map.js', {
-# 		'styles':s,
-# 	}, context_instance=RequestContext(request), mimetype="text/javascript")
 
 def map_main_xml(request):
 	s=MapStyle.objects.order_by('-title')[:500]
+	f=Firm.objects.filter(level=0, published=True).order_by("pub_date")
 	return render_to_response('allvbg/main_map.xml', {
-		'styles':s,
+		'styles':s, 'firms':f
 	}, context_instance=RequestContext(request), mimetype="application/xml")
-	
-# def map_unmain(request, firm_id):
-# 	s=MapStyle.objects.order_by('-title')[:500]
-# 	p = get_object_or_404(Firm, Q(published=True), pk=firm_id)
-# 	return render_to_response('allvbg/map2.js', {
-# 		'styles':s,
-# 		'page':p,
-# 	}, context_instance=RequestContext(request), mimetype="text/javascript")
 	
 def map_unmain_xml(request, firm_id):
 	s=MapStyle.objects.order_by('-title')[:500]
@@ -471,9 +458,7 @@ def widget(request):
 		
 #caching
 	
-#map_unmain = cache_page(map_unmain, 60 * 60)		
 map_main_xml = cache_page(map_main_xml, 60 * 60)
 map_unmain_xml = cache_page(map_unmain_xml, 60 * 60)
 mobilemap = cache_page(mobilemap, 60 * 60)
-#map_main = cache_page(map_main, 60 * 60)	
 ajax_firm_list = cache_page(ajax_firm_list, 60 * 10)

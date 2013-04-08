@@ -20,17 +20,6 @@ $(document).ready(function() {
     $(this).addClass('active_menu');
   });
   
-  $('.deleter').click(function(){
-    $('#fast-feedback-btn').hide();
-  })
-
-  $('#fast-feedback-btn').click(function(){
-    var contact_form =   '<div id="contact_form">';
-      contact_form   +=  '    <iframe src="/contact/" width="600" height="450"  scrolling="no" allowtransparency>Ваш браузер не поддерживает плавающие фреймы!</iframe>' ;
-      contact_form   +=  '</div>';
-    $('body').prepend(contact_form);
-  })
-
   $('#slider1').anythingSlider({
     easing          : 'linear',
     buildArrows     : false,
@@ -43,6 +32,20 @@ $(document).ready(function() {
     $('#slider1').anythingSlider($(this).attr('rel'));
     $(this).addClass('activetab');
     return false;
+  });
+
+  $(".ajax.add_firm").fancybox({
+      openEffect  : 'none',
+      closeEffect : 'none',
+      width       : 960
+  });
+
+  $("#fast-feedback-btn").fancybox({
+      openEffect  : 'none',
+      closeEffect : 'none',
+      width       : 600,
+      height      : 450,
+      scrolling   : 'no'
   });
 
 });  

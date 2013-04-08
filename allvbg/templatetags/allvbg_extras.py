@@ -219,17 +219,20 @@ def pull_feed(feed_url, posts_to_show=5, cache_expires=30):
         except IOError: #if downloading fails, proceed using cached file
             pass
     #load feed from cache
-    feed = feedparser.parse(open(CACHE_FILE))
-    posts = []
-    for i in range(posts_to_show):
-        pub_date = feed['entries'][i].updated_parsed
-        published = date(pub_date[0], pub_date[1], pub_date[2] )
-        posts.append({
-            'title': feed['entries'][i].title,
-            'summary': feed['entries'][i].summary,
-            'link': feed['entries'][i].link,
-            'date': published,
-        })
+    try:
+        feed = feedparser.parse(open(CACHE_FILE))
+        posts = []
+        for i in range(posts_to_show):
+            pub_date = feed['entries'][i].updated_parsed
+            published = date(pub_date[0], pub_date[1], pub_date[2] )
+            posts.append({
+                'title': feed['entries'][i].title,
+                'summary': feed['entries'][i].summary,
+                'link': feed['entries'][i].link,
+                'date': published,
+            })
+    except: #if downloading fails, proceed using cached file
+        pass
     return {'posts': posts}
 	
 class RatingByRequestNode(template.Node):

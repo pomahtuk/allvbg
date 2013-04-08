@@ -7,47 +7,52 @@
        xsi:schemaLocation="http://maps.yandex.ru/schemas/ymaps/1.x/ymaps.xsd">
     <repr:Representation>
 		{% for style in styles %}
-        <repr:Style gml:id="{{ style.title }}">
-            <repr:iconStyle>
-                <repr:href>{{ STATIC_URL }}allvbg/{{ style.value }}</repr:href>
-                <repr:size x="24" y="29"></repr:size>
-                <repr:offset x="-12" y="-28"></repr:offset>			
-            </repr:iconStyle>
-        </repr:Style>
+            <repr:Style gml:id="{{ style.title }}">
+              <repr:iconStyle>
+                  <repr:href>{{ STATIC_URL }}allvbg/{{ style.value }}</repr:href>
+                  <repr:size x="32" y="37"></repr:size>
+                  <repr:offset x="-16" y="-38"></repr:offset>           
+              </repr:iconStyle>
+            </repr:Style>
 		{% endfor %}
     </repr:Representation>
     <ymaps:GeoObjectCollection>
         <gml:name>Весь Выборг мобильный</gml:name>
         <gml:featureMembers>
-			{% full_tree_for_model allvbg.firm as firms %}
-			{% recursetree firms %}
-            {% if node.published %}
-    			{% if node.level == 0 or node.level == 1 %} 
+            {% for firm in firms %}
                 <ymaps:GeoObjectCollection>
-                    <gml:name>{{node.name}}</gml:name>
-    				<gml:description>{{node.id}}</gml:description>
+                    <gml:name>{{firm.name}}</gml:name>
+                    <gml:description>{{firm.id}}</gml:description>
                     <gml:featureMembers>
-    			{% endif %}
-    			{% if node.level == 2 %}
-                <ymaps:GeoObject>
-                    <gml:name><center style="padding-bottom:5px;">{{ node.name }}</center></gml:name>
-                    <gml:description><img src="{{ STATIC_URL }}allvbg/{{ node.image1 }}" align="left" width="80" height="80" alt="{{ node.name }}" /><div style="width:150px; margin-left:85px;">{{ node.short }}<br /><a class="pdr" href="http://allvbg.ru/{{ node.id }}">Подробнее...</a></div></gml:description>
-                    <gml:Point>
-                        <gml:pos>{{node.lat}} {{node.lng}}</gml:pos>
-                    </gml:Point>
-    				<ymaps:style>#{{node.map_style}}</ymaps:style>
-                </ymaps:GeoObject>
-    			{% endif %}
-    			{% if not node.is_leaf_node %}
-    					{{ children }}
-    			{% endif %}			
-    			{% if node.level == 0 or node.level == 1 %}
+                    {% drilldown_tree_for_node firm as drilldown %}
+                    {% for node in drilldown %}
+                        {% if node.level > 0 %}
+                            {% if node.published %}
+                                <ymaps:GeoObjectCollection>
+                                    <gml:name>{{node.name}}</gml:name>
+                                    <gml:description>{{node.id}}</gml:description>
+                                    <gml:featureMembers>
+                                    {% drilldown_tree_for_node node as nodedrill %}
+                                    {% for sub_node in nodedrill %}
+                                        {% if sub_node.level > 1 %}
+                                            <ymaps:GeoObject>
+                                                <gml:name><center style="padding-bottom:5px;">{{ sub_node.name }}</center></gml:name>
+                                                <gml:description><img src="{{ STATIC_URL }}allvbg/{{ sub_node.image1 }}" align="left" width="80" height="80" alt="{{ sub_node.name }}" /><div style="width:150px; margin-left:85px;">{{ sub_node.short }}<br /><a class="pdr" href="http://allvbg.ru/{{ sub_node.id }}">Подробнее...</a></div></gml:description>
+                                                <gml:Point>
+                                                    <gml:pos>{{sub_node.lat}} {{sub_node.lng}}</gml:pos>
+                                                </gml:Point>
+                                                <ymaps:style>#{{node.map_style}}</ymaps:style>
+                                            </ymaps:GeoObject>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </gml:featureMembers>
+                                </ymaps:GeoObjectCollection>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
                     </gml:featureMembers>
-                    <ymaps:style>default#redPoint</ymaps:style>
-                </ymaps:GeoObjectCollection>			 
-    			{% endif %}
-            {% endif %}
-			{% endrecursetree %}
+                </ymaps:GeoObjectCollection>
+            {% endfor %}
         </gml:featureMembers>
     </ymaps:GeoObjectCollection>
 </ymaps:ymaps>						

@@ -1,23 +1,19 @@
 $(document).ready(function(){
 
-  function mapFormatResult(style) {
-    if (style.value != 'none') {
-      return "<img class='mapicon' src='/static/allvbg/" + style.value + "'/>" + style.title;
-    } else {
-      return style.title;
+  function mapCategoryFormat(object) {
+    if (object.level === 0) {
+      return object.name;
+    } else{ 
+      if ((object.style_img != 'none') & (object.style_img != 'undefined')) {
+        return "<img class='mapicon' src='/static/allvbg/" + object.style_img + "'/>" + object.name;
+      } else {
+        return object.name;
+      }
     }
   };
 
-  function mapFormatSelection(style) {
-      return style.title;
-  };
-
-  function parentFormatResult(firm) {
+  function mapCategorySelection(firm) {
     return firm.name;
-  };
-
-  function parentFormatSelection(firm) {
-      return firm.name;
   };
 
   function find_in_objects_array(array, query, field) {
@@ -29,48 +25,60 @@ $(document).ready(function(){
       }
     }
     return result
-  }
+  };
 
-  function form_hierarchial_data(array) {
-    top_level = find_in_objects_array(array, 0, 'level');
+  function form_hierarchial_data(firms, styles) {
+    top_level = find_in_objects_array(firms, 0, 'level');
     var child_array, object, query, _i, _len;
     for (_i = 0, _len = top_level.length; _i < _len; _i++) {
-      object = top_level[_i];
-      query = "/api/v1/firm/" + object.id + "/";
-      object.children = [];
-      var deleted = delete object['id'];
-      object.children = find_in_objects_array(array, query, 'parent');
-    };
-    return top_level;
-  }
+      object           = top_level[_i];
 
+      query            = "/api/v1/firm/" + object.id + "/";
+      object.children  = [];
+      var deleted      = delete object['id'];
+      object.children  = find_in_objects_array(firms, query, 'parent');
+
+      var children, _j, _j_len;
+      for (_j = 0, _j_len = object.children.length; _j < _j_len; _j++) {
+        children = object.children[_j];
+        style_id         = children.map_style.split('/map_style/')[1].split('/')[0];
+        style_img        = find_in_objects_array(styles, style_id, 'id')[0];
+        children.style_img = style_img.value;
+      }
+
+    };
+
+    return top_level;
+  };
+
+  function ajax_get(url, callback) {
+    $.ajax({
+      url: url,
+      dataType: 'jsonp',
+    }).done(function(data) {
+      if (callback) callback(data.objects);
+    });
+  };
+
+  flow_test = function() {
+    flow.exec(
+      function() {
+        ajax_get("http://allvbg.ru/api/v1/firm/?limit=120&container=true", this.MULTI('firm'));
+        ajax_get("http://allvbg.ru/api/v1/map_style/?limit=120", this.MULTI('style'));
+      },function(results) {
+        new_results = form_hierarchial_data(results['firm'], results['style']); 
+        $('#id_parent').select2({
+          data:{ results: new_results, text: 'name' },
+          formatResult: mapCategoryFormat, 
+          formatSelection: mapCategorySelection
+        });
+      }
+    );
+  };
 
   $('#id_description').redactor();
   $('#id_short').redactor();
-
-  $.ajax({
-    url: "http://allvbg.ru/api/v1/firm/?limit=120&container=true",
-    dataType: 'jsonp',
-  }).done(function(data) {
-    var results = form_hierarchial_data(data.objects);
-    $('#id_parent').select2({
-      data:{ results: results, text: 'name' },
-      formatResult: parentFormatResult, 
-      formatSelection: parentFormatSelection
-    });
-  })
-
-  $.ajax({
-    url: "http://allvbg.ru/api/v1/map_style/?limit=120",
-    dataType: 'jsonp',
-  }).done(function(data) {
-    $('#id_map_style').select2({
-      data:{ results: data.objects, text: 'title' },
-      formatResult: mapFormatResult, 
-      formatSelection: mapFormatSelection,
-      escapeMarkup: function (m) { return m; }
-    });
-  });
+  flow_test();
 
   ymaps.ready(init);
 
@@ -131,6 +139,6 @@ $(document).ready(function(){
       e.stopPropagation();
     };
 
-  }
+  };
   
 });

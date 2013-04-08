@@ -61,51 +61,74 @@ class LocationWidget(forms.TextInput):
             </div>
 
             <script type="text/javascript">
-            	var map = -1
-            	var placemark = -1
-            	var tv = document.getElementById('id_location');
-            	var ltt = document.getElementById('id_lat');
-            	var lgg = document.getElementById('id_lng');
-            	
-            	window.onload = function () {
-            		var x = tv.value.substr(0, strpos(tv.value, ",", 0));
-            		var y = tv.value.substr(strpos(tv.value, ",", 0)+1, tv.value.length);
-            		if(!x) x = %f;if(!y) y = %f;
-            		map = new YMaps.Map(document.getElementById("YMapsID"));
-            		map.setCenter(new YMaps.GeoPoint(parseFloat(x), parseFloat(y)), 14);
-            		map.addControl(new YMaps.Zoom());
-            		placemark = new YMaps.Placemark(map.getCenter(), {draggable: true});
-            		map.addOverlay(placemark);
-            		
-            		YMaps.Events.observe(placemark, placemark.Events.DragEnd, function (obj) {
-            			tv.value = obj.getGeoPoint().getX() + ',' + obj.getGeoPoint().getY();
-            			ltt.value = obj.getGeoPoint().getX();
-            			lgg.value = obj.getGeoPoint().getY();			
-            		});
-            	};
-            	
-            	function strpos(haystack, needle, offset){
-            		var i = haystack.indexOf( needle, offset );
-            		return i >= 0 ? i : false;
-            	}
-            	
-            	function enter() {
-            		var geocoder = new YMaps.Geocoder(document.getElementById("YMapsInput").value, {results: 1});
-            		YMaps.Events.observe(geocoder, geocoder.Events.Load, function (geocoder) {
-            			placemark.setGeoPoint(this.get(0).getGeoPoint());
-            			map.panTo(this.get(0).getGeoPoint());
-            			tv.value = this.get(0).getGeoPoint().getX() + ',' + this.get(0).getGeoPoint().getY()
-            			ltt.value = obj.getGeoPoint().getX();
-            			lgg.value = obj.getGeoPoint().getY();			
-            		});
-            	}
+
+              ymaps.ready(init);
+
+              function init () {
+                var tv = jQuery('#id_location');
+                var ltt = jQuery('#id_lat');
+                var lgg = jQuery('#id_lng');
+                
+                var x = ltt.val();
+                var y = lgg.val();
+                if(!x) x = %f;
+                if(!y) y = %f;
+
+                map = new ymaps.Map("YMapsID", {center: [y, x], zoom: 14});
+                map.controls.add('zoomControl').add('typeSelector')
+
+                myPlacemark = new ymaps.Placemark(map.getCenter(), {hintContent: ''}, {draggable: true});
+
+                myCollection = new ymaps.GeoObjectCollection();
+
+                myPlacemark.events.add('dragend', function (e) {
+                  drag_end(e, myPlacemark);
+                });
+
+                map.geoObjects.add(myPlacemark);
+
+                jQuery('#b1').click(function () {
+                  var search_query = jQuery('#YMapsInput').val();
+                  ymaps.geocode(search_query, {results: 1}).then(function (res) {
+
+                    map.geoObjects.each(function(object){
+                      map.geoObjects.remove(object);
+                    })
+
+                    res.geoObjects.each(function(object){
+                      center = object.geometry.getCoordinates()
+                      map.panTo(center);
+                      tv.val([center[1], center[0]]);
+                      ltt.val(center[1]);
+                      lgg.val(center[0]);
+                      geoPlacemark = new ymaps.Placemark(center, {hintContent: ''}, {draggable: true});
+                      geoPlacemark.events.add('dragend', function (e) {
+                        drag_end(e, geoPlacemark);
+                      });
+                    });
+
+                    map.geoObjects.add(geoPlacemark);
+
+                  });
+                  return false;
+                });
+
+                var drag_end = function(e, placemark) {
+                  var coordinates = placemark.geometry.getCoordinates();
+                  tv.val([coordinates[1], coordinates[0]]);
+                  ltt.val(coordinates[1]);
+                  lgg.val(coordinates[0]);
+                  e.stopPropagation();
+                };
+
+              }
             </script>	
 		''' % (DEFAULT_LAT, DEFAULT_LNG))
         return mark_safe(u''.join(output))
 
     class Media:
         js = (
-            'http://api-maps.yandex.ru/1.1/index.xml?key=%s' % settings.YANDEX_MAP_KEY,
+            'http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU',
         )
 
 class LocationFormField(forms.CharField):

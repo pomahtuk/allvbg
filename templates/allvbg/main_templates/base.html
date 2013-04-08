@@ -26,21 +26,21 @@
     <link rel="alternate" type="application/rss+xml" title="Весь Выборг - Лента обновлений" href="/rss" />
 
     {% block stylesheets %}
-      <link href='http://fonts.googleapis.com/css?family=PT+Serif:400,700&subset=cyrillic' rel='stylesheet' type='text/css'>  
+      <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=PT+Serif:400,700&subset=cyrillic'>  
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}allvbg/main_2.css">
-      <link rel="stylesheet" href="{{ STATIC_URL }}allvbg/css/anythingslider.css">  
-      <link href="{{ STATIC_URL }}allvbg/css/rateit.css" rel="stylesheet" type="text/css">
-      <link rel="stylesheet" href="{{ STATIC_URL }}allvbg/colorbox.css" />
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}allvbg/css/anythingslider.css">  
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}allvbg/css/rateit.css">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}allvbg/css/jquery.fancybox.css" />
     {% endblock %}
       
     {% block javascripts %}
-      <script src="{{ STATIC_URL }}allvbg/js/jquery-1.8.3.js" type="text/javascript"></script>
+      <script src="{{ STATIC_URL }}allvbg/js/jquery-1.8.3.js"></script>
       <script src="http://api-maps.yandex.ru/2.0/?load=package.full&mode=release&lang=ru-RU&coordorder=longlat" type="text/javascript"></script>
-      <script src="{{ STATIC_URL }}allvbg/js/jquery.rateit.min.js" type="text/javascript"></script>
-      <script src="{{ STATIC_URL }}allvbg/js/jcookie.js" type="text/javascript"></script> 
+      <script src="{{ STATIC_URL }}allvbg/js/jquery.rateit.min.js"></script>
+      <script src="{{ STATIC_URL }}allvbg/js/jcookie.js"></script> 
       <script src="{{ STATIC_URL }}allvbg/js/jquery.anythingslider.js"></script>
       <script src="{{ STATIC_URL }}allvbg/js/bootstrap-dropdown.js"></script>
-      <script src="{{ STATIC_URL }}allvbg/jquery.colorbox.js"></script>
+      <script src="{{ STATIC_URL }}allvbg/js/jquery.fancybox.js"></script>
       <script src="{{ STATIC_URL }}allvbg/js/all_site.js"></script>
     {% endblock %}
 
@@ -76,9 +76,7 @@
   </head>
   <body>
     
-    <div id="fast-feedback-btn">
-      <img class="deleter" title="Обратная связь" alt="X" src="{{ STATIC_URL }}/allvbg//img/delete-black.gif">
-    </div>
+    <a id="fast-feedback-btn" href="/contact/" data-fancybox-type="iframe" ></a>
     
     <div class="container_12">
       <div id="translate">
@@ -93,8 +91,7 @@
       <div class="headerimg"></div>
       <div class="grid_12 site_title">
         <a class="logo" href="/"><img src="{{ STATIC_URL }}/allvbg/img/lg1.png" align="left" width="100px" height="100px"><h1>Весь Выборг</h1></a>
-        <a class='ajax add_firm' href="/firm/add/" title="Добавить организацию"></a>
-        <!-- <a class='add_firm' href='/firm/add/'></a> -->
+        <a class='ajax add_firm' data-fancybox-type="iframe" href="/firm/add/" title="Добавить организацию"></a>
       </div>  
 
       <div class="grid_12 header">
@@ -212,7 +209,9 @@
           <div class="grid_4 bottom_blocks">
             <h2>{% trans "События" %}</h2>
               <div id="events">
-                {% month_cal %}
+                <div id='Calendar'>
+                  {% month_cal %}
+                </div>
               <!--что-то-->
               </div>
           </div>
