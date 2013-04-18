@@ -1,0 +1,83 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          django-fcgi
+# Required-Start:    $local_fs $remote_fs
+# Required-Stop:     $local_fs $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: My django FastCGI daemon
+# Description:       This file should be used to construct scripts to be
+#                    placed in /etc/init.d.
+### END INIT INFO
+
+set -e
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DESC="My django FastCGI daemon"
+NAME=manage.py
+DAEMON=/var/www/pman/data/www/allvbgru/$NAME
+SCRIPTNAME=/etc/init.d/django-fcgi
+PIDFILE=/var/run/django-fcgi.pid
+
+MINSPARE=10
+MAXSPARE=20
+MAXCHILDREN=100
+
+# Gracefully exit if the package has been removed.
+test -x $DAEMON || exit 0
+
+#
+#       Function that starts the daemon/service.
+#
+d_start() {
+        start-stop-daemon --start --quiet -c root --pidfile=$PIDFILE \
+                --exec $DAEMON -- runfcgi host=127.0.0.1 port=8881 daemonize=true \
+                pidfile=$PIDFILE \
+                minspare=$MINSPARE maxspare=$MAXSPARE maxchildren=$MAXCHILDREN \
+                method=prefork \
+                || echo -n " already running"
+}
+
+#
+#       Function that stops the daemon/service.
+#
+d_stop() {
+        start-stop-daemon --stop --quiet -c root --pidfile=$PIDFILE \
+                || echo -n " not running"
+}
+
+case "$1" in
+  start)
+        echo -n "Starting $DESC: $NAME"
+        d_start
+        echo "."
+        ;;
+  stop)
+        echo -n "Stopping $DESC: $NAME"
+        d_stop
+        echo "."
+        ;;
+  restart|force-reload)
+        #
+        #       If the "reload" option is implemented, move the "force-reload"
+        #       option to the "reload" entry above. If not, "force-reload" is
+        #       just the same as "restart".
+        #
+        echo -n "Restarting $DESC: $NAME"
+        d_stop
+        # One second might not be time enough for a daemon to stop,
+        # if this happens, d_start will fail (and dpkg will break if
+        # the package is being upgraded). Change the timeout if needed
+        # be, or change d_stop to have start-stop-daemon use --retry.
+        # Notice that using --retry slows down the shutdown process somewhat.
+        sleep 2
+        d_start
+        echo "."
+        ;;
+  *)
+        echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload}" >&2
+        exit 3
+        ;;
+esac
+
+exit 0
