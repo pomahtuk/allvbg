@@ -17,6 +17,7 @@ v1_api.register(MapStyleResource())
 
 
 urlpatterns = patterns('',
+
 	url(r'^admin/', include(admin.site.urls)),
 	url(r'^admin_tools/', include('admin_tools.urls')),
 
@@ -42,10 +43,8 @@ urlpatterns = patterns('',
 	
 	url(r'^$', 'allvbg.views.print_main_page'),
 	url(r'^(?P<firm_id>\d+)/$', 'allvbg.views.print_page'),			
-	#url(r'^tmp_map.js', 'allvbg.views.map_main'),
 	url(r'^main_map.xml', 'allvbg.views.map_main_xml'),
 	url(r'^map/(?P<firm_id>\d+).xml', 'allvbg.views.map_unmain_xml'),
-	#url(r'^tmp_map2.js/(?P<firm_id>\d+)/$', 'allvbg.views.map_unmain'),
 	url(r'^ajax_list/', 'allvbg.views.ajax_firm_list'),
 	url(r'^calend_ajax/', 'allvbg.views.calend_ajax'),
 	url(r'^events/(?P<event_id>\d+)/$', 'allvbg.views.print_event'),

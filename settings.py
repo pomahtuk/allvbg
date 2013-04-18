@@ -53,7 +53,7 @@ ST_ROOT = '/var/www/pman/data/www/allvbgru/static/allvbg/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Absolute path to the directory that holds media.
