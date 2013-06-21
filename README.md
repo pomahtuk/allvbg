@@ -4,8 +4,7 @@
 
 Проект городского каталога организаций с привязкой к картам Яндекса и детальными описаниями организаций. Заведены модели, настроены шаблоны и views, организован простейший поиск, добавлена страница для регионального виджета яндекса, заложена возможность платного редактирования информации о фирмах пользователями, сделана привязка к робокассе. В шаблонах предусмотрена возможность встраивания интернет-магазина через ECWID. Сделана первичная SEO-подготовку: META-теги, ЧПУ, sitemap.
 
-**Используемые пакеты:**
-
+### Используемые пакеты:
 * Django
 * FeinCMS
 * django-admin-tools
@@ -23,13 +22,59 @@
 
 Для запуска проекта потребуется хостинг с поддержкой pytnon и Django.
 
-## Если вы пользуетесь shared-хостингом
+## Настройка приложения
+
+1 Импортируйте sql-файл с демо-данными в базу данных MySQL, созданную под проект.
+2 Откройте файл settings.py в каталоге проекта и замените все данные в соответсвующих строчках своими.
+Строки, требующие изменений:
+'''
+PROJECT_PATH = '/var/www/pman/data/www/allvbgru'
+
+ADMINS = (
+    ('PMaN', 'pman89@yandex.ru'),
+)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django',
+        'USER': 'user',
+        'PASSWORD': 'password',
+    }
+}
+
+STATIC_URL = 'http://allvbg.ru/static/'
+
+ST_URL = 'http://allvbg.ru/static/allvbg/'
+ST_ROOT = '/var/www/pman/data/www/allvbgru/static/allvbg/'
+
+MEDIA_ROOT = '/var/www/pman/data/www/allvbgru/static/allvbg/'
+
+MEDIA_URL = 'http://allvbg.ru/static/allvbg/'
+
+TINYMCE_JS_URL = 'http://allvbg.ru/static/tiny_mce/tiny_mce_src.js'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/www/pman/data/Django_cache',
+        'TIMEOUT': 60,
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000
+        }
+    }
+}
+'''
+
+## Настройка сервера 
+
+### Если вы пользуетесь shared-хостингом
 
 Обратитесь в службу поддержки хостинга с просьбой объяснить процесс запуска python-приложений и установки дополнительных пакетов.
 
-## При использовании собственного севера
+### При использовании собственного севера
 
-### Установка пакетов
+#### Установка пакетов
 
 Зайдите в директорию проекта и выполните команду
 
@@ -43,9 +88,9 @@ apt-get install python-imaging
 apt-get install python-mysqldb
  ```
  
-### Настройка сервера
+#### Настройка web-сервера
 
-#### WSGI
+##### WSGI
 
 Откройте файл django-fcgi и укажите в нём правильный путь до папки, куда был скопирован код проета.
 
@@ -64,7 +109,7 @@ update-rc.d /etc/init.d/django-fcgi defaults
 
 Приложение будет запущено на localhost:8881
 
-#### Ngnix
+##### Ngnix
 
 Добавьте в файл настроек nginx (обычно /etc/nginx/nginix.conf) ещё одну секцию.
 
@@ -93,4 +138,3 @@ update-rc.d /etc/init.d/django-fcgi defaults
         fastcgi_param REMOTE_ADDR $remote_addr;
       }
     }
-
