@@ -54,6 +54,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 # Absolute path to the directory that holds media.
@@ -141,9 +142,9 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, "templates"),
 )
 
-CMS_TEMPLATES = (
-    ('template_1.html', 'Template One'),
-)
+# CMS_TEMPLATES = (
+#     ('template_1.html', 'Template One'),
+# )
 
 gettext = lambda s: s
 LANGUAGES = (
@@ -191,8 +192,14 @@ INSTALLED_APPS = (
 	'djangoratings',
 	'modeltranslation',
 	'tastypie',
+	'raven.contrib.django.raven_compat',
+    'compressor',
 	#'south',
 )
+
+RAVEN_CONFIG = {
+    'dsn': 'http://1a23e8db87534ce9b7d3e27fc741fdf6:e789c19db20b46eb9130be723c16c5b1@allvbg.ru:9000/2',
+}
 
 #DIRECTORY = getattr(SETTINGS, "FILEBROWSER_DIRECTORY", 'uploads/')
 
@@ -214,6 +221,9 @@ CACHES = {
 }
 
 CACHE_MIDDLEWARE_SECONDS = 60
+
+COMPRESS_ENABLED = True
+COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSMinFilter']
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

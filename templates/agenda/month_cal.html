@@ -2,7 +2,7 @@
 $(document).ready(function(){
 	$('#Calendar .prev a, #Calendar .next a').live('click',function(){
 		$('#Calendar .calendar').css('opacity','0.3');
-		date=$(this).attr('rel');
+		date=$(this).data('rel');
 		//d_m=date.split(' ')[1];
 		//d_m=date.split(' ')[0];
 		$.get('calend_ajax/',{action:'refreshCalendar',/*d_m:d_m,d_y:d_y*/date:date},function(data){
@@ -25,9 +25,9 @@ $(document).ready(function(){
 
     <table class='calendar'>
 		<tr>
-			<td class='prev'><a href='#' rel='{{extra.prev_date}}'>&laquo;</a></td>
+			<td class='prev'><a href='#' data-rel='{{extra.prev_date}}'>&laquo;</a></td>
 			<td class='month' colspan='5'>{{extra.date|date:"F Y"}} {{extra.year}}</td>
-			<td class='next'><a href='#' rel='{{extra.next_date}}'>&raquo;</a></td>
+			<td class='next'><a href='#' data-rel='{{extra.next_date}}'>&raquo;</a></td>
         </tr>
 		<tr>
 			{% for day in headers %}

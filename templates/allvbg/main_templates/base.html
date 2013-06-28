@@ -2,6 +2,8 @@
 <html>
   {% load mptt_tags %}
   {% load allvbg_extras %}
+  {% load compress %}
+
   {% load cache %}
   {% load i18n %}
   <head>
@@ -11,8 +13,7 @@
       {% endblock %}
     </title>
     <base href="http://allvbg.ru/" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
     
     {% block meta %}
       <meta name="description" content="Интерактивная карта Выборга с туристическими объектами и организациями. Информация об организациях и их адреса в Выборге">
@@ -26,24 +27,31 @@
     <link rel="alternate" type="application/rss+xml" title="Весь Выборг - Лента обновлений" href="/rss" />
 
     {% block stylesheets %}
-      <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=PT+Serif:400,700&subset=cyrillic'>  
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}allvbg/main_2.css">
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}allvbg/css/anythingslider.css">  
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}allvbg/css/rateit.css">
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}allvbg/css/jquery.fancybox.css" />
+      <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=PT+Serif:400,700&amp;subset=cyrillic'> 
+      {% compress css %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}allvbg/main_2.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}allvbg/css/anythingslider.css">  
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}allvbg/css/rateit.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}allvbg/css/jquery.fancybox.css" />
+      {% endcompress %}
     {% endblock %}
       
     {% block javascripts %}
-      <script src="{{ STATIC_URL }}allvbg/js/jquery-1.8.3.js"></script>
-      <script src="http://api-maps.yandex.ru/2.0/?load=package.full&mode=release&lang=ru-RU&coordorder=longlat" type="text/javascript"></script>
-      <script src="{{ STATIC_URL }}allvbg/js/jquery.rateit.min.js"></script>
-      <script src="{{ STATIC_URL }}allvbg/js/jcookie.js"></script> 
-      <script src="{{ STATIC_URL }}allvbg/js/jquery.anythingslider.js"></script>
-      <script src="{{ STATIC_URL }}allvbg/js/bootstrap-dropdown.js"></script>
+      <script src="http://api-maps.yandex.ru/2.0/?load=package.full&amp;mode=release&amp;lang=ru-RU&amp;coordorder=longlat" type="text/javascript"></script>
+      {% compress js %}
+        <script src="{{ STATIC_URL }}allvbg/js/jquery-1.8.3.js"></script>
+        <script src="{{ STATIC_URL }}allvbg/js/jquery.rateit.min.js"></script>
+        <script src="{{ STATIC_URL }}allvbg/js/jcookie.js"></script> 
+        <script src="{{ STATIC_URL }}allvbg/js/jquery.anythingslider.js"></script>
+        <script src="{{ STATIC_URL }}allvbg/js/bootstrap-dropdown.js"></script>
+        <script src="{{ STATIC_URL }}allvbg/js/all_site.js"></script>
+      {% endcompress %}
       <script src="{{ STATIC_URL }}allvbg/js/jquery.fancybox.js"></script>
-      <script src="{{ STATIC_URL }}allvbg/js/all_site.js"></script>
     {% endblock %}
 
+  </head>
+  <body>
+    
     {% block metrics %}
       <script type="text/javascript">
         var _gaq = _gaq || [];
@@ -73,24 +81,22 @@
       <noscript><div><img src="//mc.yandex.ru/watch/9754210" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
       <!-- /Yandex.Metrika counter -->
     {% endblock %}
-  </head>
-  <body>
-    
+
     <a id="fast-feedback-btn" href="/contact/" data-fancybox-type="iframe" ></a>
     
     <div class="container_12">
       <div id="translate">
-        <form action="/i18n/setlang/" method="post">
+        <form action="/i18n/setlang/" method="post" id='langform'>
           {% csrf_token %}
-          <input value="" name="language" type="hidden">
-          <input onclick="this.form.language.value=this.value" title="English" value="en" src="{{ STATIC_URL }}/allvbg/img/en.png" name="langpair" type="image">
-          <input onclick="this.form.language.value=this.value" title="Russian" value="ru" src="{{ STATIC_URL }}/allvbg/img/ru.png" name="langpair" type="image">
+          <input value="" name="language" type="hidden" id="language">
+          <img src="{{ STATIC_URL }}/allvbg/img/en.png" alt="English" width='22' height='11' data-value="en" class="langpair" >
+          <img src="{{ STATIC_URL }}/allvbg/img/ru.png" alt="Russian" width='22' height='11' data-value="ru" class="langpair" >
         </form>
       </div> 
 
       <div class="headerimg"></div>
       <div class="grid_12 site_title">
-        <a class="logo" href="/"><img src="{{ STATIC_URL }}/allvbg/img/lg1.png" align="left" width="100px" height="100px"><h1>Весь Выборг</h1></a>
+        <a class="logo" href="/"><img src="{{ STATIC_URL }}/allvbg/img/lg1.png" style="float:left; width:100; height:100px" alt='Весь Выборг'><h1>Весь Выборг</h1></a>
         <a class='ajax add_firm' data-fancybox-type="iframe" href="/firm/add/" title="Добавить организацию"></a>
       </div>  
 
@@ -152,8 +158,8 @@
         </div>
         
         <div class="grid_3 tabs">
-          <a class="xtrig" href="#2" rel="2">{% trans "Списком" %}</a>      
-          <a class="xtrig activetab" href="#1" rel="1">{% trans "На карте" %}</a>
+          <a class="xtrig" href="#2" data-rel="2">{% trans "Списком" %}</a>      
+          <a class="xtrig activetab" href="#1" data-rel="1">{% trans "На карте" %}</a>
         </div>  
       
         <div class="grid_12 map_container index">
@@ -174,7 +180,7 @@
               <div>
                 <div class="textSlide">
                     <div class="limiter_wrap grid_12">
-                    {% trans "На странице:" %} <a href="#" class="active_page" rel="12">12</a><a href="#" rel="24">24</a><a href="#" rel="48">48</a>
+                    {% trans "На странице:" %} <a href="#" class="active_page" data-rel="12">12</a><a href="#" data-rel="24">24</a><a href="#" data-rel="48">48</a>
                     </div>
                   <div class="list_wrap">
                   </div>
@@ -203,8 +209,10 @@
           <div class="grid_4 bottom_blocks">
             <h2>{% trans "Новости" %}</h2>
             <div id="news">
-              {% pull_feed 'http://pipes.yahoo.com/pipes/pipe.run?_id=49ff1ad887cc682ac49447b475603743&_render=rss' 3 %}
-              </div>
+              <ul>
+                {% pull_feed 'http://pipes.yahoo.com/pipes/pipe.run?_id=49ff1ad887cc682ac49447b475603743&_render=rss' 3 %}
+              </ul>
+            </div>
           </div>
           <div class="grid_4 bottom_blocks">
             <h2>{% trans "События" %}</h2>
@@ -212,13 +220,14 @@
                 <div id='Calendar'>
                   {% month_cal %}
                 </div>
-              <!--что-то-->
               </div>
           </div>
           <div class="grid_4 bottom_blocks">
             <h2>{% trans "Объявления" %}</h2>
               <div id="ads">
-              {% get_hello %}
+                <ul>
+                  {% get_hello %}
+                </ul>
               </div>
           </div>
         </div>
@@ -232,25 +241,23 @@
             e-mail: <a href="mailto:admin@allvbg.ru">admin@allvbg.ru</a>
             <br>
           </span>
-          <center>
-            <ul>
-              <li><a href="about.html">{% trans "О проекте" %}</a></li>
-              <li><a href="#">{% trans "Для компаний" %}</a></li>
-              <li><a href="/754">{% trans "Демо-магазин" %}</a></li>
-            </ul>
-            <br>
-            {% block counters %}        
-              <!-- begin of Top100 code -->
-              <script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?2563801"></script>
-              <noscript>
-                <a href="http://top100.rambler.ru/navi/2563801/">
-                  <img src="http://counter.rambler.ru/top100.cnt?2563801" alt="Rambler's Top100" border="0" />
-                </a>
-              </noscript>
-              <!-- end of Top100 code -->                  
-              <!--LiveInternet counter--><script type="text/javascript">document.write("<a href='http://www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t44.6;r" + escape(document.referrer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) +";h"+escape(document.title.substring(0,80)) +  ";" + Math.random() + "' border=0 width=31 height=31 alt='' title='LiveInternet'><\/a>")</script><!--/LiveInternet-->
-            {% endblock %}        
-          </center>
+          <ul>
+            <li><a href="about.html">{% trans "О проекте" %}</a></li>
+            <li><a href="#">{% trans "Для компаний" %}</a></li>
+            <li><a href="/754">{% trans "Демо-магазин" %}</a></li>
+          </ul>
+          <br>
+          {% block counters %}        
+            <!-- begin of Top100 code -->
+            <script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?2563801"></script>
+            <noscript>
+              <a href="http://top100.rambler.ru/navi/2563801/">
+                <img src="http://counter.rambler.ru/top100.cnt?2563801" alt="Rambler's Top100" style="border:0" />
+              </a>
+            </noscript>
+            <!-- end of Top100 code -->                  
+            <!--LiveInternet counter--><script type="text/javascript">document.write("<a href='http://www.liveinternet.ru/click' target=_blank><img src='//counter.yadro.ru/hit?t44.6;r" + escape(document.referrer) + ((typeof(screen)=="undefined")?"":";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?screen.colorDepth:screen.pixelDepth)) + ";u" + escape(document.URL) +";h"+escape(document.title.substring(0,80)) +  ";" + Math.random() + "' border=0 width=31 height=31 alt='' title='LiveInternet'><\/a>")</script><!--/LiveInternet-->
+          {% endblock %}
         </div>
       </div> 
         
@@ -285,7 +292,7 @@
                     });
                     $('.limiter_wrap a').unbind('click');
                     $('.limiter_wrap a').click(function() {
-                      limit = $(this).attr('rel');
+                      limit = $(this).data('rel');
                       page = 1;
                       $('.limiter_wrap a').removeClass('active_page');
                       $(this).addClass('active_page');

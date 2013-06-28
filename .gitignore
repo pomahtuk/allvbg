@@ -3,3 +3,4 @@
 *.pyc
 bild
 local_settings.py
+rss_cache

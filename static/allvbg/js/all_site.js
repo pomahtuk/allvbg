@@ -29,9 +29,15 @@ $(document).ready(function() {
   
   $(".xtrig").click(function(){
     $('.xtrig').removeClass('activetab');
-    $('#slider1').anythingSlider($(this).attr('rel'));
+    $('#slider1').anythingSlider($(this).data('rel'));
     $(this).addClass('activetab');
     return false;
+  });
+
+  $('.langpair').click(function(){
+    var elem = $(this);
+    $('#language').val(elem.data('value'));
+    $('#langform').submit();
   });
 
   $(".ajax.add_firm").fancybox({
