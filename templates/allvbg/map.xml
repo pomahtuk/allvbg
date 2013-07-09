@@ -1,0 +1,67 @@
+<?xml  version="1.0" encoding="utf-8"?>
+{% load mptt_tags %}
+<ymaps:ymaps xmlns:ymaps="http://maps.yandex.ru/ymaps/1.x"
+       xmlns:repr="http://maps.yandex.ru/representation/1.x"
+       xmlns:gml="http://www.opengis.net/gml"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://maps.yandex.ru/schemas/ymaps/1.x/ymaps.xsd">
+    <repr:Representation>
+  		{% for style in styles %}
+          <repr:Style gml:id="{{ style.title }}">
+              <repr:iconStyle>
+                  <repr:href>{{ STATIC_URL }}allvbg/{{ style.value }}</repr:href>
+                  <repr:size x="32" y="37"></repr:size>
+                  <repr:offset x="-16" y="-38"></repr:offset>			
+              </repr:iconStyle>
+          </repr:Style>
+  		{% endfor %}
+    </repr:Representation>
+    <ymaps:GeoObjectCollection>
+      <gml:name>Весь Выборг мобильный</gml:name>
+      <gml:featureMembers>
+  			{% drilldown_tree_for_node page as drilldown %}
+  			{% for node in drilldown %}
+          {% if node.published %}
+    				{% if node.level > page.level %}
+    					{% if node.level = 1 %}
+      					<ymaps:GeoObjectCollection>
+      						<gml:name>{{node.name}}</gml:name>
+      						<gml:description>{{node.id}}</gml:description>
+      						<gml:featureMembers>
+      						{% drilldown_tree_for_node node as nodedrill %}
+      						{% for sub_node in nodedrill %}
+      							{% if sub_node.level > 1 %}
+        							<ymaps:GeoObject>
+        								<gml:name><center style="padding-bottom:5px;">{{ sub_node.name }}</center></gml:name>
+        								<gml:description><img src="{{ STATIC_URL }}allvbg/{{ sub_node.image1 }}" align="left" width="80" height="80" alt="{{ sub_node.name }}" /><div style="width:150px; margin-left:85px;">{{ sub_node.short }}<br /><a class="pdr" href="http://allvbg.ru/{{ sub_node.id }}">Подробнее...</a></div></gml:description>
+        								<gml:Point>
+        									<gml:pos>{{sub_node.lat}} {{sub_node.lng}}</gml:pos>
+        								</gml:Point>
+        								<ymaps:style>#{{node.map_style}}</ymaps:style>
+        							</ymaps:GeoObject>
+      							{% endif %}
+      						{% endfor %}
+      						</gml:featureMembers>
+      					</ymaps:GeoObjectCollection>			 
+    				  {% else %}
+        				<ymaps:GeoObjectCollection>
+        					<gml:name>{{node.name}}</gml:name>
+        					<gml:description>{{node.id}}</gml:description>
+        					<gml:featureMembers>
+        						<ymaps:GeoObject>
+        							<gml:name><center style="padding-bottom:5px;">{{ node.name }}</center></gml:name>
+        							<gml:description><img src="{{ STATIC_URL }}allvbg/{{ node.image1 }}" align="left" width="80" height="80" alt="{{ node.name }}" /><div style="width:150px; margin-left:85px;">{{ node.short }}<br /><a class="pdr" href="{{ node.id }}">Подробнее...</a></div></gml:description>
+        							<gml:Point>
+        								<gml:pos>{{node.lat}} {{node.lng}}</gml:pos>
+        							</gml:Point>
+        							<ymaps:style>#{{page.map_style}}</ymaps:style>
+        						</ymaps:GeoObject>
+        					</gml:featureMembers>
+        				</ymaps:GeoObjectCollection>
+    				  {% endif %}
+            {% endif %}
+    			{% endif %}
+    		{% endfor %}
+      </gml:featureMembers>
+    </ymaps:GeoObjectCollection>
+</ymaps:ymaps>						

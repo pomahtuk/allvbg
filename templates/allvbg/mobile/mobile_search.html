@@ -1,0 +1,29 @@
+﻿{% extends "allvbg/mobile/mobile_index.html" %}
+{% load mptt_tags %}
+{% load allvbg_extras %}
+{% load cache %}
+{% load i18n %}
+		{% block title %}<title>{% trans "Весь Выборг - Результаты поиска" %}</title>{% endblock %}
+			{% block content %}
+                <form url="/mobile-search" method="GET">
+                    <div data-role="fieldcontain">
+                        <fieldset data-role="controlgroup">
+                            <input name="q" id="q" placeholder="Весь Выборг" value="{{query}}" type="search" />
+                        </fieldset>
+                    </div>
+                    <input type="submit" data-theme="b" value="Найти" />
+                </form>
+                <ul data-role="listview" data-divider-theme="b" data-inset="true">
+					{% for firm in firms.object_list %}
+						<li data-role="list-divider" role="heading">
+							{{firm.name|safe}}
+						</li>
+						<li data-theme="c">
+							<a href="/mobile/{{firm.id}}" data-transition="slide">
+								{{firm.short|safe}}
+							</a>
+						</li>       
+					{% endfor %}
+                </ul>
+			{% endblock %}
+			{% block extrascript %}{% endblock %}

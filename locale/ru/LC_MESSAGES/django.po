@@ -1,0 +1,198 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-29 14:49+0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#: settings.py:155
+msgid "Russian"
+msgstr ""
+
+#: settings.py:156
+msgid "English"
+msgstr ""
+
+#: allvbg/widgets.py:42
+msgid "Текущий:"
+msgstr ""
+
+#: allvbg/widgets.py:42
+msgid "Изменить:"
+msgstr ""
+
+#: templates/allvbg/contact.html:5 templates/allvbg/contact.html.py:43
+msgid "Обратная связь"
+msgstr ""
+
+#: templates/allvbg/contact.html:49
+msgid "Имя*"
+msgstr ""
+
+#: templates/allvbg/contact.html:59
+msgid "Email*"
+msgstr ""
+
+#: templates/allvbg/contact.html:68
+msgid "Тема*"
+msgstr ""
+
+#: templates/allvbg/contact.html:78
+msgid "Сообщение*"
+msgstr ""
+
+#: templates/allvbg/contact.html:87
+msgid "Отправить"
+msgstr ""
+
+#: templates/allvbg/contact.html:88
+msgid "Отменить"
+msgstr ""
+
+#: templates/allvbg/contact_send.html:5
+msgid "Сообщение отправлено"
+msgstr ""
+
+#: templates/allvbg/contact_send.html:26
+msgid "Ваше сообщение отправлено."
+msgstr ""
+
+#: templates/allvbg/contact_send.html:28
+msgid "Закрыть"
+msgstr ""
+
+#: templates/allvbg/firm_ajax.html:20 templates/allvbg/search_results.html:153
+msgid "Предыдущие"
+msgstr ""
+
+#: templates/allvbg/firm_ajax.html:32 templates/allvbg/search_results.html:165
+msgid "Следующие"
+msgstr ""
+
+#: templates/allvbg/firmpage.html:7
+msgid "Весь Выборг - "
+msgstr ""
+
+#: templates/allvbg/firmpage.html:145 templates/allvbg/mainpage.html:127
+#: templates/allvbg/search_results.html:118
+msgid "Вы тут:"
+msgstr ""
+
+#: templates/allvbg/firmpage.html:146 templates/allvbg/mainpage.html:127
+#: templates/allvbg/search_results.html:119
+#: templates/allvbg/unmainpage.html:11
+msgid "Главная"
+msgstr ""
+
+#: templates/allvbg/firmpage.html:223 templates/allvbg/mainpage.html:187
+#: templates/allvbg/search_results.html:186
+msgid "Новости"
+msgstr ""
+
+#: templates/allvbg/firmpage.html:229 templates/allvbg/mainpage.html:193
+#: templates/allvbg/search_results.html:192
+msgid "События"
+msgstr ""
+
+#: templates/allvbg/firmpage.html:236 templates/allvbg/mainpage.html:200
+#: templates/allvbg/search_results.html:199
+msgid "Объявления"
+msgstr ""
+
+#: templates/allvbg/firmpage.html:246 templates/allvbg/mainpage.html:210
+#: templates/allvbg/search_results.html:209
+msgid ""
+"© 2011 ВесьВыборг - информационный сайт для горожан и гостей города. By PMaN"
+msgstr ""
+
+#: templates/allvbg/firmpage.html:249 templates/allvbg/mainpage.html:213
+#: templates/allvbg/search_results.html:212
+msgid "Доска объявлений"
+msgstr ""
+
+#: templates/allvbg/firmpage.html:250 templates/allvbg/mainpage.html:214
+#: templates/allvbg/search_results.html:213
+msgid "О проекте"
+msgstr ""
+
+#: templates/allvbg/firmpage.html:251 templates/allvbg/mainpage.html:215
+#: templates/allvbg/search_results.html:214
+msgid "Для компаний"
+msgstr ""
+
+#: templates/allvbg/firmpage.html:252 templates/allvbg/mainpage.html:216
+#: templates/allvbg/search_results.html:215
+msgid "Демо-магазин"
+msgstr ""
+
+#: templates/allvbg/mainpage.html:7
+msgid "Весь Выборг - для выборжан и гостей города!"
+msgstr ""
+
+#: templates/allvbg/mainpage.html:132
+msgid "Списком"
+msgstr ""
+
+#: templates/allvbg/mainpage.html:133
+msgid "На карте"
+msgstr ""
+
+#: templates/allvbg/mainpage.html:155
+msgid "На странице:"
+msgstr ""
+
+#: templates/allvbg/mainpage.html:167
+msgid ""
+"\n"
+"\t\t\t\t\t\t\t\t\t<p>Добро пожаловать на <strong>Весь Выборг</strong>!</p>\n"
+"\t\t\t\t\t\t\t\t\t<p>В одном месте, на <span style=\"text-decoration: "
+"underline;\">интерактивной карте</span>, расположились все "
+"достопримечательности, организации, заведения. магазины, банки и "
+"государственные органы города Выборга. Всё удобно систематизировано по "
+"разделам: <a href=\"[[~2]]\">Досуг</a>, <a href=\"[[~21]]\">Магазины</a>, <a "
+"href=\"[[~22]]\">Услуги и СМИ</a>, <a href=\"[[~23]]\">Технологии</a>, <a "
+"href=\"[[~24]]\">Образование</a>, <a href=\"[[~25]]\">Бизнес </a>и <a href="
+"\"[[~26]]\">Информация</a>.</p>\n"
+"\t\t\t\t\t\t\t\t\t<p>Каждой организации, включённой в каталог, добавлены: "
+"<em>описание</em>, <em>фотография</em>, <em>рейтинг</em>, <em>комментарии</"
+"em>.</p>\n"
+"\t\t\t\t\t\t\t\t"
+msgstr ""
+
+#: templates/allvbg/search_results.html:7
+msgid "Весь Выборг - Результаты поиска"
+msgstr ""
+
+#: templates/allvbg/search_results.html:120
+msgid "Результаты поиска"
+msgstr ""
+
+#: templates/allvbg/search_results.html:137
+msgid "Вы искали:"
+msgstr ""
+
+#: templates/allvbg/search_results.html:139
+#, python-format
+msgid "Нашлось: %(total)s фирм%(total|rupluralize:\"а,ы,\")s."
+msgstr ""
+
+#: templates/allvbg/search_results.html:169
+msgid "Нет фирм, соответсвующих запросу"
+msgstr ""
+
+#: templates/allvbg/search_results.html:174
+msgid "Произошла ошибка, попробуйте уточнить параметры запроса"
+msgstr ""

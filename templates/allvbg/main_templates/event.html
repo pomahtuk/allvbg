@@ -1,0 +1,62 @@
+{% extends 'allvbg/main_templates/base.html' %}
+{% load mptt_tags %}
+{% load allvbg_extras %}
+{% load cache %}
+{% load i18n %}
+{% load ratings %}
+
+{% block title %}
+  {% trans "Весь Выборг - "%}{{event.name}}
+{% endblock %}
+
+{% block meta %}
+  <meta name="description" content="{{event.short}}">
+  <meta name="author" content="pman">
+  <meta name="keywords" content="{{event.short}}">
+{% endblock %}
+
+{% block content %} 
+  <div class="container_12">
+    <div class="upper_indent"></div>
+    <div class="grid_12 bread">
+      <div id="here">Вы тут:</div>
+      <span class="B_crumbBox"><span class="B_firstCrumb"><a class="B_homeCrumb" href="/" title="Главная">Главная</a></span>
+        &raquo; <span class="B_lastCrumb"><span class="B_currentCrumb">{{event.name}}</span></span>
+      </span>  
+    </div>
+  </div>  
+  
+  <div class="container_12">
+    <div class="grid_12 main_container">
+    {% autoescape off %}
+        <div class="grid_12">
+          <div class="simple">
+            <h1>{{ event.name|safe }}</h1>
+            <hr>          
+              {{ event.description|safe }}
+            <center>        
+              <br><br>
+              <!-- Put this div tag to the place, where the Comments block will be -->
+              <div id="mc-container"></div>
+              <script type="text/javascript">
+              var mcSite = '21518';
+              (function() {
+                  var mc = document.createElement('script');
+                  mc.type = 'text/javascript';
+                  mc.async = true;
+                  mc.src = '//cackle.me/mc.widget-min.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mc);
+              })();
+              </script>
+            </center>
+          </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    {% endautoescape %}
+  </div>
+  <div class="clear"></div>  
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

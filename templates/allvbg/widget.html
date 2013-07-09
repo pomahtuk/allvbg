@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+{% load allvbg_extras %}
+<html>
+
+<title>Поиск организаций</title>
+
+  	<base href="allvbg.ru/widget.html" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	
+	<meta name="author" content="pman">
+	
+	<script type="text/javascript" src="http://img.yandex.net/webwidgets/1/WidgetApi.js"></script>
+	
+	<link rel="shortcut icon" href="favicon.ico">
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.9.0/build/reset/reset-min.css">
+
+  
+<head>
+</head>
+<body>
+
+<style type="text/css">
+form div.clearfix span.help-inline, form div.clearfix span.help-block {
+    color: #9D261D !important;
+}
+html, body {
+    background: trasparent !important;
+    txt-align:left !important;
+}
+.sisea-search-form label {
+    color: #FFFFFF;
+    display: block;
+}
+#search {
+    float: right;
+    margin-right: 10px;
+    margin-top: -50px;
+}
+.sisea-search-form input[type="submit"] {
+    background: url("{{ STATIC_URL }}/allvbg/img/search_button_green.png") repeat scroll 0 0 transparent;
+    border: medium none;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+}
+#search_value {
+    width: 150px;
+}
+fieldset {
+    padding-top: 0px !important;
+    border: 0px !important;
+}
+p.sisea-results{
+    display:none;
+}
+p {
+    font-size: 11px;
+    font-family: Verdana;
+    margin-bottom: 0px;
+}
+.extract {
+    font-size: 11px;
+    font-family: Verdana;
+    margin-bottom:10px;
+}
+h3 {
+    font-size: 13px;
+    font-family: Arial;
+}
+h3, h4, h5, h6 {
+    line-height: 20px;
+}
+.pagination a {
+    float: left;
+    padding: 0 5px;
+    line-height: 20px;
+}
+.sisea_result{
+    padding-bottom: 10px;
+}
+.pagination {
+    height: auto !important;
+}
+a {
+    color:#1a3dc1;
+}
+ul, li {
+list-style:none;
+}
+
+li{
+display:inline;
+margin-left:3px;
+margin-right:3px;
+}
+
+
+input, textarea {
+	-webkit-transition: border linear 0.2s,box-shadow linear 0.2s;
+	-moz-transition: border linear 0.2s,box-shadow linear 0.2s;
+	-ms-transition: border linear 0.2s,box-shadow linear 0.2s;
+	-o-transition: border linear 0.2s,box-shadow linear 0.2s;
+	transition: border linear 0.2s,box-shadow linear 0.2s;
+	-webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+input, textarea, select, .uneditable-input {
+	display: inline-block;
+	width: 210px;
+	height: 18px;
+	padding: 4px;
+	font-size: 13px;
+	line-height: 18px;
+	color: gray;
+	border: 1px solid #CCC;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+label, input, select, textarea {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 13px;
+	font-weight: normal;
+	line-height: normal;
+}
+
+button, input {
+	line-height: normal;
+}
+
+button, input, select, textarea {
+	font-size: 100%;
+	margin: 0;
+	vertical-align: baseline;
+}
+</style>
+
+<center>
+	
+	<form class="sisea-search-form" action="/widget.html" method="get">
+	  <fieldset>
+		<input type="text" name="search" id="search_value" value="{{q}}" />
+		<input type="submit" value=" " />
+	  </fieldset>
+	</form>		
+	
+</center>
+
+<p class="sisea-results">
+{% if firms.object_list %}Нашлось: {{ total }} фирм{{ total|rupluralize:"а,ы," }}.{% endif %}
+</p>
+
+{% if not error%} 
+	<div class="sisea-results-list">
+	{% for firm in firms.object_list %}
+		<div class="sisea-result">
+		  <h3><a class="opener" href="/{{firm.id}}" title="{{firm.name|safe}}" target="_blank">{{firm.name|safe}}</a></h3>
+		  <div class="extract"><p>{{firm.short|safe}}</p></div>
+		</div>
+	{% endfor %}
+	</div>
+	 
+	<ul>
+	{% for i in firms.paginator.num_pages|get_range %}
+		{% if i = firms.number %}
+			<li class="active"><a href="/widget.html/?page={{i}}&search={{query}}">{{i}}</a></li>
+		{% else %}
+			<li class="active"><a href="/widget.html/?page={{i}}&search={{query}}">{{i}}</a></li>
+		{% endif %}
+	{% endfor %}
+	</ul>
+{% else %}
+	<div class="sisea-results-list">
+		<div class="sisea-result">  
+		  <div class="extract"><p>Ошибка в запросе. Попробуйте уточнить критерии поиска.</p></div>
+		</div>
+	</div>	
+{% endif %}
+<div style="clear:both"></div>
+
+<script type="text/javascript">
+widget.onload=function(){
+  widget.adjustIFrameHeight()
+}
+</script>
+
+</body>
+</html>

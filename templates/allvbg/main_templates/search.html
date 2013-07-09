@@ -1,0 +1,88 @@
+{% extends 'allvbg/main_templates/base.html' %}
+{% load mptt_tags %}
+{% load allvbg_extras %}
+{% load cache %}
+{% load i18n %}
+
+{% block title %}
+  {% trans "Весь Выборг - Результаты поиска" %}
+{% endblock %}
+
+{% block meta %}
+  <meta name="description" content="{{firm.short}}">
+  <meta name="author" content="pman">
+  <meta name="keywords" content="{{firm.meta_key}}">
+{% endblock %}
+
+{% block content %}  
+  <div class="container_12">
+    <div class="upper_indent"></div>
+    <div class="grid_12 bread">
+      <div id="here">{% trans "Вы тут:" %}</div>
+        <span class="B_crumbBox"><span class="B_firstCrumb"><a class="B_homeCrumb" href="/" title="Главная">{% trans "Главная"%}</a></span>
+         &raquo; <span class="B_lastCrumb"><span class="B_currentCrumb">{% trans "Результаты поиска"%}</span></span>
+        </span>     
+    </div>
+  </div>  
+  
+  <div class="container_12">
+    <div class="grid_12 main_container">
+      <div id="layers">
+        <form class="sisea-search-form" action="/search/" method="get">
+          <fieldset>
+          <input style="width:95%" type="text" name="q" id="q" value="{{query}}" />
+          <input type="submit" value=" " />
+          </fieldset>
+        </form> 
+        <hr/>
+        {% if not error %}
+          <div class="search_text">
+            <p class="sisea-results">{% trans "Вы искали:"%} <strong>{{ query }}</strong></p> 
+          {% if firms.object_list %}
+            <p class="sisea-results">{% blocktrans %}Нашлось: {{ total }} фирм{{ total|rupluralize:"а,ы," }}.{% endblocktrans %}</p>
+          </div>
+          <div class="search_wrap">
+            {% for firm in firms.object_list %}
+              <div class="sisea-result">
+                <h3><a href="/{{firm.id}}" title="{{firm.name}}">{{firm.name|safe}}</a></h3>
+                <div class="extract">
+                  <p>{{firm.short|safe}}</p>
+                </div>
+              </div>        
+            {% endfor %}
+          </div>
+            <div class="grid_12 search_pagination_wrap">
+              {% if firms.has_previous %}
+                <span class="sisea=page"><a href="/search/?page={{ firms.previous_page_number }}&q={{query}}">{% trans "Предыдущие"%}</a></span>
+              {% endif %}
+
+              {% for i in firms.paginator.num_pages|get_range %}
+                {% if i = firms.number %}
+                  <span class="sisea=page"><a class="active" href="/search/?page={{i}}&q={{query}}">{{i}}</a></span>
+                {% else %}
+                  <span class="sisea=page"><a href="/search/?page={{i}}&q={{query}}">{{i}}</a></span>
+                {% endif %}
+              {% endfor %}    
+
+              {% if firms.has_next %}
+                <span class="sisea=page"><a href="/search/?page={{firms.next_page_number }}&q={{query}}">{% trans "Следующие"%}</a></span>
+              {% endif %}
+            </div>  
+          {% else %}
+            <p class="sisea-results">{% trans "Нет фирм, соответсвующих запросу" %}</p>
+          </div>
+          {% endif %}
+        {% else %}
+          <div class="search_text">
+            <p class="sisea-results">{% trans "Произошла ошибка, попробуйте уточнить параметры запроса"%}</strong></p>  
+          </div>        
+        {% endif %}
+      </div>
+    </div>    
+  </div>
+  <div class="clear"></div>  
+{% endblock %}  
+
+{% block scripts %}
+ 
+{% endblock %}

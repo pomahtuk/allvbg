@@ -1,0 +1,100 @@
+{% extends "allvbg/bootstrap/base.html" %}
+{%block title%} Редактировать профиль {%endblock%}
+{%block description%} описание {%endblock%}
+{%block topbar%}
+	<a class="brand" href="#">Весь Выборг</a>
+	<div class="nav-collapse">
+		<ul class="nav">
+			<li class="active"><a href="http://allvbg.ru/">Главная</a></li>
+			<li class="active"><a href="/accounts/profile/">Профиль</a></li>
+			<li class="active"><a href="/{{user.get_profile.editor_for.id}}" target="_blank">Фирма</a></li>
+			<li class="active"><a href="/accounts/logout/">Выйти</a></li>
+		</ul>
+	</div>
+{%endblock%}
+{%block content%}
+	<form class="form-horizontal" method="post" action="/">
+		<fieldset>
+			{% csrf_token %}
+			<div class="control-group">
+				<label class="control-label" for="id_username">Логин</label>
+				<div class="controls">
+					 <input type="text" class="input-xlarge" id="id_username" name="username" value="{{user}}">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="id_first_name">Имя</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="id_first_name" name="first_name" value="{{user.first_name}}">
+				</div>
+			</div>	
+			<div class="control-group">
+				<label class="control-label" for="id_last_name">Фамилия</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="id_last_name" name="last_name" value="{{user.last_name}}">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="id_email">Электронная почта</label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="id_email" name="email" value="{{user.email}}">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="fileInput">Изображение</label>
+				<div class="controls">
+					<input class="input-file" id="fileInput" type="file">
+				</div>
+			</div>
+			
+			<div class="form-actions">
+				<input type="submit" class="btn btn-primary" value="Изменить" />
+				<input type="button" name="Отменить" class="btn" value="Отменить" onclick="window.location = '/accounts/profile/' " />
+			</div>
+			
+		</fieldset>
+	</form>				
+
+<!--<div class="row-fluid">
+	<div class="span4">
+		<div class="thumbnail">
+			{% if user.get_profile.avatar %}
+				<img src="{{ STATIC_URL }}allvbg/{{user.get_profile.avatar}}">
+			{% else %}
+				<img src="{{ STATIC_URL }}allvbg/img/transparent.png">
+			{% endif %}	
+		</div>	
+	</div>
+	<div class="span8">
+		<table class="table table-striped table-bordered">
+		  <tbody>
+			<tr>
+			  <td><b>Логин</b></td>
+			  <td>{{user}}</td>
+			</tr>
+			<tr>
+			  <td><b>Имя</b></td>
+			  <td>{{user.first_name}}</td>
+			</tr>
+			<tr>
+			  <td><b>Фамилия</b></td>
+			  <td>{{user.last_name}}</td>
+			</tr>
+			<tr>
+			  <td><b>Электронная почта</b></td>
+			  <td><a href="mailto:{{user.email}}">{{user.email}}</a></td>
+			</tr>
+			<tr>
+			  <td><b>Редактирует</b></td>
+			  <td><a href="/{{user.get_profile.editor_for.id}}" target="_blank">{{user.get_profile.editor_for}}</a></td>
+			</tr>			
+		  </tbody>
+		</table>
+		
+		<a class="btn" href="/accounts/edit/">Редактировать профиль</a>
+		<a class="btn btn-primary" href="/accounts/edit/firm/{{user.get_profile.editor_for.id}}">Редактировать фирму</a>
+		
+	</div>
+</div>-->
+
+{%endblock%}

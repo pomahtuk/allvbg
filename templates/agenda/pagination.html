@@ -1,0 +1,45 @@
+﻿<div id="pager">
+{% if pagecode %}
+	{% ifnotequal pages 1 %}
+		{% if lower_page %} 
+			<li class="control page_switch"><a class="page_switch" href="/ajax_list/?page={{ lower_page }}&pagecode={{pagecode}}&limit={{limit}}">&laquo;&laquo;</a></li>
+		{% endif %}
+		{% for number in page_list %}
+			{% ifequal number "." %}		
+				<li>...</li>
+			{% else %}
+				{% ifequal number page %}
+					<li><a class="active page_switch" href="/ajax_list/?pagecode={{pagecode}}&page={{number}}&limit={{limit}}">{{ number }}</a></li>
+				{% endifequal %}
+				{% ifnotequal number page %}
+					<li><a class="page_switch" href="/ajax_list/?page={{ number }}&pagecode={{pagecode}}&limit={{limit}}">{{ number }}</a></li>
+				{% endifnotequal %}
+			{% endifequal %}
+		{% endfor %}
+		{% if higher_page %} 
+			<li class="control page_switch"><a class="page_switch" href="/ajax_list/?page={{ higher_page }}&pagecode={{pagecode}}&limit={{limit}}">&raquo;&raquo;</a></li>
+		{% endif %}
+	{% endifnotequal %}
+{% else %}
+	{% ifnotequal pages 1 %}
+		{% if lower_page %} 
+			<li class="control page_switch"><a class="page_switch" href="/ajax_list/?page={{ lower_page }}&limit={{limit}}">&laquo;&laquo;</a></li>
+		{% endif %}
+		{% for number in page_list %}
+			{% ifequal number "." %}		
+				<li><a class="page_switch" href="#">...</a></li>
+			{% else %}
+				{% ifequal number page %}
+					<li><a class="active page_switch" href="/ajax_list/?page={{number}}&limit={{limit}}">{{ number }}</a></li>
+				{% endifequal %}
+				{% ifnotequal number page %}
+					<li><a class="page_switch" href="/ajax_list/?page={{ number }}&limit={{limit}}">{{ number }}</a></li>
+				{% endifnotequal %}
+			{% endifequal %}
+		{% endfor %}
+		{% if higher_page %} 
+			<li class="control page_switch"><a class="page_switch" href="/ajax_list/?page={{ higher_page }}&limit={{limit}}">&raquo;&raquo;</a></li>
+		{% endif %}
+	{% endifnotequal %}
+{% endif %}
+</div>

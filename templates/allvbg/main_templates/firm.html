@@ -1,0 +1,174 @@
+{% extends 'allvbg/main_templates/base.html' %}
+{% load mptt_tags %}
+{% load allvbg_extras %}
+{% load cache %}
+{% load i18n %}
+{% load ratings %}
+
+{% block title %}
+  {% trans "Весь Выборг - "%}{{firm.name}}
+{% endblock %}
+
+{% block meta %}
+  <meta name="description" content="{{firm.short}}">
+  <meta name="author" content="pman">
+  <meta name="keywords" content="{{firm.meta_key}}">
+{% endblock %}
+
+{% block content %}
+  <div class="container_12">
+    <div class="upper_indent"></div>
+    <div class="grid_12 bread">
+      <div id="here">{% trans "Вы тут:" %}</div>
+      <span class="B_crumbBox"><span class="B_firstCrumb"><a class="B_homeCrumb" href="/" title="{% trans "Главная" %}">{% trans "Главная" %}</a></span>
+        {% for ancestor in firm.get_ancestors %}
+          {% if ancestor.level == 1 %}
+          &raquo; <span class="B_crumb"><a class="B_crumb" href="{{ancestor.parent.alias}}/{{ancestor.alias}}/" title="{{ancestor.name}}">{{ancestor.name}}</a></span>
+          {% else %}
+          &raquo; <span class="B_crumb"><a class="B_crumb" href="{{ancestor.alias}}/" title="{{ancestor.name}}">{{ancestor.name}}</a></span>
+          {% endif %}
+        {% endfor %}
+        &raquo; <span class="B_lastCrumb"><span class="B_currentCrumb">{{firm.name}}</span></span>
+      </span>
+    </div>
+  </div>  
+  
+  <div class="container_12">
+    <div class="grid_12 main_container">
+      <div class="grid_4">
+        <div class="simple">
+        
+          <a class="fancybox img" rel="gallery1" id="main_left_a" href="{{ STATIC_URL }}allvbg/{{ firm.image1 }}"><img id="main_left_img" src="{{ STATIC_URL }}allvbg/{{ firm.image1 }}" width="100%"></a>
+          
+          <div class="image_indent"></div>
+          
+          <div class="grid_3">
+            <img src="{{ STATIC_URL }}allvbg/{{ firm.image1 }}" class="switcher" width="100%">
+          </div>
+          <div class="grid_3">
+            {% if firm.image2 and not firm.image2 == 'NULL' %}
+              <a href="{{ STATIC_URL }}allvbg/{{ firm.image2 }}" class="fancybox" rel="gallery1">
+                <img src="{{ STATIC_URL }}allvbg/{{ firm.image2 }}" class="switcher" width="100%">
+              </a>
+            {% else %}
+              <img src="{{ STATIC_URL }}allvbg/img/transparent.png" class="switcher" width="100%">
+            {% endif %}
+          </div>
+          <div class="grid_3">
+            {% if firm.image3 and not firm.image3 == 'NULL' %}
+              <a href="{{ STATIC_URL }}allvbg/{{ firm.image3 }}" class="fancybox" rel="gallery1">
+                <img src="{{ STATIC_URL }}allvbg/{{ firm.image3 }}" class="switcher" width="100%">
+              </a>
+            {% else %}
+              <img src="{{ STATIC_URL }}allvbg/img/transparent.png" class="switcher" width="100%">
+            {% endif %}             
+          </div>
+          <div class="grid_3">
+            {% if firm.image4 and not firm.image4 == 'NULL' %}
+              <a href="{{ STATIC_URL }}allvbg/{{ firm.image4 }}" class="fancybox" rel="gallery1">
+                <img src="{{ STATIC_URL }}allvbg/{{ firm.image4 }}" class="switcher" width="100%">
+              </a>
+            {% else %}
+              <img src="{{ STATIC_URL }}allvbg/img/transparent.png" class="switcher" width="100%">
+            {% endif %}             
+          </div>
+                    
+          <div class="clear"></div>
+        </div>
+      </div>
+      {% autoescape off %}
+        <div class="grid_8">
+          <div class="simple">
+            <h1>{{ firm.name|safe }}</h1>
+            {% do_rating_by_object request on firm.rating as vote %}
+            <div class="rateit" data-pageid="{{firm.id}}" data-rateit-value="{{vote}}" data-rateit-resetable="false">
+            </div>
+            <hr>
+              {{ firm.description|safe }}
+            <center>
+              <img src="http://static-maps.yandex.ru/1.x/?ll={{ firm.location }}&size=500,250&z=15&l=map&pt={{ firm.location }},pmwtl&key=ANB3w04BAAAAmXg6WgMAPsVhnwFWuB_D0oiZLIwF_etiUmMAAAAAAAAAAADhtFjrQLvxgXwjGhzNCZHDt05C6A==">
+              <br><br>
+              <!-- Put this div tag to the place, where the Comments block will be -->
+              <div id="mc-container"></div>
+              <script type="text/javascript">
+              var mcSite = '21518';
+              (function() {
+                  var mc = document.createElement('script');
+                  mc.type = 'text/javascript';
+                  mc.async = true;
+                  mc.src = '//cackle.me/mc.widget-min.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(mc);
+              })();
+              </script>
+
+            </center>
+          </div>
+        </div>
+        {% if firm.isstore %}
+          <div class="grid_12">
+          
+            <div>
+              <script type="text/javascript" src="http://app.ecwid.com/script.js?{{firm.ecwid}}" charset="utf-8"></script>
+              <script type="text/javascript"> xMinicart("style=","layout=MiniAttachToProductBrowser"); </script>
+            </div>
+          
+            <div>
+              <script type="text/javascript" src="http://app.ecwid.com/script.js?{{firm.ecwid}}" charset="utf-8"></script>
+              <script type="text/javascript"> xCategories("style="); </script>
+            </div>
+            
+            <div class="store_body">
+              <script type="text/javascript" src="http://app.ecwid.com/script.js?{{firm.ecwid}}" charset="utf-8"></script>
+              <script type="text/javascript"> xProductBrowser("categoriesPerRow=3","views=grid(3,3) list(10) table(20)","categoryView=grid","searchView=list","style="); </script>
+              <noscript>Ваш браузер не поддерживает JavaScript. Пожалуйста, перейдите на <a href="http://app.ecwid.com/jsp/[[*introtext]]/catalog">HTML версию магазина</a></noscript>
+            </div>
+
+          </div>
+        {% endif %}
+        <div class="clear"></div>
+      {% endautoescape %}
+    </div>
+  </div>
+  <div class="clear"></div>  
+{% endblock %}
+
+{% block scripts %}
+  $(document).ready(function() {    
+    $('.rateit').each(function (i) {
+      if ($.cookie('voted_' + {{firm.id}}) != 1) {
+        $(this).rateit();
+        $(this).rateit('step', 1);
+      } else {
+        $(this).rateit();
+        $(this).rateit('readonly', true);
+        $(this).rateit('step', 0.1);
+      };
+    });
+    $('.rateit').bind('rated reset', function (e) {
+      if ($.cookie('voted_{{firm.id}}') != 1) {
+        var ri = $(this);
+        var value = ri.rateit('value');
+        var pageid = ri.data('pageid');
+        ri.rateit('readonly', true);
+        $.cookie('voted_{{firm.id}}', '1');
+        $.ajax({
+          url: '/rate/'+pageid+'/'+value+'/',
+          type: 'GET',
+          success: function (data) {
+            $('#response').append('<li>' + data + '</li>');
+          },
+          error: function (jxhr, msg, err) {
+            $('#response').append('<li style="color:red">' + msg + '</li>');
+          }
+        });
+      }
+    });
+    /*$('.switcher').click(function() {
+      $('#main_left_img').attr('src', $(this).attr('src'));
+      $('#main_left_a').attr('href', $(this).attr('src'));
+    });*/
+
+    //$("#main_left_a").colorbox({rel:'group1'});
+    $(".fancybox").fancybox();      
+  });   
+{% endblock %}

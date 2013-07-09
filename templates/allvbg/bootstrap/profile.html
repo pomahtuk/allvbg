@@ -1,0 +1,299 @@
+{% extends "allvbg/bootstrap/base.html" %}
+{%block title%} Профиль {%endblock%}
+{%block description%} описание {%endblock%}
+{%block topbar%}
+	<a class="brand" href="#">Весь Выборг</a>
+	<div class="nav-collapse">
+		<ul class="nav">
+			<li class="active"><a href="http://allvbg.ru/">Главная</a></li>
+			<li class="active"><a href="/accounts/profile/">Профиль</a></li>
+			<li class="active"><a href="/{{user.get_profile.editor_for.id}}" target="_blank">Фирма</a></li>
+			<li class="active"><a href="/accounts/logout/">Выйти</a></li>
+			<li class="brand">
+				<form action="/i18n/setlang/" method="post" style="margin:0;">
+					{% csrf_token %}
+					<input value="" name="language" type="hidden">
+					<input onclick="this.form.language.value=this.value" title="English" value="en" src="{{ STATIC_URL }}/allvbg/img/en.png" name="langpair" type="image">
+					<input onclick="this.form.language.value=this.value" title="Russian" value="ru" src="{{ STATIC_URL }}/allvbg/img/ru.png" name="langpair" type="image">
+				</form>
+			</li>
+		</ul>
+	</div>
+{%endblock%}
+{%block content%}
+
+<div class="row-fluid">
+	<div class="span5">
+		<br />
+		<blockquote style="text-align:justify;">
+			<p>
+				Для редактирования своей фирмы на английском языке щёлкните по соответствующему флагу в верху страницы. По кнопке <strong>"Редактировать фирму"</strong> будет доступно редактирование англоязычной версии.
+			</p>
+			<p>
+				Для возврата к русской версии данных просто щёлкните по соответствующему флагу в шапке сайта.
+			</p>
+			<hr />
+			<p>
+				Редактирование доступно только при условии оплаты за период доступа.
+				Для оплаты воспользуйтесь кнопкой <strong>"Оплатить"</strong>.
+			</p>
+		</blockquote>	
+	</div>
+	<div class="span7">
+		<table class="table table-striped table-bordered">
+		  <tbody>
+			<tr>
+			  <td><b>Логин:</b></td>
+			  <td>{{user}}</td>
+			</tr>
+			<tr>
+			  <td><b>Имя:</b></td>
+			  <td>{{user.first_name}}</td>
+			</tr>
+			<tr>
+			  <td><b>Фамилия:</b></td>
+			  <td>{{user.last_name}}</td>
+			</tr>
+			<tr>
+			  <td><b>Электронная почта:</b></td>
+			  <td><a href="mailto:{{user.email}}">{{user.email}}</a></td>
+			</tr>
+			<tr>
+			  <td><b>Почта на allvbg.ru:</b></td>
+			  <td><a href="mailto:{{user.get_profile.generated_email}}">{{user.get_profile.generated_email}}</a></td>
+			</tr>
+			<tr>
+			  <td><b>Пароль для @allvbg.ru:</b></td>
+			  <td>{{user.get_profile.generated_password}}</a></td>
+			</tr>			
+			<tr>
+			  <td><b>Редактирует:</b></td>
+			  <td><a href="/{{user.get_profile.editor_for.id}}" target="_blank">{{user.get_profile.editor_for}}</a></td>
+			</tr>
+			<tr>
+			  <td><b>Оплачено до:</b></td>
+			  <td>{{user.get_profile.paid_till|date:"d.m.Y"}}</td>
+			</tr>				
+		  </tbody>
+		</table>
+		
+		<a class="btn" data-toggle="modal" href="#profile_edit" > Редактировать профиль </a>
+		<a class="btn btn-primary" data-toggle="button" data-loading-text="Загрузка..." id="firm_edit_loader" href="/accounts/edit/firm/{{user.get_profile.editor_for.id}}"> Редактировать фирму </a>
+		<a class="btn btn-success" data-toggle="modal" href="#pay" > Оплатить </a>
+		
+	</div>
+</div>
+
+<div class="modal" id="profile_edit" style="display:none;">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">×</a>
+		<h3>Редактирование профиля</h3>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal" method="post" action="/accounts/profile/edit/">
+			<fieldset>
+				{% csrf_token %}
+				<div class="control-group">
+					<label class="control-label" for="id_username">Логин</label>
+					<div class="controls">
+						 <input type="text" class="input-xlarge" id="id_username" name="username" value="{{user}}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="id_first_name">Имя</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="id_first_name" name="first_name" value="{{user.first_name}}">
+					</div>
+				</div>	
+				<div class="control-group">
+					<label class="control-label" for="id_last_name">Фамилия</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="id_last_name" name="last_name" value="{{user.last_name}}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="id_email">Электронная почта</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="id_email" name="email" value="{{user.email}}">
+					</div>
+				</div>
+				
+				<div class="form-actions">
+					<input type="submit" class="btn btn-primary" value="Изменить" />
+					<input type="button" name="Отменить" class="btn" value="Отменить" onclick="window.location = '/accounts/profile/' " />
+				</div>
+				
+			</fieldset>
+		</form>	
+	</div>
+</div>
+
+<div class="modal" id="pay" style="display:none;">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">×</a>
+		<h3>Оплатить</h3>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal" method="post" action="/payment/pay/">
+			<fieldset>
+				{% csrf_token %}			
+				<legend>Оплата производится через Робокассу</legend>
+				<div class="control-group">
+					<label class="control-label" for="OutSum">Срок оплаты</label>
+					<div class="controls">
+						<input type="hidden" name="desc" value="{{user.id}}">
+						<select id="OutSum" name="OutSum">
+							<option selected value="50">1 месяц - 50р.</option>
+							<option value="90">2 месяца - 90р.</option>
+							<option value="135">3 месяца - 135р.</option>
+							<option value="250">6 месяцев - 250р.</option>
+							<option value="450">12 месяцев - 450р.</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-actions">
+					<input type="submit" class="btn btn-success" value="Оплатить" />
+					<input type="button" name="Отменить" class="btn" value="Отменить" onclick="window.location = '/accounts/profile/' " />
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+<div class="span12" id="firm_edit_cont">
+<!-- -->	
+</div>
+
+	
+<script src="{{STATIC_URL}}allvbg/bootstrap.modal.js"></script>
+<script src="{{STATIC_URL}}allvbg/bootstrap-tab.js"></script>
+<script src="{{STATIC_URL}}allvbg/bootstrap-button.js"></script>
+<script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU"></script>
+
+
+<script type="text/javascript">
+
+	function map_this(){
+
+	}
+
+	$(document).ready(
+		function()
+		{
+			$('#profile_edit').modal({show:false})
+
+			$('#firm_edit_loader').click(function(){
+				$(this).button('loading')
+				$('#firm_edit_cont').load('/accounts/edit/firm/{{user.get_profile.editor_for.id}}', function(){
+					$('#id_description').redactor();
+					$('#id_short').redactor();
+					
+
+				  ymaps.ready(init);
+
+				  function init () {
+				    var tv = $('#id_location');
+				    var ltt = $('#id_lat');
+				    var lgg = $('#id_lng');
+				    
+				    var x = ltt.val();
+				    var y = lgg.val();
+				    if(!x) x = 28.738031;
+				    if(!y) y = 60.713432;
+
+				    map = new ymaps.Map("YMapsID", {center: [y, x], zoom: 14});
+				    map.controls.add('zoomControl').add('typeSelector')
+
+				    myPlacemark = new ymaps.Placemark(map.getCenter(), {hintContent: ''}, {draggable: true});
+
+				    myCollection = new ymaps.GeoObjectCollection();
+
+				    myPlacemark.events.add('dragend', function (e) {
+				      drag_end(e, myPlacemark);
+				    });
+
+				    map.geoObjects.add(myPlacemark);
+
+				    $('#b1').click(function () {
+				      var search_query = $('#YMapsInput').val();
+				      ymaps.geocode(search_query, {results: 1}).then(function (res) {
+
+				        map.geoObjects.each(function(object){
+				          map.geoObjects.remove(object);
+				        })
+
+				        res.geoObjects.each(function(object){
+				          center = object.geometry.getCoordinates()
+				          map.panTo(center);
+				          tv.val([center[1], center[0]]);
+				          ltt.val(center[1]);
+				          lgg.val(center[0]);
+				          geoPlacemark = new ymaps.Placemark(center, {hintContent: ''}, {draggable: true});
+				          geoPlacemark.events.add('dragend', function (e) {
+				            drag_end(e, geoPlacemark);
+				          });
+				        });
+
+				        map.geoObjects.add(geoPlacemark);
+
+				      });
+				      return false;
+				    });
+
+				    var drag_end = function(e, placemark) {
+				      var coordinates = placemark.geometry.getCoordinates();
+				      tv.val([coordinates[1], coordinates[0]]);
+				      ltt.val(coordinates[1]);
+				      lgg.val(coordinates[0]);
+				      e.stopPropagation();
+				    };
+
+				  }
+					/*var map = -1
+					var placemark = -1
+					var tv = document.getElementById('id_location');
+					var ltt = document.getElementById('id_lat');
+					var lgg = document.getElementById('id_lng');
+					
+						var x = tv.value.substr(0, strpos(tv.value, ",", 0));
+						var y = tv.value.substr(strpos(tv.value, ",", 0)+1, tv.value.length);
+						if(!x) x = 28.738031;
+						if(!y) y = 60.713432;
+						map = new YMaps.Map(document.getElementById("YMapsID"));
+						map.setCenter(new YMaps.GeoPoint(parseFloat(x), parseFloat(y)), 14);
+						map.addControl(new YMaps.Zoom());
+						placemark = new YMaps.Placemark(map.getCenter(), {draggable: true});
+						map.addOverlay(placemark);
+						
+						YMaps.Events.observe(placemark, placemark.Events.DragEnd, function (obj) {
+							tv.value = obj.getGeoPoint().getX() + ',' + obj.getGeoPoint().getY();
+							ltt.value = obj.getGeoPoint().getX();
+							lgg.value = obj.getGeoPoint().getY();			
+						});
+					
+					function strpos(haystack, needle, offset){
+						var i = haystack.indexOf( needle, offset );
+						return i >= 0 ? i : false;
+					}
+					
+					function enter() {
+						var geocoder = new YMaps.Geocoder(document.getElementById("YMapsInput").value, {results: 1});
+						YMaps.Events.observe(geocoder, geocoder.Events.Load, function (geocoder) {
+							placemark.setGeoPoint(this.get(0).getGeoPoint());
+							map.panTo(this.get(0).getGeoPoint());
+							tv.value = this.get(0).getGeoPoint().getX() + ',' + this.get(0).getGeoPoint().getY()
+							ltt.value = obj.getGeoPoint().getX();
+							lgg.value = obj.getGeoPoint().getY();			
+						});
+					}*/
+
+					$('#firm_edit_loader').button('reset')
+					
+				});
+				return false;
+			})
+		}
+	);
+</script>
+
+{%endblock%}

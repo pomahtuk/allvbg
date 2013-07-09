@@ -1,0 +1,102 @@
+{% extends "allvbg/bootstrap/base.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %}
+	{% trans "Авторизация" %}
+{% endblock %}
+		
+
+{% block body %}
+	<style type="text/css">
+		html {
+			height: 100%;
+		}
+		body {
+			height: 100%;
+			/*background: #3d3d3d;*/
+		}
+		.backround_blured{
+			position: absolute;
+			top:0px;
+			left:0px;
+			z-index: 1;
+			height: 100%;
+			overflow: hidden;
+		}
+		.backround_blured img{
+			width: 100%;
+		}
+		.form-actions {
+			background: none;
+			border-top: none;
+		}
+		form div.clearfix span.help-inline, form div.clearfix span.help-block {
+		    color: #9D261D !important;
+		}
+		.login_form{
+			background: #fff;
+			-webkit-border-radius: 5px;
+				 -moz-border-radius: 5px;
+							border-radius: 5px;
+		}
+		h3{
+			margin-top: 20px;
+		}
+		input{
+			width: 90%;
+		}
+		.container-fluid{
+			z-index: 2;
+			position: relative;
+		}
+	</style>
+	<!--<link rel="stylesheet" href="{{STATIC_URL}}allvbg/bootstrap.min.css">-->
+	<script>
+	   $(".alert").alert()
+	</script>
+	<div class="backround_blured">
+		<img src="{{ STATIC_URL }}allvbg/images/login_bg.jpg" />
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid" style="margin-top:200px;">
+			<div class="span4">&nbsp;</div>
+			<div class="span4 login_form">
+				
+				{% if form.errors %}
+				<div class="span4 alert alert-block alert-error fade in">
+					<a class="close" data-dismiss="alert" href="#">&times;</a>
+					<h4 class="alert-heading">{% trans "Ошибка!"%}</h4>
+					<p>{% trans "Неправильный логин или пароль. Попробуйте ещё раз."%}</p>
+				</div>
+				{% endif %}
+
+				<h3><center>Авторизация</center><br /></h3>
+				
+				<form class="form-horizontal" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+					<fieldset>
+						{% csrf_token %}
+						<div class="control-group">
+							<label class="control-label" for="id_username">{{ form.username.label }}</label>
+							<div class="controls">
+								{{ form.username }}
+							</div>
+						</div>					
+						<div class="control-group">
+							<label class="control-label" for="id_username">{{ form.password.label }}</label>
+							<div class="controls">
+								{{ form.password }}
+							</div>
+						</div>
+						<div class="form-actions">
+							<input type="submit" class="btn btn-primary" value="{% trans "Войти" %}" />
+							<a class="btn" href="/register">{% trans "Регистрация"%}</a>
+							<input type="hidden" name="next" value="{{ next }}" />
+						</div>
+					</fieldset>
+				</form>			
+				
+			</div>
+		</div>
+	</div>
+{% endblock %}

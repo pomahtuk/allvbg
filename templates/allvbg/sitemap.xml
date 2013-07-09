@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{% load mptt_tags %}
+{% load allvbg_extras %}
+{% full_tree_for_model allvbg.firm as firms %}				
+{% recursetree firms %}
+	<url>
+		<loc>http://allvbg.ru/{{node.id}}</loc>
+		<lastmod>{{node.pub_date|date:"Y-m-d"}}</lastmod>
+		<changefreq>{%if node.level = 2%}weekly{%else%}monthly{%endif%}</changefreq>
+	</url>
+	{% if not node.is_leaf_node %}
+		{{ children }}
+	{% endif %}	
+{% endrecursetree %}
+</urlset>
