@@ -6,9 +6,9 @@ PROJECT_PATH = '/var/www/pman/data/www/allvbgru'
 
 # Django settings for allvbgru project.
 
-DEBUG = True
-#DEBUG = False
-TEMPLATE_DEBUG = DEBUG
+#DEBUG = True
+DEBUG = False
+#TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('PMaN', 'pman89@yandex.ru'),
@@ -222,8 +222,10 @@ CACHES = {
 
 CACHE_MIDDLEWARE_SECONDS = 60
 
-COMPRESS_ENABLED = True
-COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSMinFilter']
+ALLOWED_HOSTS = ['allvbg.ru', '*.allvbg.ru', 'www.allvbg.ru']
+
+#COMPRESS_ENABLED = True
+#COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSMinFilter']
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

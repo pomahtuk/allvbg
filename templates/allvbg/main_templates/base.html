@@ -12,7 +12,7 @@
        {% trans "Весь Выборг - для выборжан и гостей города!"%}
       {% endblock %}
     </title>
-    <base href="http://allvbg.ru/" />
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
     
     {% block meta %}
@@ -117,13 +117,13 @@
               <div class="container">
                 {% block menu %}
                   <ul class="nav">
-                  {% cache 3600 menu %}       
+                  {% cache 3600 top_menu %}       
                     {% full_tree_for_model allvbg.firm as firms %}
                             
                     {% recursetree firms %}
                       {% if node.published %}
                         <li {% if node.level == 0 %} class="dropdown" {% endif %}>
-                          <a href="/{{node.id}}" {% if node.level == 0 %} class="dropdown-toggle" {% endif %} >{{ node.name }}</a>
+                          <a href="/{{ node.id }}" {% if node.level == 0 %} class="dropdown-toggle" {% endif %} >{{ node.name }}</a>
                           {% if not node.is_leaf_node and node.level == 0 %}
                             <ul class="dropdown-menu">
                               {{ children }}
@@ -209,9 +209,11 @@
           <div class="grid_4 bottom_blocks">
             <h2>{% trans "Новости" %}</h2>
             <div id="news">
-              <ul>
-                {% pull_feed 'http://pipes.yahoo.com/pipes/pipe.run?_id=49ff1ad887cc682ac49447b475603743&_render=rss' 3 %}
-              </ul>
+				{% cache 3600 cache %}  
+					<ul>
+						{% pull_feed 'http://pipes.yahoo.com/pipes/pipe.run?_id=49ff1ad887cc682ac49447b475603743&_render=rss' 3 %}
+					</ul>
+				{% endcache %}
             </div>
           </div>
           <div class="grid_4 bottom_blocks">

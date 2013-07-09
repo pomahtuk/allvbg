@@ -268,13 +268,20 @@ def pull_feed(feed_url, posts_to_show=3, cache_expires=30):
     #load feed from cache
     feed = feedparser.parse(open(CACHE_FILE))
     posts = []
-    for i in range(posts_to_show):
-        pub_date = feed['entries'][i].updated_parsed
-        published = datetime.date(pub_date[0], pub_date[1], pub_date[2] )
+    try:
+        for i in range(posts_to_show):
+            pub_date = feed['entries'][i].updated_parsed
+            published = datetime.date(pub_date[0], pub_date[1], pub_date[2] )
+            posts.append({
+                'title': feed['entries'][i].title,
+                'summary': feed['entries'][i].summary,
+                'link': feed['entries'][i].link,
+                'date': published,
+            })
+    except:
         posts.append({
-            'title': feed['entries'][i].title,
-            'summary': feed['entries'][i].summary,
-            'link': feed['entries'][i].link,
-            'date': published,
+            'title': '',
+            'summary': '',
+            'link': '',
         })
     return {'posts': posts}
