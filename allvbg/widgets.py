@@ -3,7 +3,7 @@ from django.utils.translation import ugettext as _
 from django.utils.safestring import mark_safe
 from django import forms
 from django.db import models
-from allvbgru import settings
+from allvbg_test import settings
 import os
 from PIL import Image
 

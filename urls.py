@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from allvbgru.views import *
+from allvbg_test.views import *
 from django.contrib import admin
 from django.conf import settings
 from filebrowser.sites import site
@@ -79,11 +79,6 @@ urlpatterns = patterns('',
 	url(r'^(?P<variable_a>(.+))/(?P<variable_b>(.+))/$', 'allvbg.views.v1'),
 	url(r'^(?P<variable_a>(.+))/$', 'allvbg.views.v2'),
 
-)
+	url(r'^static/(?P<path>.*)$', 'django.views.static.serve',{'document_root': '/var/www/pman/data/www/allvbg_test/static'}),
 
-# if settings.DEBUG:
-#     urlpatterns = patterns('',
-#     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
-#         {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-#     url(r'', include('django.contrib.staticfiles.urls')),
-# ) + urlpatterns
+)
