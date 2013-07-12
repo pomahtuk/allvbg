@@ -127,30 +127,30 @@ def month_cal(year=date.today().year, month=date.today().month):
     last_day_of_month = get_last_day_of_month(year, month)
     first_day_of_calendar = first_day_of_month - timedelta(first_day_of_month.weekday())
     last_day_of_calendar = last_day_of_month + timedelta(7 - last_day_of_month.weekday())
-	
-    event_list = Event.objects.filter(end_date__gte=first_day_of_calendar, start_date__lte=last_day_of_calendar)	
-	
+    
+    event_list = Event.objects.filter(end_date__gte=first_day_of_calendar, start_date__lte=last_day_of_calendar)
+    
     month_cal = []
     week = []
     week_headers = []
     extra = {}
-	
+    
     if first_day_of_month.month==12:
         tmp_y = first_day_of_month.year+1
         extra['next_date'] = str(tmp_y)+',1'
     else:
         tmp_m = first_day_of_month.month+1
-        extra['next_date'] = str(first_day_of_month.year)+','+str(tmp_m)		
+        extra['next_date'] = str(first_day_of_month.year)+','+str(tmp_m)        
 
     if first_day_of_month.month==1:
         tmp_y = first_day_of_month.year-1
         extra['prev_date'] = str(tmp_y)+',12'
     else:
         tmp_m = first_day_of_month.month-1
-        extra['prev_date'] = str(first_day_of_month.year)+','+str(tmp_m)		
-	
+        extra['prev_date'] = str(first_day_of_month.year)+','+str(tmp_m)        
+    
     extra['date'] = first_day_of_month
-	
+    
     i = 0
     day = first_day_of_calendar
     while day <= last_day_of_calendar:
@@ -159,16 +159,18 @@ def month_cal(year=date.today().year, month=date.today().month):
         cal_day = {}
         cal_day['day'] = day
         cal_day['isevent'] = False
+        day_events = []
         for event in event_list:
             if day >= event.start_date.date() and day <= event.end_date.date():
                 cal_day['isevent'] = True
-                cal_day['events'] = event_list.filter(end_date__gte=event.start_date.date, start_date__lte=event.end_date.date)
+                day_events.append(event)
+        cal_day['events'] = day_events
         if day.month == month:
             cal_day['in_month'] = True
         else:
             cal_day['in_month'] = False 
         if day.weekday() == 5 or day.weekday() == 6:
-            cal_day['weekend'] = True			
+            cal_day['weekend'] = True           
         week.append(cal_day)
         if day.weekday() == 6:
             month_cal.append(week)
