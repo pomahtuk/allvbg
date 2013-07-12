@@ -21,6 +21,8 @@ urlpatterns = patterns('',
 	url(r'^admin/', include(admin.site.urls)),
 	url(r'^admin_tools/', include('admin_tools.urls')),
 
+	url(r'^agent/', 'allvbg.views.indexisto_agent'),
+
 	url(r'^test/', 'allvbg.views.test_page'),
 	url(r'^firm/add/', 'allvbg.views.firm_add'),
 

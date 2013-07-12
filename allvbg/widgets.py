@@ -55,9 +55,9 @@ class LocationWidget(forms.TextInput):
         output = [self.inner_widget.render(name, value, *args, **kwargs)]
         output.append(u'''
             <div>
-            <input type="text" class="vTextField" id="YMapsInput">
-            <input id="b1" value="Найти!" onclick="enter();" type="button"/>
-            <div id="YMapsID" style="width: 620px; height: 300px;">
+              <input type="text" class="vTextField" id="YMapsInput" />
+              <input id="b1" value="Найти!" onclick="enter();" type="button"/>
+              <div id="YMapsID" style="min-width: 550px; height: 300px;"></div>
             </div>
 
             <script type="text/javascript">

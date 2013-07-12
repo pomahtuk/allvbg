@@ -1,6 +1,6 @@
 ﻿from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
-from tinymce import models as tinymce_models
+#from tinymce import models as tinymce_models
 from django import forms
 from djangoratings.fields import RatingField
 from django.forms.widgets import *
@@ -46,9 +46,9 @@ class Firm(MPTTModel):#модель БД для фирм и организаци
 	#Логическая переменная, определяющая, по сути, в каком шаблоне отображать модель
   container = models.BooleanField(verbose_name='Контейнер?', default = False)
 	#короткое описание, показывается на карте и в отображении списком
-  short = tinymce_models.HTMLField(verbose_name='Короткое описание', null=True, blank=True)
+  short = models.TextField(verbose_name='Короткое описание', null=True, blank=True)##
 	#Полный текст описания фирмы
-  description = tinymce_models.HTMLField(verbose_name='Полный текст', null=True, blank=True)
+  description = models.TextField(verbose_name='Полный текст', null=True, blank=True)##
 	#изображения, привязанные к фирме
   image1 = models.ImageField(upload_to='uploads', verbose_name='Изображение 1', null=True, blank=True)
   image2 = models.ImageField(upload_to='uploads', verbose_name='Изображение 2', null=True, blank=True)
@@ -85,9 +85,9 @@ class Event(models.Model):
 	#поле "имя" - должно быть уникально.
 	name = models.CharField(max_length=50, unique=True, verbose_name='Название')
 	#короткое описание, показывается в отображении списком
-	short = tinymce_models.HTMLField(verbose_name='Короткое описание')
+	short = models.TextField(verbose_name='Короткое описание') ##
 	#Полный текст описания фирмы
-	description = tinymce_models.HTMLField(verbose_name='Полный текст')
+	description = models.TextField(verbose_name='Полный текст') ##
 	#дата создания ресурса
 	start_date = models.DateTimeField('Дата начала')	
 	#дата создания ресурса
@@ -100,9 +100,9 @@ class Article(models.Model):#модель для статьи.
 	#поле "имя" - должно быть уникально.
 	name = models.CharField(max_length=50, unique=True, verbose_name='Название')
 	#короткое описание, показывается в отображении списком
-	short = tinymce_models.HTMLField(verbose_name='Короткое описание')
+	short = models.TextField(verbose_name='Короткое описание') ##
 	#Полный текст описания фирмы
-	description = tinymce_models.HTMLField(verbose_name='Полный текст')
+	description = models.TextField(verbose_name='Полный текст') ##
 	#ключевые слова
 	meta_key = models.CharField(max_length=100, verbose_name='Ключевые слова')
 	#дата создания ресурса

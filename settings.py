@@ -27,6 +27,8 @@ DATABASES = {
     }
 }
 
+AGENT_SECRET = '10SM23AS45hd78'
+
 TIME_ZONE = 'Europe/Moscow'
 
 LANGUAGE_CODE = 'ru-ru'
@@ -43,9 +45,9 @@ STATIC_ROOT = 'static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = 'http://allvbg.ru/static/'
+STATIC_URL = 'http://allvbg.ru:3010/static/'
 
-ST_URL = 'http://allvbg.ru/static/allvbg_test/'
+ST_URL = 'http://allvbg.ru:3010/static/allvbg_test/'
 ST_ROOT = '/var/www/pman/data/www/allvbg_test/static/allvbg/'
 
 # List of finder classes that know how to find static files in
@@ -53,7 +55,7 @@ ST_ROOT = '/var/www/pman/data/www/allvbg_test/static/allvbg/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #'django.contrib.staticfiles.finders.DefaultStorageFinder',
     'compressor.finders.CompressorFinder',
 )
 
@@ -142,10 +144,6 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, "templates"),
 )
 
-# CMS_TEMPLATES = (
-#     ('template_1.html', 'Template One'),
-# )
-
 gettext = lambda s: s
 LANGUAGES = (
     ('ru', gettext('Russian')),
@@ -174,27 +172,24 @@ INSTALLED_APPS = (
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
 	'django.contrib.sessions',
-	'django.contrib.sites',
-	# 'admin_tools',
-	# 'admin_tools.theming',
-	# 'admin_tools.menu',
-	# 'admin_tools.dashboard',
+	#'django.contrib.sites',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'django.contrib.admin',
-	'tinymce',
-	'filebrowser',
-	'django.contrib.admindocs',
+	#'tinymce',
+	#'filebrowser',
+	#'django.contrib.admindocs',
 	'easy_thumbnails',
 	'mptt',
 	'allvbg_test.allvbg',
 	'feincms',
 	'debug_toolbar',
 	'djangoratings',
-	'modeltranslation',
+	#'modeltranslation',
 	'tastypie',
 	'raven.contrib.django.raven_compat',
     'compressor',
+    'suit_redactor',
 	#'south',
 )
 

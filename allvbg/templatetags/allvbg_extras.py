@@ -1,5 +1,6 @@
 from django.template import Library, TemplateSyntaxError
 import os
+import sys
 from PIL import Image
 from datetime import date, timedelta, time
 from allvbg.models import Event, Firm, Article
@@ -128,7 +129,7 @@ def month_cal(year=date.today().year, month=date.today().month):
     first_day_of_calendar = first_day_of_month - timedelta(first_day_of_month.weekday())
     last_day_of_calendar = last_day_of_month + timedelta(7 - last_day_of_month.weekday())
 	
-    event_list = Event.objects.filter(end_date__gte=first_day_of_calendar, start_date__lte=last_day_of_calendar)	
+    event_list = Event.objects.filter(end_date__gte=first_day_of_calendar, start_date__lte=last_day_of_calendar)
 	
     month_cal = []
     week = []
@@ -159,10 +160,12 @@ def month_cal(year=date.today().year, month=date.today().month):
         cal_day = {}
         cal_day['day'] = day
         cal_day['isevent'] = False
+        day_events = []
         for event in event_list:
             if day >= event.start_date.date() and day <= event.end_date.date():
                 cal_day['isevent'] = True
-                cal_day['events'] = event_list.filter(end_date__gte=event.start_date.date, start_date__lte=event.end_date.date)
+                day_events.append(event)
+        cal_day['events'] = day_events
         if day.month == month:
             cal_day['in_month'] = True
         else:
