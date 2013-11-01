@@ -3,6 +3,7 @@ from tastypie import fields
 from django.core.serializers import json
 from tastypie.serializers import Serializer
 from tastypie.authorization import DjangoAuthorization
+from tastypie.cache import SimpleCache
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from allvbg.models import Firm, MapStyle
 
@@ -31,6 +32,7 @@ class FirmResource(ModelResource):
         #excludes = ['isstore', 'ecwid', 'totalvotes', 'raiting', 'rating']
         authorization = DjangoAuthorization()
         serializer = PrettyJSONSerializer()
+        cache = SimpleCache(timeout=360)
         filtering = {
             'container': ALL,
             'parent': ALL,

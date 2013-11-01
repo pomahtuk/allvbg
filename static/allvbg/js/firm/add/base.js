@@ -66,7 +66,7 @@ $(document).ready(function(){
         ajax_get("http://allvbg.ru/api/v1/firm/?limit=120&container=true", this.MULTI('firm'));
         ajax_get("http://allvbg.ru/api/v1/map_style/?limit=120", this.MULTI('style'));
       },function(results) {
-        new_results = form_hierarchial_data(results['firm'], results['style']); 
+        window.new_results = form_hierarchial_data(results['firm'], results['style']); 
         $('#id_parent').select2({
           data:{ results: new_results, text: 'name' },
           formatResult: mapCategoryFormat, 

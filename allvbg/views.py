@@ -14,6 +14,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import *
 import re
 import hashlib
+import sys
 
 ###
 from django.db import connection
@@ -82,16 +83,25 @@ def is_mobile(request):
 	return is_mobile
 
 def firm_add(request):
-  form = FirmForm(request.POST, request.FILES)
-  if form.is_valid():
-    cmodel = form.save()
-    cmodel.pub_date  = datetime.now()
-    cmodel.alias     = hashlib.md5(str(datetime.now())).hexdigest()
-    cmodel.map_style = MapStyle.objects.get(id=105) #in my database this id belongs to 'empty' style
-    cmodel.save()
-    return HttpResponseRedirect('/contact/send/')
-
-  return render_to_response('allvbg/firm_form.html', {'form': form}, context_instance=RequestContext(request))
+  error = False
+  if request.method == 'GET':
+    form = FirmForm()
+  else:
+    form = FirmForm(request.POST, request.FILES)
+    if form.is_valid():
+      try:
+        cmodel = form.save()
+        cmodel.pub_date  = datetime.now()
+        cmodel.alias     = hashlib.md5(str(datetime.now())).hexdigest()
+        cmodel.map_style = MapStyle.objects.get(id=105) #in my database this id belongs to 'empty' style
+        cmodel.save()
+        return HttpResponseRedirect('/contact/send/')
+      except:
+        error = True
+        print >> sys.stderr, 'empty parent'
+    else:
+    	error = True
+  return render_to_response('allvbg/firm_form.html', {'form': form, 'error':error}, context_instance=RequestContext(request))
 
 def test_page(request):
 	return render_to_response('allvbg/test.html')
@@ -146,6 +156,14 @@ def map_main_xml(request):
 		'styles':s, 'firms':f
 	}, context_instance=RequestContext(request), mimetype="application/xml")
 	
+def map_json(request):
+	callback = request.GET.get('callback', '')
+	s=MapStyle.objects.order_by('-title')[:500]
+	f=Firm.objects.filter(level=0, published=True).order_by("pub_date")
+	return render_to_response('allvbg/map.json', {
+		'styles':s, 'firms':f, 'callback': callback
+	}, context_instance=RequestContext(request), mimetype="application/json")
+
 def map_unmain_xml(request, firm_id):
 	s=MapStyle.objects.order_by('-title')[:500]
 	p = get_object_or_404(Firm, Q(published=True), pk=firm_id)
@@ -510,6 +528,7 @@ def widget(request):
 #caching
 	
 map_main_xml = cache_page(map_main_xml, 60 * 60)
+#map_json = cache_page(map_json, 60 * 60)
 map_unmain_xml = cache_page(map_unmain_xml, 60 * 60)
 mobilemap = cache_page(mobilemap, 60 * 60)
 ajax_firm_list = cache_page(ajax_firm_list, 60 * 10)

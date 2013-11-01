@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+{% load mptt_tags %}
+{% load thumbnail %}
+{% load ratings %}
+{% load allvbg_extras %}
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    {% comment %}
+      {% for style in styles %}
+        <Style id="{{ style.title }}">
+          <IconStyle>
+            <Icon>
+              <href>{{ STATIC_URL }}allvbg/{{ style.value }}</href>
+            </Icon>     
+          </IconStyle>
+          <BalloonStyle>
+            <bgColor>ffffffbb</bgColor>
+            <text>
+              <![CDATA[
+                <div class="maps_ballon_opened">
+                  $[description]
+                  <a href="$[ExtendedData.link]">
+                    <h3>$[name]</h3>
+                  </a>
+                  <div class="tags">
+                    $[ExtendedData.tags]
+                  </div>
+                  <div class="footer">
+                    Рейтинг: $[ExtendedData.rating]
+                  </div>
+                </div>
+              ]]>
+            </text>
+          </BalloonStyle>
+        </Style>
+      {% endfor %}
+    {% endcomment %}
+    {% for firm in firms %}
+      <Folder>
+        <name>{{firm.name}}</name>
+        <open>1</open>
+        <description>{{firm.id}}</description>
+        {% drilldown_tree_for_node firm as drilldown %}
+        {% for node in drilldown %}
+          {% if node.level > 0 %}
+            {% if node.published %}
+              <Folder>
+                <open>1</open>
+                <name>{{node.name}}</name>
+                <description>{{node.id}}</description>
+                {% drilldown_tree_for_node node as nodedrill %}
+                {% for sub_node in nodedrill %}
+                  {% if sub_node.level > 1 %}
+                    <Placemark>
+                      <name>{{ sub_node.name }}</name>
+                      <description><![CDATA[{% thumbnail sub_node.image1 220x145 %}]]></description>
+                      <ExtendedData>
+                        <image><![CDATA[<img src="{% thumbnail sub_node.image1 220x145 %}"/>]]></image>
+                        <tags><![CDATA[{{ sub_node.short | safe}}]]></tags>
+                        <link>http://allvbg.ru/{{ sub_node.id }}</link>
+                        {% do_rating_by_object request on sub_node.rating as vote %}
+                        <rating>{{ vote }}</rating>
+                      </ExtendedData>
+                      <Point>
+                        <coordinates>{{sub_node.lat}},{{sub_node.lng}}</coordinates>
+                      </Point>
+                      <!-- <styleUrl>#{{node.map_style}}</styleUrl> -->
+                    </Placemark>
+                  {% endif %}
+                {% endfor %}
+              </Folder>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        </Folder>
+    {% endfor %}
+  </Document>
+</kml>
