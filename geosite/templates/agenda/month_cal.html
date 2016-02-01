@@ -1,0 +1,69 @@
+﻿<script type='text/javascript'>
+$(document).ready(function(){
+	$('#Calendar .prev a, #Calendar .next a').live('click',function(){
+		$('#Calendar .calendar').css('opacity','0.3');
+		date=$(this).data('rel');
+		//d_m=date.split(' ')[1];
+		//d_m=date.split(' ')[0];
+		$.get('calend_ajax/',{action:'refreshCalendar',/*d_m:d_m,d_y:d_y*/date:date},function(data){
+			$('#Calendar').html(data);
+			$('#Calendar .calendar').css('opacity','1');
+		})
+		return false;
+	})
+	$('#Calendar .isevent').live('mouseenter',function(){
+		id=this.id;
+		$('#'+id+' .event').show();
+	})
+	$('#Calendar .isevent').live('mouseleave',function(){
+		id=this.id;
+		$('#'+id+' .event').hide();
+	})
+});
+</script>
+
+
+    <table class='calendar'>
+		<tr>
+			<td class='prev'><a href='#' data-rel='{{extra.prev_date}}'>&laquo;</a></td>
+			<td class='month' colspan='5'>{{extra.date|date:"F Y"}} {{extra.year}}</td>
+			<td class='next'><a href='#' data-rel='{{extra.next_date}}'>&raquo;</a></td>
+        </tr>
+		<tr>
+			{% for day in headers %}
+				<th class='dow'>{{ day|date:"D"|slice:":2" }}</th>
+			{% endfor %}
+		</tr>
+			{% for week in calendar %}
+				<tr>
+					{% for day in week %}
+						{% if day.in_month %}
+							<td class="{% if day.weekend%}weekend{% else %}workday{% endif %}{% if day.isevent %} isevent {% else %} noevent {% endif %}" id="{{day.day|date:"dmY"}}">
+								<div class='date'>{{ day.day|date:"j" }}</div>
+								<div class='event' style="display:none;">
+									{% if day.isevent %}
+										<div>
+											{% for event in day.events %}
+												<div class="num">
+													<span class="eventdate">{{event.start_date|date:"d-m-Y"}}</span>
+												</div>
+												<span class="link">
+													<a href="/events/{{event.id}}" target = "_blank">{{event.name}}</a>
+												</span>
+												<br>
+												<span class="notice">
+													<small>{{event.short|safe}}</small>
+												</span>
+											{% endfor %}
+										</div>
+									{% endif %}								
+								</div>							
+							</td>
+						{% else %}
+							<td class="emptyday">
+							</td>							
+						{% endif %}
+					{% endfor %}
+				</tr>
+			{% endfor %}
+	</table>

@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+{% load i18n %}
+<html>
+	<head>
+
+		<title>{% trans "Сообщение отправлено"%}</title>
+
+	  <base href="http://allvbg.ru/" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		
+		<meta name="author" content="pman">
+		
+		<meta name='yandex-verification' content='6d7dc13dd2380f0f' />
+		
+	  <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
+
+		<link rel="shortcut icon" href="favicon.ico">
+	  
+
+	</head>
+	<body>
+		<br>
+		<br>
+		<center>
+			<h2>{% trans "Ваше сообщение отправлено."%}</h2>  
+			<br>
+			<a class="btn large primary" href="#" onClick="window.parent.document.getElementById('contact_form').parentNode.removeChild(window.parent.document.getElementById('contact_form'))">{% trans "Закрыть"%}</a>
+		</center>
+	</body>
+</html>

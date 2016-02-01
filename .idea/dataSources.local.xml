@@ -6,5 +6,10 @@
       <first-sync>true</first-sync>
       <user-name>root</user-name>
     </data-source>
+    <data-source name="Django default" uuid="a48198c0-ef66-4493-abe7-15bbedcc6491">
+      <user-name>root</user-name>
+      <schema-pattern>geosite.*</schema-pattern>
+      <default-schemas>geosite.*</default-schemas>
+    </data-source>
   </component>
 </project>

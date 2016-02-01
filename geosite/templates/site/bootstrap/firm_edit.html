@@ -1,0 +1,77 @@
+﻿	<br/>
+	<br/>
+	<br/>
+	{% if firm %}
+		<form class="form-horizontal" method="post" action="/accounts/profile/firm/" enctype="multipart/form-data">
+			<fieldset>
+				{% csrf_token %}
+				<div class="control-group">
+					<label class="control-label" for="id_name">Название</label>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="id_name" name="name" value="{{firm.name}}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="id_short">Описание короткое</label>
+					<div class="controls">				
+						<textarea class="input-xlarge" id="id_short" name="short" rows="3">{{firm.short}}</textarea>					
+					</div>
+				</div>	
+				<div class="control-group">
+					<label class="control-label" for="id_description">Полный текст</label>
+					<div class="controls">					
+						<textarea class="input-xlarge" id="id_description" name="description" rows="3">{{firm.description}}</textarea>					
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="id_image1">Изображение 1</label>
+					<div class="controls">
+						<input class="input-file" id="id_image1" name="image1" type="file">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="id_image2">Изображение 2</label>
+					<div class="controls">
+						<input class="input-file" id="id_image2" name="image2" type="file">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="id_image3">Изображение 3</label>
+					<div class="controls">
+						<input class="input-file" id="id_image3" name="image3" type="file">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="id_image4">Изображение 4</label>
+					<div class="controls">
+						<input class="input-file" id="id_image4" name="image4" type="file">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="id_last_name">Положение на карте</label>
+					<div class="controls">
+						<div>
+							<input type="text" class="vTextField" id="YMapsInput">
+							<input id="b1" value="Найти!" onclick="enter();" type="button"/>
+							<div id="YMapsID" style="width: 620px; height: 300px;"></div>
+						</div>
+						<input type="hidden" class="input-xlarge" id="id_location" name="location" value="{{firm.location}}">
+						<input type="hidden" class="input-xlarge" id="id_lat" name="lat" value="{{firm.lat}}">
+						<input type="hidden" class="input-xlarge" id="id_lng" name="lng" value="{{firm.lng}}">
+					</div>
+				</div>		
+				<div class="form-actions">
+					<input type="submit" class="btn btn-primary" value="Изменить" />
+					<input type="button" name="Отменить" class="btn" value="Отменить" onclick="window.location = '/accounts/profile/' " />
+				</div>
+				
+			</fieldset>
+		</form>
+	{% else %}
+		<center>
+			<h4>Период редактирования фирмы закончился.</h4>
+			<br />
+			<p>Пожалуйста, оплатите редактиование, нажав кнопку <strong>"Оплатить"</strong>.</p>
+			<p>Если вы уверены, что ошибка на нашей стороне - свяжитесь с <a href="mailto:admin@allvbg.ru">администратором.</a></p>
+		</center>
+	{% endif %}

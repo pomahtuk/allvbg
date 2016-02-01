@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+	<channel>
+		<title>Весь Выборг - Обновления</title>
+		<link>http://allvbg.ru/</link>
+		<description>Обновление организаций с сайта Весь Выборг</description>
+		<language>ru-ru</language>
+                <ttl>1800</ttl>
+		{% for firm in firms %}
+                        <item>
+                                <title>{{firm.name}}</title>
+                                <description>{{firm.short}}</description>
+                                <link>http://allvbg.ru/{{firm.id}}</link>
+                                <guid>{{firm.id}}</guid>
+                                <pubDate>{{firm.pub_date}}</pubDate>
+                        </item>
+		{% endfor %}
+        </channel>
+</rss>

@@ -21,7 +21,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'allvbg',                      # Or path to database file if using sqlite3.
+        'NAME': 'geosite',                      # Or path to database file if using sqlite3.
         'USER': 'root',                        # Not used with sqlite3.
         'PASSWORD': '',                        # Not used with sqlite3.
         'HOST': '',                            # Set to empty string for localhost. Not used with sqlite3.
@@ -130,8 +130,13 @@ INTERNAL_IPS = (
 
 ROOT_URLCONF = 'urls'
 
+SETTINGS_PATH = os.path.dirname(__file__)
+PROJECT_PATH = os.path.join(SETTINGS_PATH, os.pardir)
+PROJECT_PATH = os.path.abspath(PROJECT_PATH)
+TEMPLATES_PATH = os.path.join(PROJECT_PATH, "templates")
+
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_PATH, "templates"),
+    TEMPLATES_PATH,
 )
 
 gettext = lambda s: s
@@ -150,7 +155,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
-    'treenav.context_processors.treenav_active',
     'django.core.context_processors.debug',
     'django.contrib.messages.context_processors.messages',	
 )
@@ -214,21 +218,21 @@ ALLOWED_HOSTS = ['geosite.ru', '*.geosite.ru', 'www.geosite.ru']
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': [],
-            'class': 'django.utils.log.AdminEmailHandler'
-       }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    }
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'mail_admins': {
+#             'level': 'ERROR',
+#             'filters': [],
+#             'class': 'django.utils.log.AdminEmailHandler'
+#        }
+#     },
+#     'loggers': {
+#         'django.request': {
+#             'handlers': ['mail_admins'],
+#             'level': 'ERROR',
+#             'propagate': True,
+#         },
+#     }
+# }
