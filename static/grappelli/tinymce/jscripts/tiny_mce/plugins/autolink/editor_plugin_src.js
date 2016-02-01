@@ -127,7 +127,7 @@
 				r.setEnd(endContainer, start);
 			}
 
-			// Exclude last . from word like "www.site.com."
+			// Exclude last . from word like "www.geo_site.com."
 			var text = r.toString();
 			if (text.charAt(text.length - 1) == '.') {
 				r.setEnd(endContainer, start - 1);

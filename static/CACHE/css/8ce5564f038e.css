@@ -357,7 +357,7 @@ html {
     background:#fff;
 }
 body {
-    background: url('/static/allvbg/img/container_bg.png?36c953227b79') repeat-x scroll 0 0 transparent;
+    background: url('/static/geo_site/img/container_bg.png?36c953227b79') repeat-x scroll 0 0 transparent;
 }
 .layers_overlay {
     background: none repeat scroll 0 0 #EFEFEF;
@@ -414,13 +414,13 @@ label {
     padding-left: 5px;
 }
 .rounder_transpoarent {
-    background: url('/static/allvbg/img/transparent_white.png?36c953227b79') repeat scroll 0 0 transparent;
+    background: url('/static/geo_site/img/transparent_white.png?36c953227b79') repeat scroll 0 0 transparent;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
 .bottom_blocks {
-    background: url('/static/allvbg/img/transparent_white.png?36c953227b79') repeat scroll 0 0 transparent;
+    background: url('/static/geo_site/img/transparent_white.png?36c953227b79') repeat scroll 0 0 transparent;
 	-webkit-border-top-left-radius: 5px;
 	-webkit-border-top-right-radius: 5px;
 	-moz-border-radius-topleft: 5px;
@@ -544,7 +544,7 @@ label {
     background: none repeat scroll 0 0 #D5F1FD;
 }
 #here {
-    background: url('/static/allvbg/img/arr.png?36c953227b79') no-repeat scroll right center #D5F1FD;
+    background: url('/static/geo_site/img/arr.png?36c953227b79') no-repeat scroll right center #D5F1FD;
 	-webkit-border-radius: 1px;
 	-webkit-border-top-left-radius: 5px;
 	-moz-border-radius: 1px;
@@ -569,7 +569,7 @@ label {
     padding: 0;
 }
 .topnav li.parent {
-    background: url('/static/allvbg/img/top_nav_li.gif?36c953227b79') no-repeat scroll 0 1px transparent;
+    background: url('/static/geo_site/img/top_nav_li.gif?36c953227b79') no-repeat scroll 0 1px transparent;
     padding-left: 1px;
 }
 .menu_drop {
@@ -617,7 +617,7 @@ label {
     text-shadow: 1px 1px 1px #080808;
 }
 .topnav li.nav_first {
-    background: url('/static/allvbg/img/header.png?36c953227b79') repeat scroll 0 0 transparent;
+    background: url('/static/geo_site/img/header.png?36c953227b79') repeat scroll 0 0 transparent;
 }
 .dropped_menu .topnav li.nav_first {
     background: none repeat scroll 0 0 transparent;
@@ -625,7 +625,7 @@ label {
     width: 230px;
 }
 .active_menu {
-    background: url('/static/allvbg/img/but2.png?36c953227b79') repeat scroll right center transparent !important;
+    background: url('/static/geo_site/img/but2.png?36c953227b79') repeat scroll right center transparent !important;
 }
 .parent {
     float: left;
@@ -811,7 +811,7 @@ div.list_element hr {
     margin-top: -50px;
 }
 .sisea-search-form input[type="submit"] {
-    background: url('/static/allvbg/img/search_button_green.png?36c953227b79') repeat scroll 0 0 transparent;
+    background: url('/static/geo_site/img/search_button_green.png?36c953227b79') repeat scroll 0 0 transparent;
     border: medium none;
     cursor: pointer;
     height: 32px;
@@ -851,13 +851,13 @@ div.list_element hr {
     background: none repeat scroll 0 0 #F4C430;
 }
 .store_body {
-    background: url('/static/allvbg/img/transparent_white.png?36c953227b79') repeat scroll 0 0 transparent;
+    background: url('/static/geo_site/img/transparent_white.png?36c953227b79') repeat scroll 0 0 transparent;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
 .gwt-TabBarItem-selected td.tabMiddleCenter {
-    background: url('/static/allvbg/img/transparent_white.png?36c953227b79') repeat scroll 0 0 transparent;
+    background: url('/static/geo_site/img/transparent_white.png?36c953227b79') repeat scroll 0 0 transparent;
 }
 .gwt-TabBarRest {
     background: none repeat scroll 0 0 transparent;
@@ -889,7 +889,7 @@ div.list_element hr {
     margin-top: 5px;
 }
 .preloader {
-    background: url('/static/allvbg/img/transparent_black2.png?36c953227b79') repeat scroll 0 0 transparent;
+    background: url('/static/geo_site/img/transparent_black2.png?36c953227b79') repeat scroll 0 0 transparent;
     display: none;
     height: 100%;
     left: 0;
@@ -899,7 +899,7 @@ div.list_element hr {
     z-index: 999;
 }
 .preloader_img {
-    background: url('/static/allvbg/img/ajax-loader.gif?36c953227b79') repeat scroll 0 0 transparent;
+    background: url('/static/geo_site/img/ajax-loader.gif?36c953227b79') repeat scroll 0 0 transparent;
     height: 32px;
     left: 50%;
     margin-left: -16px;
@@ -945,7 +945,7 @@ div.list_element hr {
     width: 300px;
 }
 #login h2 {
-    background: url('/static/allvbg/img/header.png?36c953227b79') repeat scroll 0 -5px transparent;
+    background: url('/static/geo_site/img/header.png?36c953227b79') repeat scroll 0 -5px transparent;
 	-webkit-border-top-left-radius: 5px;
 	-webkit-border-top-right-radius: 5px;
 	-moz-border-radius-topleft: 5px;
@@ -1455,11 +1455,11 @@ padding:5px;
    height: 43px;
    margin-top: 18px;
    margin-left: 20px;
-   background: url('/static/allvbg/images/add_firm.png?7a72794510ed') 0px 0px;
+   background: url('/static/geo_site/images/add_firm.png?7a72794510ed') 0px 0px;
 }
 
 .add_firm:hover{
-    background: url('/static/allvbg/images/add_firm.png?7a72794510ed') 0px -43px;
+    background: url('/static/geo_site/images/add_firm.png?7a72794510ed') 0px -43px;
 }
 
 .fancybox-iframe{
@@ -1687,7 +1687,7 @@ div.rateit div.rateit-range
     position: relative;
     display: -moz-inline-box;
     display: inline-block;
-    background: url('/static/allvbg/images/star.gif?9964a85b4cc7');
+    background: url('/static/geo_site/images/star.gif?9964a85b4cc7');
     height: 16px;
 }
 
@@ -1717,7 +1717,7 @@ div.rateit div.rateit-hover-rtl, div.rateit div.rateit-selected-rtl
 
 div.rateit div.rateit-hover
 {
-    background: url('/static/allvbg/images/star.gif?9964a85b4cc7') left -32px;
+    background: url('/static/geo_site/images/star.gif?9964a85b4cc7') left -32px;
 }
 
 div.rateit div.rateit-hover-rtl
@@ -1727,7 +1727,7 @@ div.rateit div.rateit-hover-rtl
 
 div.rateit div.rateit-selected
 {
-    background: url('/static/allvbg/images/star.gif?9964a85b4cc7') left -16px;
+    background: url('/static/geo_site/images/star.gif?9964a85b4cc7') left -16px;
 }
 
 div.rateit div.rateit-selected-rtl
@@ -1737,17 +1737,17 @@ div.rateit div.rateit-selected-rtl
 
 div.rateit div.rateit-preset
 {
-    background: url('/static/allvbg/images/star.gif?9964a85b4cc7') left -48px;
+    background: url('/static/geo_site/images/star.gif?9964a85b4cc7') left -48px;
 }
 
 div.rateit div.rateit-preset-rtl
 {
-    background: url('/static/allvbg/images/star.gif?9964a85b4cc7') left -48px;
+    background: url('/static/geo_site/images/star.gif?9964a85b4cc7') left -48px;
 }
 
 div.rateit div.rateit-reset
 {
-    background: url('/static/allvbg/images/delete.gif?ce71893274c7') 0 0;
+    background: url('/static/geo_site/images/delete.gif?ce71893274c7') 0 0;
     width: 16px;
     height: 16px;
     display: -moz-inline-box;
@@ -1838,7 +1838,7 @@ div.rateit div.rateit-reset:hover
 }
 
 #fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
-	background-image: url('/static/allvbg/images/fancybox_sprite.png?16903f8f9399');
+	background-image: url('/static/geo_site/images/fancybox_sprite.png?16903f8f9399');
 }
 
 #fancybox-loading {
@@ -1856,7 +1856,7 @@ div.rateit div.rateit-reset:hover
 #fancybox-loading div {
 	width: 44px;
 	height: 44px;
-	background: url('/static/allvbg/images/fancybox_loading.gif?c72821716164') center center no-repeat;
+	background: url('/static/geo_site/images/fancybox_loading.gif?c72821716164') center center no-repeat;
 }
 
 .fancybox-close {
@@ -1876,7 +1876,7 @@ div.rateit div.rateit-reset:hover
 	height: 100%;
 	cursor: pointer;
 	text-decoration: none;
-	background: transparent url('/static/allvbg/images/blank.gif?3e19c20f8182'); /* helps IE */
+	background: transparent url('/static/geo_site/images/blank.gif?3e19c20f8182'); /* helps IE */
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	z-index: 8040;
 }
@@ -1937,7 +1937,7 @@ div.rateit div.rateit-reset:hover
 	overflow: hidden;
 	display: none;
 	z-index: 8010;
-	background: url('/static/allvbg/images/fancybox_overlay.png?c72821716164');
+	background: url('/static/geo_site/images/fancybox_overlay.png?c72821716164');
 }
 
 .fancybox-overlay-fixed {

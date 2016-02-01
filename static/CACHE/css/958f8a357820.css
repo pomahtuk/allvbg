@@ -1455,11 +1455,11 @@ padding:5px;
    height: 43px;
    margin-top: 18px;
    margin-left: 20px;
-   background: url('/static/allvbg/images/add_firm.png?7a72794510ed') 0px 0px;
+   background: url('/static/geo_site/images/add_firm.png?7a72794510ed') 0px 0px;
 }
 
 .add_firm:hover{
-    background: url('/static/allvbg/images/add_firm.png?7a72794510ed') 0px -43px;
+    background: url('/static/geo_site/images/add_firm.png?7a72794510ed') 0px -43px;
 }
 
 .fancybox-iframe{
@@ -1687,7 +1687,7 @@ div.rateit div.rateit-range
     position: relative;
     display: -moz-inline-box;
     display: inline-block;
-    background: url('/static/allvbg/images/star.gif?9964a85b4cc7');
+    background: url('/static/geo_site/images/star.gif?9964a85b4cc7');
     height: 16px;
 }
 
@@ -1717,7 +1717,7 @@ div.rateit div.rateit-hover-rtl, div.rateit div.rateit-selected-rtl
 
 div.rateit div.rateit-hover
 {
-    background: url('/static/allvbg/images/star.gif?9964a85b4cc7') left -32px;
+    background: url('/static/geo_site/images/star.gif?9964a85b4cc7') left -32px;
 }
 
 div.rateit div.rateit-hover-rtl
@@ -1727,7 +1727,7 @@ div.rateit div.rateit-hover-rtl
 
 div.rateit div.rateit-selected
 {
-    background: url('/static/allvbg/images/star.gif?9964a85b4cc7') left -16px;
+    background: url('/static/geo_site/images/star.gif?9964a85b4cc7') left -16px;
 }
 
 div.rateit div.rateit-selected-rtl
@@ -1737,17 +1737,17 @@ div.rateit div.rateit-selected-rtl
 
 div.rateit div.rateit-preset
 {
-    background: url('/static/allvbg/images/star.gif?9964a85b4cc7') left -48px;
+    background: url('/static/geo_site/images/star.gif?9964a85b4cc7') left -48px;
 }
 
 div.rateit div.rateit-preset-rtl
 {
-    background: url('/static/allvbg/images/star.gif?9964a85b4cc7') left -48px;
+    background: url('/static/geo_site/images/star.gif?9964a85b4cc7') left -48px;
 }
 
 div.rateit div.rateit-reset
 {
-    background: url('/static/allvbg/images/delete.gif?ce71893274c7') 0 0;
+    background: url('/static/geo_site/images/delete.gif?ce71893274c7') 0 0;
     width: 16px;
     height: 16px;
     display: -moz-inline-box;
@@ -1838,7 +1838,7 @@ div.rateit div.rateit-reset:hover
 }
 
 #fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
-	background-image: url('/static/allvbg/images/fancybox_sprite.png?16903f8f9399');
+	background-image: url('/static/geo_site/images/fancybox_sprite.png?16903f8f9399');
 }
 
 #fancybox-loading {
@@ -1856,7 +1856,7 @@ div.rateit div.rateit-reset:hover
 #fancybox-loading div {
 	width: 44px;
 	height: 44px;
-	background: url('/static/allvbg/images/fancybox_loading.gif?c72821716164') center center no-repeat;
+	background: url('/static/geo_site/images/fancybox_loading.gif?c72821716164') center center no-repeat;
 }
 
 .fancybox-close {
@@ -1876,7 +1876,7 @@ div.rateit div.rateit-reset:hover
 	height: 100%;
 	cursor: pointer;
 	text-decoration: none;
-	background: transparent url('/static/allvbg/images/blank.gif?3e19c20f8182'); /* helps IE */
+	background: transparent url('/static/geo_site/images/blank.gif?3e19c20f8182'); /* helps IE */
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	z-index: 8040;
 }
@@ -1937,7 +1937,7 @@ div.rateit div.rateit-reset:hover
 	overflow: hidden;
 	display: none;
 	z-index: 8010;
-	background: url('/static/allvbg/images/fancybox_overlay.png?c72821716164');
+	background: url('/static/geo_site/images/fancybox_overlay.png?c72821716164');
 }
 
 .fancybox-overlay-fixed {

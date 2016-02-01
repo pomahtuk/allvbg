@@ -177,7 +177,7 @@
 				// If also needs to be in view on IE or the paste would fail
 				dom.setStyles(n, {
 					position : 'absolute',
-					left : tinymce.isGecko ? -40 : 0, // Need to move it out of site on Gecko since it will othewise display a ghost resize rect for the div
+					left : tinymce.isGecko ? -40 : 0, // Need to move it out of geo_site on Gecko since it will othewise display a ghost resize rect for the div
 					top : posY - 25,
 					width : 1,
 					height : 1,

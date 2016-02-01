@@ -53,7 +53,7 @@
 			for (i=0; i<nl.length; i++) {
 				v = nl[i].href;
 				if (v) {
-					// Host only value like http://site.com or http://site.com:8008
+					// Host only value like http://geo_site.com or http://geo_site.com:8008
 					if (/^https?:\/\/[^\/]+$/.test(v))
 						v += '/';
 
@@ -13685,7 +13685,7 @@ tinymce.create('tinymce.ui.Toolbar:tinymce.ui.Container', {
 			t.iframeHTML = s.doctype + '<html><head xmlns="http://www.w3.org/1999/xhtml">';
 
 			// We only need to override paths if we have to
-			// IE has a bug where it remove site absolute urls to relative ones if this is specified
+			// IE has a bug where it remove geo_site absolute urls to relative ones if this is specified
 			if (s.document_base_url != tinymce.documentBaseURL)
 				t.iframeHTML += '<base href="' + t.documentBaseURI.getURI() + '" />';
 

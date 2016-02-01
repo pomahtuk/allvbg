@@ -1,5 +1,5 @@
 {% load mptt_tags %}
-{% load allvbg_extras %}
+{% load extras %}
 {% load cache %}
 {% load i18n %}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -15,14 +15,14 @@
 	
 	<meta name='yandex-verification' content='6d7dc13dd2380f0f' />
 	
-	<link rel="shortcut icon" href="{{ STATIC_URL }}/allvbg/favicon.ico">
+	<link rel="shortcut icon" href="{{ STATIC_URL }}/geo_site/favicon.ico">
 	<link rel="alternate" type="application/rss+xml" title="Весь Выборг - Лента обновлений" href="[[~343]]" />
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/allvbg/main_2.css">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/geo_site/main_2.css">
 	
 	<link href='http://fonts.googleapis.com/css?family=PT+Serif:400,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>	  
   
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
-  	<script src="{{ STATIC_URL }}/allvbg/js/bootstrap-dropdown.js"></script>
+  	<script src="{{ STATIC_URL }}/geo_site/js/bootstrap-dropdown.js"></script>
 	{% block metrics %}
 	<script type="text/javascript">
 
@@ -56,13 +56,13 @@
 </head>
 <body>
   <div id="fast-feedback-btn">
-	<img class="deleter" title="Обратная связь" alt="X" src="{{ STATIC_URL }}/allvbg/img/delete-black.gif">
+	<img class="deleter" title="Обратная связь" alt="X" src="{{ STATIC_URL }}/geo_site/img/delete-black.gif">
   </div>  
   
 	<div class="container_12">
 	  	<div class="headerimg"></div>
 		<div class="grid_12 site_title">
-			<a class="logo" href="/"><img src="{{ STATIC_URL }}/allvbg/img/lg1.png" align="left" width="100px" height="100px"><h1>Весь Выборг</h1></a>
+			<a class="logo" href="/"><img src="{{ STATIC_URL }}/geo_site/img/lg1.png" align="left" width="100px" height="100px"><h1>Весь Выборг</h1></a>
 		</div>  
 		<div class="grid_12 header">
 		  <div id="search">
@@ -129,7 +129,7 @@
 				<p>
 					<center>
 						<strong>
-							<img src="/static/allvbg/404.png" alt="" height="169" width="400"/>
+							<img src="/static/geo_site/404.png" alt="" height="169" width="400"/>
 							<br>
 							Запрашиваемый документ не найден. Попробуйте воспользоваться поиском.
 						</strong>
