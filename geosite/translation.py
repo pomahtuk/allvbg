@@ -1,5 +1,5 @@
 from modeltranslation.translator import translator, TranslationOptions
-from geo_site.models import *
+from geosite.models import *
 
 class FirmTranslationOptions(TranslationOptions):
     fields = ('short', 'description', 'name',)

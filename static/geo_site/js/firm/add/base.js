@@ -5,7 +5,7 @@ $(document).ready(function(){
       return object.name;
     } else{ 
       if ((object.style_img != 'none') & (object.style_img != 'undefined')) {
-        return "<img class='mapicon' src='/static/geo_site/" + object.style_img + "'/>" + object.name;
+        return "<img class='mapicon' src='/static/geosite/" + object.style_img + "'/>" + object.name;
       } else {
         return object.name;
       }
@@ -63,8 +63,8 @@ $(document).ready(function(){
   flow_test = function() {
     flow.exec(
       function() {
-        ajax_get("http://geo_site.ru/api/v1/firm/?limit=120&container=true", this.MULTI('firm'));
-        ajax_get("http://geo_site.ru/api/v1/map_style/?limit=120", this.MULTI('style'));
+        ajax_get("http://geosite.ru/api/v1/firm/?limit=120&container=true", this.MULTI('firm'));
+        ajax_get("http://geosite.ru/api/v1/map_style/?limit=120", this.MULTI('style'));
       },function(results) {
         window.new_results = form_hierarchial_data(results['firm'], results['style']); 
         $('#id_parent').select2({

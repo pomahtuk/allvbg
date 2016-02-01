@@ -13,8 +13,8 @@
 				<form action="/i18n/setlang/" method="post" style="margin:0;">
 					{% csrf_token %}
 					<input value="" name="language" type="hidden">
-					<input onclick="this.form.language.value=this.value" title="English" value="en" src="{{ STATIC_URL }}/geo_site/img/en.png" name="langpair" type="image">
-					<input onclick="this.form.language.value=this.value" title="Russian" value="ru" src="{{ STATIC_URL }}/geo_site/img/ru.png" name="langpair" type="image">
+					<input onclick="this.form.language.value=this.value" title="English" value="en" src="{{ STATIC_URL }}/geosite/img/en.png" name="langpair" type="image">
+					<input onclick="this.form.language.value=this.value" title="Russian" value="ru" src="{{ STATIC_URL }}/geosite/img/ru.png" name="langpair" type="image">
 				</form>
 			</li>
 		</ul>

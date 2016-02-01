@@ -1,16 +1,16 @@
-from django.conf.urls import patterns, include, url
-from views import *
+from django.conf.urls import patterns, include, url, i18n
+from django.contrib.auth.views import login, logout_then_login
 from django.contrib import admin
 from django.conf import settings
 from filebrowser.sites import site
 from django.conf.urls import url
 from admin_tools import urls as admin_tools_urls
 from tinymce import urls as tinymce_urls
-from geo_site import views
+from geosite import views
 
 # from tastypie.api import Api
 
-# from geo_site.geo_site.api import FirmResource, MapStyleResource
+# from geosite.geosite.api import FirmResource, MapStyleResource
 
 admin.autodiscover()
 
@@ -19,7 +19,7 @@ admin.autodiscover()
 # v1_api.register(MapStyleResource())
 
 
-urlpatterns = ['',
+urlpatterns = [
 
 	url(r'^admin/', include(admin.site.urls)),
 	url(r'^admin_tools/', include(admin_tools_urls)),
@@ -32,19 +32,19 @@ urlpatterns = ['',
 	# url(r'^api/', include(v1_api.urls)),
 
 	url(r'^tinymce/', include(tinymce_urls)),
-	# url(r'^admin/filebrowser/', include(geo_site.urls)),
+	# url(r'^admin/filebrowser/', include(geosite.urls)),
 
 	url(r'payment/result/$', views.result),
 	url(r'payment/pay/$', views.pay),
 	url(r'payment/result_ok/$', views.pay_ok),
 
-	url(r'^accounts/login/$', django.contrib.auth.views.login, {'template_name': 'geo_site/login.html'}),
+	url(r'^accounts/login/$', login, {'template_name': 'geosite/login.html'}),
+	url(r'^accounts/logout/$', logout_then_login),
 	url(r'^accounts/profile/$', views.profile_view),
 	url(r'^accounts/profile/edit/$', views.manage_UserProfile),
 	url(r'^accounts/profile/firm/$', views.manage_Firm),
 	url(r'^accounts/edit/firm/(?P<firm_id>\d+)/$', views.profile_edit_firm),
 	url(r'^accounts/profile/(?P<user_id>\d+)/$', views.profile_view_id),
-	url(r'^accounts/logout/$', django.contrib.auth.views.logout_then_login),
 
 	url(r'^$', views.print_main_page),
 	url(r'^(?P<firm_id>\d+)/$', views.print_page),
@@ -57,7 +57,7 @@ urlpatterns = ['',
 
 	url(r'^sitemap.xml', views.sitemap),
 	url(r'^rss', views.rss),
-	url(r'^widget.html', views.widget),
+	# url(r'^widget.html', views.widget),
 	url(r'^about.html', views.about),
 	url(r'^%D0%BE-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B5.html', views.about),
 
@@ -67,9 +67,9 @@ urlpatterns = ['',
 	url(r'^article/(?P<article_id>\d+)$', views.articles),
 	url(r'^search/$', views.search),
 
-	url(r'^googlec7fb9df20f08fcee.html', views.google_ver),
+	# url(r'^googlec7fb9df20f08fcee.html', views.google_ver),
 
-	url(r'^i18n/', include(django.conf.urls.i18n)),
+	url(r'^i18n/', include(i18n)),
 
 	url(r'^mobile/', views.mobile),
 	url(r'^mobile-search/', views.mobilesearch),

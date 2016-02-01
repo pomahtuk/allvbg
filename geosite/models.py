@@ -1,4 +1,5 @@
 ﻿from django.db import models
+from django.utils.timezone import now as tz_now
 from mptt.models import MPTTModel, TreeForeignKey
 from tinymce import models as tinymce_models
 from django import forms
@@ -64,7 +65,7 @@ class Firm(MPTTModel):#модель БД для фирм и организаци
 	#поле "ecwid" - необходимое поле в случае, если ресурс - магазин.
     ecwid = models.CharField(max_length=50, verbose_name='ID магазина ECWID', null=True, blank=True)
 	#дата создания ресурса
-    pub_date = models.DateTimeField('Дата публикации', null=True, blank=True, default = datetime.now())
+    pub_date = models.DateTimeField('Дата публикации', null=True, blank=True, default = tz_now)
 	#переменная для количества голосов
     totalvotes = models.BigIntegerField(verbose_name='Количество проголосовавших', null=True, blank=True)
 	#переменная для подсчёта рейтинга
@@ -124,7 +125,7 @@ class UserProfile(models.Model):
             url = "https://pddimp.yandex.ru/reg_user_token.xml?token="+token+"&u_login="+instance.username+"&u_password="+crc
             result = urllib2.urlopen(url)
             
-            UserProfile.objects.create(user=instance, generated_password=crc, generated_email=instance.username+"@geo_site.ru", paid_till = datetime.now())
+            UserProfile.objects.create(user=instance, generated_password=crc, generated_email=instance.username+"@geosite.ru", paid_till = datetime.now())
 			
     post_save.connect(create_user_profile, sender=User)	
 	

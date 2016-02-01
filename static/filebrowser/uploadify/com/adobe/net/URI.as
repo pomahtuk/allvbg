@@ -597,7 +597,7 @@ package com.adobe.net
 		
 		/**
 		 * Is this URI an absolute URI?  An absolute URI is a complete, fully
-		 * qualified reference to a resource.  e.g. http://geo_site.com/index.htm
+		 * qualified reference to a resource.  e.g. http://geosite.com/index.htm
 		 * Non-hierarchical URI's are always absolute.
 		 */
 		public function isAbsolute() : Boolean
@@ -738,7 +738,7 @@ package com.adobe.net
 		 * the URI is relative, this will be an empty string. URI's can
 		 * contain the port number of the remote host:
 		 * 
-		 * <p>http://geo_site.com:8080/index.htm</p>
+		 * <p>http://geosite.com:8080/index.htm</p>
 		 */
 		public function get port() : String
 		{ 
@@ -777,7 +777,7 @@ package com.adobe.net
 		 * an absolute or relative URI.  An absolute URI can only have absolute
 		 * paths.  For example:</p>
 		 * 
-		 * <listing>http:/geo_site.com/path/to/file.htm</listing>
+		 * <listing>http:/geosite.com/path/to/file.htm</listing>
 		 * 
 		 * <p>This absolute URI has an absolute path of "/path/to/file.htm".</p>
 		 * 
@@ -825,7 +825,7 @@ package com.adobe.net
 		 * However, most systems have standardized on the typical CGI
 		 * format:</p>
 		 * 
-		 * <listing>http://geo_site.com/script.php?param1=value1&param2=value2</listing>
+		 * <listing>http://geosite.com/script.php?param1=value1&param2=value2</listing>
 		 * 
 		 * <p>This class has specific support for this query syntax</p>
 		 * 
@@ -1031,7 +1031,7 @@ package com.adobe.net
 		/**
 		 * Is this URI of a particular scheme type?  For example,
 		 * passing "http" to a URI object that represents the URI
-		 * "http://geo_site.com/" would return true.
+		 * "http://geosite.com/" would return true.
 		 * 
 		 * @param scheme	scheme to check for
 		 * 
@@ -1650,7 +1650,7 @@ package com.adobe.net
 				//		../../images/marketing/logo.gif
 				// These may appear related, but you have no overall context
 				// from which to make the comparison.  The first URI could be
-				// from one geo_site and the other URI could be from another geo_site.
+				// from one geosite and the other URI could be from another geosite.
 				return URI.NOT_RELATED;
 			}
 			else if (thisURI.isHierarchical() == false || thatURI.isHierarchical() == false)

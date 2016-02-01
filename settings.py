@@ -21,7 +21,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'geo_site',                      # Or path to database file if using sqlite3.
+        'NAME': 'allvbg',                      # Or path to database file if using sqlite3.
         'USER': 'root',                        # Not used with sqlite3.
         'PASSWORD': '',                        # Not used with sqlite3.
         'HOST': '',                            # Set to empty string for localhost. Not used with sqlite3.
@@ -45,10 +45,10 @@ STATIC_ROOT = 'static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = 'http://geo_site.ru/static/'
+STATIC_URL = 'http://geosite.ru/static/'
 
-ST_URL = 'http://geo_site.ru/static/geo_site/'
-ST_ROOT = '/var/www/pman/data/www/allvbgru/static/geo_site/'
+ST_URL = 'http://geosite.ru/static/geosite/'
+ST_ROOT = '/var/www/pman/data/www/allvbgru/static/geosite/'
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -61,12 +61,12 @@ STATICFILES_FINDERS = (
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-# MEDIA_ROOT = '/var/www/pman/data/www/allvbgru/static/geo_site/'
+# MEDIA_ROOT = '/var/www/pman/data/www/allvbgru/static/geosite/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://geo_site.ru/static/geo_site/'
+MEDIA_URL = 'http://geosite.ru/static/geosite/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -76,7 +76,7 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '^^dirc^_ctl=7w39yq4+%47$kbn3xth7%$(6b=njd7!cpzluz4'
 
-# TINYMCE_JS_URL = 'http://geo_site.ru/static/tiny_mce/tiny_mce_src.js'
+# TINYMCE_JS_URL = 'http://geosite.ru/static/tiny_mce/tiny_mce_src.js'
 # TINYMCE_DEFAULT_CONFIG = {
 #     'plugins': "table,spellchecker,paste,searchreplace",
 #     'theme': "advanced",
@@ -109,6 +109,7 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
     'django.template.loaders.eggs.Loader',
+    'admin_tools.template_loaders.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -120,7 +121,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'allvbg.middleware.UserBasedExceptionMiddleware',
+    'geosite.middleware.UserBasedExceptionMiddleware',
 )
 
 INTERNAL_IPS = (
@@ -141,7 +142,7 @@ LANGUAGES = (
 
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 
-MODELTRANSLATION_TRANSLATION_REGISTRY = 'geo_site.translation'
+MODELTRANSLATION_TRANSLATION_REGISTRY = 'geosite.translation'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
@@ -178,7 +179,7 @@ INSTALLED_APPS = (
     'modeltranslation',
     'tastypie',
     'compressor',
-    'geo_site',
+    'geosite',
 )
 
 #DIRECTORY = getattr(SETTINGS, "FILEBROWSER_DIRECTORY", 'uploads/')
@@ -187,29 +188,29 @@ YANDEX_MAP_KEY = "AK8Ikk0BAAAAdOLMOgIAjpzOBoj6rXFSZEs52f88oUaPYDAAAAAAAAAAAAB3am
 
 MPTT_ADMIN_LEVEL_INDENT = 20
 
-AUTH_PROFILE_MODULE = 'geo_site.UserProfile'
+AUTH_PROFILE_MODULE = 'geosite.models.UserProfile'
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': '/var/www/pman/data/Django_cache',
-        'TIMEOUT': 60,
-        'OPTIONS': {
-            'MAX_ENTRIES': 1000
-        }
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+#         'LOCATION': '/var/www/pman/data/Django_cache',
+#         'TIMEOUT': 60,
+#         'OPTIONS': {
+#             'MAX_ENTRIES': 1000
+#         }
+#     }
+# }
 
 CACHE_MIDDLEWARE_SECONDS = 60
 
-ALLOWED_HOSTS = ['geo_site.ru', '*.geo_site.ru', 'www.geo_site.ru']
+ALLOWED_HOSTS = ['geosite.ru', '*.geosite.ru', 'www.geosite.ru']
 
 #COMPRESS_ENABLED = True
 #COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSMinFilter']
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
-# the geo_site admins on every HTTP 500 error.
+# the geosite admins on every HTTP 500 error.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
 

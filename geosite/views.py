@@ -3,7 +3,7 @@ from django.views.decorators.cache import cache_page
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from models import *
+from geosite.models import *
 from datetime import *
 from django.template import RequestContext, Context
 from django import forms
@@ -111,6 +111,7 @@ def test_page(request):
 
 #full version functions
 
+@cache_page(60 * 10)
 def ajax_firm_list(request):
 	pagecode = request.GET.get('pagecode')
 	if pagecode is not None:
@@ -152,13 +153,14 @@ def calend_ajax(request):
 	dt = request.GET.get('date')
 	return render_to_response('site/calend_ajax.html', {'y':int(dt.split(',',1)[0]),'m':int(dt.split(',',1)[1])})
 
+@cache_page(60 * 60)
 def map_main_xml(request):
 	s=MapStyle.objects.order_by('-title')[:500]
 	f=Firm.objects.filter(level=0, published=True).order_by("pub_date")
 	return render_to_response('site/main_map.xml', {
 		'styles':s, 'firms':f
 	}, context_instance=RequestContext(request), mimetype="application/xml")
-	
+
 def map_json(request):
 	callback = request.GET.get('callback', '')
 	s=MapStyle.objects.order_by('-title')[:500]
@@ -167,6 +169,7 @@ def map_json(request):
 		'styles':s, 'firms':f, 'callback': callback
 	}, context_instance=RequestContext(request), mimetype="application/json")
 
+@cache_page(60 * 60)
 def map_unmain_xml(request, firm_id):
 	s=MapStyle.objects.order_by('-title')[:500]
 	p = get_object_or_404(Firm, Q(published=True), pk=firm_id)
@@ -174,7 +177,8 @@ def map_unmain_xml(request, firm_id):
 		'styles':s,
 		'page':p,
 	}, context_instance=RequestContext(request), mimetype="application/xml")
-	
+
+
 def contactview(request):
 	subject = request.POST.get('topic', '')
 	message = request.POST.get('message', '')
@@ -182,7 +186,7 @@ def contactview(request):
 	name = request.POST.get('name', '')
 
 	if subject and message and name and from_email:
-		sbj = 'Message from geo_site.ru. Subject:'+subject
+		sbj = 'Message from geosite.ru. Subject:'+subject
 		msg = 'From '+name+':        '+message
 		try:
 			send_mail(sbj, msg, from_email, ['pman89@ya.ru'])
@@ -279,12 +283,12 @@ def print_page(request, firm_id):
 
 def print_main_page(request):
 	if not is_mobile(request):
-		# return render_to_response('geo_site/mainpage.html', {'firm':0}, context_instance=RequestContext(request))
+		# return render_to_response('geosite/mainpage.html', {'firm':0}, context_instance=RequestContext(request))
 		return render_to_response('site/main_templates/base.html', {'firm':0}, context_instance=RequestContext(request))
 	else:
-		return redirect('http://geo_site.ru/mobile/', permanent=True)
+		return redirect('http://geosite.ru/mobile/', permanent=True)
 
-#user-admin-geo_site for user-edited content
+#user-admin-geosite for user-edited content
 		
 @login_required(login_url='/accounts/login/')
 def profile_view(request):
@@ -433,7 +437,7 @@ def pay_ok(request):
 			up = order.user.get_profile()
 			up.paid_till = dt
 			up.save()
-			#return render_to_response("geo_site/bootstrap/base.html", {"dt":dt}, context_instance=RequestContext(request))
+			#return render_to_response("geosite/bootstrap/base.html", {"dt":dt}, context_instance=RequestContext(request))
 			return HttpResponseRedirect('/accounts/profile/')
 		else:
 			return render_to_response("site/bootstrap/base.html", context_instance=RequestContext(request))
@@ -476,7 +480,8 @@ def mobileitem(request, firm_id):
 		return render_to_response('site/mobile/mobile_list_ext.html', {'firm': list}, context_instance=RequestContext(request))
 	else:
 		return render_to_response('site/mobile/mobile_item.html', {'firm': item}, context_instance=RequestContext(request))
-	
+
+@cache_page(60 * 60)
 def mobilemap(request):
 	if ('lat' in request.GET and request.GET['lat']) and ('lng' in request.GET and request.GET['lng']):
 		lat1 = float(request.GET['lat']) + (0.00001 * 228)
@@ -527,10 +532,3 @@ def rss(request):
 #         return render_to_response('site/widget.html', {'firms': firms, 'query': q, 'total':total}, context_instance=RequestContext(request))
 #     else:
 #         return render_to_response('site/widget.html', {'error': True}, context_instance=RequestContext(request))
-		
-#caching
-	
-map_main_xml = cache_page(map_main_xml, 60 * 60)
-map_unmain_xml = cache_page(map_unmain_xml, 60 * 60)
-mobilemap = cache_page(mobilemap, 60 * 60)
-ajax_firm_list = cache_page(ajax_firm_list, 60 * 10)

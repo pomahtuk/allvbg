@@ -89,14 +89,14 @@
         <form action="/i18n/setlang/" method="post" id='langform'>
           {% csrf_token %}
           <input value="" name="language" type="hidden" id="language">
-          <img src="{{ STATIC_URL }}/geo_site/img/en.png" alt="English" width='22' height='11' data-value="en" class="langpair" >
-          <img src="{{ STATIC_URL }}/geo_site/img/ru.png" alt="Russian" width='22' height='11' data-value="ru" class="langpair" >
+          <img src="{{ STATIC_URL }}/geosite/img/en.png" alt="English" width='22' height='11' data-value="en" class="langpair" >
+          <img src="{{ STATIC_URL }}/geosite/img/ru.png" alt="Russian" width='22' height='11' data-value="ru" class="langpair" >
         </form>
       </div> 
 
       <div class="headerimg"></div>
       <div class="grid_12 site_title">
-        <a class="logo" href="/"><img src="{{ STATIC_URL }}/geo_site/img/lg1.png" style="float:left; width:100; height:100px" alt='Весь Выборг'><h1>Весь Выборг</h1></a>
+        <a class="logo" href="/"><img src="{{ STATIC_URL }}/geosite/img/lg1.png" style="float:left; width:100; height:100px" alt='Весь Выборг'><h1>Весь Выборг</h1></a>
         <a class='ajax add_firm' data-fancybox-type="iframe" href="/firm/add/" title="Добавить организацию"></a>
       </div>  
 
