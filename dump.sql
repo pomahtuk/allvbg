@@ -221,31 +221,31 @@ INSERT INTO `geosite_mapstyle` VALUES (2,'styleStatue','mapicon/statue-2.png'),(
 UNLOCK TABLES;
 
 --
--- Table structure for table `geosite_orderslisrt`
+-- Table structure for table `geosite_orderslist`
 --
 
-DROP TABLE IF EXISTS `geosite_orderslisrt`;
+DROP TABLE IF EXISTS `geosite_orderslist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `geosite_orderslisrt` (
+CREATE TABLE `geosite_orderslist` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `summ` varchar(50) NOT NULL,
+  `sum` varchar(50) NOT NULL,
   `date` datetime NOT NULL,
   `lng` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `geosite_orderslisrt_fbfc09f1` (`user_id`)
+  KEY `geosite_orderslist_fbfc09f1` (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `geosite_orderslisrt`
+-- Dumping data for table `geosite_orderslist`
 --
 
-LOCK TABLES `geosite_orderslisrt` WRITE;
-/*!40000 ALTER TABLE `geosite_orderslisrt` DISABLE KEYS */;
-INSERT INTO `geosite_orderslisrt` VALUES (7,1,'450','2012-03-29 11:52:53','For user with id = 1 payment for 12 month(s)'),(6,1,'50','2012-03-29 11:40:35','For user with id = 1 payment for 1 month(s)'),(8,1,'450','2012-03-29 11:53:32','For user with id = 1 payment for 12 month(s)'),(9,1,'50','2012-03-30 10:28:58','For user with id = 1 payment for 1 month(s)'),(10,1,'50','2012-03-30 10:35:19','Payment for aditing firm by user with id = 1 for 1 month(s)'),(11,1,'50','2012-03-31 13:31:04','Payment for editing firm by user with id = 1 for 1 month(s)'),(12,2,'50','2012-11-23 15:00:10','Payment for editing firm by user with id = 2 for 1 month(s)'),(13,2,'50','2012-11-23 15:25:58','Payment for editing firm by user with id = 2 for 1 month(s)'),(14,2,'450','2012-11-23 17:33:54','Payment for editing firm by user with id = 2 for 12 month(s)'),(15,2,'135','2012-11-26 18:13:04','Payment for editing firm by user with id = 2 for 3 month(s)'),(16,2,'50','2012-11-29 15:32:00','Payment for editing firm by user with id = 2 for 1 month(s)'),(17,2,'135','2012-12-28 08:19:24','Payment for editing firm by user with id = 2 for 3 month(s)'),(18,2,'450','2013-01-23 02:55:38','Payment for editing firm by user with id = 2 for 12 month(s)'),(19,2,'135','2013-02-26 16:30:18','Payment for editing firm by user with id = 2 for 3 month(s)'),(20,2,'135','2013-02-26 16:30:38','Payment for editing firm by user with id = 2 for 3 month(s)'),(21,2,'450','2013-04-17 07:53:14','Payment for editing firm by user with id = 2 for 12 month(s)');
-/*!40000 ALTER TABLE `geosite_orderslisrt` ENABLE KEYS */;
+LOCK TABLES `geosite_orderslist` WRITE;
+/*!40000 ALTER TABLE `geosite_orderslist` DISABLE KEYS */;
+INSERT INTO `geosite_orderslist` VALUES (7,1,'450','2012-03-29 11:52:53','For user with id = 1 payment for 12 month(s)'),(6,1,'50','2012-03-29 11:40:35','For user with id = 1 payment for 1 month(s)'),(8,1,'450','2012-03-29 11:53:32','For user with id = 1 payment for 12 month(s)'),(9,1,'50','2012-03-30 10:28:58','For user with id = 1 payment for 1 month(s)'),(10,1,'50','2012-03-30 10:35:19','Payment for aditing firm by user with id = 1 for 1 month(s)'),(11,1,'50','2012-03-31 13:31:04','Payment for editing firm by user with id = 1 for 1 month(s)'),(12,2,'50','2012-11-23 15:00:10','Payment for editing firm by user with id = 2 for 1 month(s)'),(13,2,'50','2012-11-23 15:25:58','Payment for editing firm by user with id = 2 for 1 month(s)'),(14,2,'450','2012-11-23 17:33:54','Payment for editing firm by user with id = 2 for 12 month(s)'),(15,2,'135','2012-11-26 18:13:04','Payment for editing firm by user with id = 2 for 3 month(s)'),(16,2,'50','2012-11-29 15:32:00','Payment for editing firm by user with id = 2 for 1 month(s)'),(17,2,'135','2012-12-28 08:19:24','Payment for editing firm by user with id = 2 for 3 month(s)'),(18,2,'450','2013-01-23 02:55:38','Payment for editing firm by user with id = 2 for 12 month(s)'),(19,2,'135','2013-02-26 16:30:18','Payment for editing firm by user with id = 2 for 3 month(s)'),(20,2,'135','2013-02-26 16:30:38','Payment for editing firm by user with id = 2 for 3 month(s)'),(21,2,'450','2013-04-17 07:53:14','Payment for editing firm by user with id = 2 for 12 month(s)');
+/*!40000 ALTER TABLE `geosite_orderslist` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

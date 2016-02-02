@@ -23,30 +23,30 @@
     
     <meta name='yandex-verification' content='6d7dc13dd2380f0f' />
     
-    <link rel="shortcut icon" href="{{ STATIC_URL }}geo_site/favicon.ico">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico">
     <link rel="alternate" type="application/rss+xml" title="Весь Выборг - Лента обновлений" href="/rss" />
 
     {% block stylesheets %}
       <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=PT+Serif:400,700&amp;subset=cyrillic'> 
       {% compress css %}
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}geo_site/main_2.css">
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}geo_site/css/anythingslider.css">
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}geo_site/css/rateit.css">
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}geo_site/css/jquery.fancybox.css" />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}main_2.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/anythingslider.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/rateit.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery.fancybox.css" />
       {% endcompress %}
     {% endblock %}
       
     {% block javascripts %}
       <script src="http://api-maps.yandex.ru/2.0/?load=package.full&amp;mode=release&amp;lang=ru-RU&amp;coordorder=longlat" type="text/javascript"></script>
       {% compress js %}
-        <script src="{{ STATIC_URL }}geo_site/js/jquery-1.8.3.js"></script>
-        <script src="{{ STATIC_URL }}geo_site/js/jquery.rateit.min.js"></script>
-        <script src="{{ STATIC_URL }}geo_site/js/jcookie.js"></script>
-        <script src="{{ STATIC_URL }}geo_site/js/jquery.anythingslider.js"></script>
-        <script src="{{ STATIC_URL }}geo_site/js/bootstrap-dropdown.js"></script>
-        <script src="{{ STATIC_URL }}geo_site/js/all_site.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery-1.8.3.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.rateit.min.js"></script>
+        <script src="{{ STATIC_URL }}js/jcookie.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery.anythingslider.js"></script>
+        <script src="{{ STATIC_URL }}js/bootstrap-dropdown.js"></script>
+        <script src="{{ STATIC_URL }}js/all_site.js"></script>
       {% endcompress %}
-      <script src="{{ STATIC_URL }}geo_site/js/jquery.fancybox.js"></script>
+      <script src="{{ STATIC_URL }}js/jquery.fancybox.js"></script>
     {% endblock %}
 
   </head>
@@ -89,14 +89,14 @@
         <form action="/i18n/setlang/" method="post" id='langform'>
           {% csrf_token %}
           <input value="" name="language" type="hidden" id="language">
-          <img src="{{ STATIC_URL }}/geosite/img/en.png" alt="English" width='22' height='11' data-value="en" class="langpair" >
-          <img src="{{ STATIC_URL }}/geosite/img/ru.png" alt="Russian" width='22' height='11' data-value="ru" class="langpair" >
+          <img src="{{ STATIC_URL }}img/en.png" alt="English" width='22' height='11' data-value="en" class="langpair" >
+          <img src="{{ STATIC_URL }}img/ru.png" alt="Russian" width='22' height='11' data-value="ru" class="langpair" >
         </form>
       </div> 
 
       <div class="headerimg"></div>
       <div class="grid_12 site_title">
-        <a class="logo" href="/"><img src="{{ STATIC_URL }}/geosite/img/lg1.png" style="float:left; width:100; height:100px" alt='Весь Выборг'><h1>Весь Выборг</h1></a>
+        <a class="logo" href="/"><img src="{{ STATIC_URL }}/img/lg1.png" style="float:left; width:100; height:100px" alt='Весь Выборг'><h1>Весь Выборг</h1></a>
         <a class='ajax add_firm' data-fancybox-type="iframe" href="/firm/add/" title="Добавить организацию"></a>
       </div>  
 
@@ -400,7 +400,7 @@
                 if (group.getLength() != 0) {
                   img = group.get(0).options.get('iconImageHref');
                 } else {
-                  img = "{{ STATIC_URL }}site/img/transparent.png";
+                  img = "{{ STATIC_URL }}img/transparent.png";
                 }
                 var item = $("<img src=\""+img+"\" width=\"24\" height=\"27\" align=\"left\" style=\"margin-right:5px;\" alt=\" \" /><a class=\"title_sub\" href=\"#\">" + group.properties.get('name') + "</a>");
                     item

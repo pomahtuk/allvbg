@@ -4,5 +4,5 @@
 bild
 local_settings.py
 rss_cache
-./static
+/static
 .idea

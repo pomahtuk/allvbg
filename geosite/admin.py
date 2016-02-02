@@ -65,7 +65,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 class OrdersListAdmin(admin.ModelAdmin):
-    list_display = ('date', 'summ', 'user', 'lng')
+    list_display = ('date', 'sum', 'user', 'lng')
     search_fields = ['user', 'date']
     list_filter = ['date', 'user']
     ordering = ('-date',)

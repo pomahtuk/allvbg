@@ -7,7 +7,7 @@ PROJECT_PATH = '/var/www/pman/data/www/allvbgru'
 # Django settings for project.
 
 DEBUG = True
-#DEBUG = False
+# DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 USE_I18N = True
@@ -20,12 +20,13 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'geosite',                      # Or path to database file if using sqlite3.
-        'USER': 'root',                        # Not used with sqlite3.
-        'PASSWORD': '',                        # Not used with sqlite3.
-        'HOST': '',                            # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                            # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.mysql',
+        # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'geosite',  # Or path to database file if using sqlite3.
+        'USER': 'root',  # Not used with sqlite3.
+        'PASSWORD': '',  # Not used with sqlite3.
+        'HOST': '127.0.0.1',  # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '3306',  # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -45,18 +46,15 @@ STATIC_ROOT = 'static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = 'http://geosite.ru/static/'
-
-ST_URL = 'http://geosite.ru/static/geosite/'
-ST_ROOT = '/var/www/pman/data/www/allvbgru/static/geosite/'
+STATIC_URL = '/static/'
 
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-#     'compressor.finders.CompressorFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'compressor.finders.CompressorFinder',
 )
 
 # Absolute path to the directory that holds media.
@@ -66,7 +64,7 @@ STATICFILES_FINDERS = (
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://geosite.ru/static/geosite/'
+# MEDIA_URL = '/static/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -100,9 +98,9 @@ SECRET_KEY = '^^dirc^_ctl=7w39yq4+%47$kbn3xth7%$(6b=njd7!cpzluz4'
 # TINYMCE_SPELLCHECKER = True
 # TINYMCE_COMPRESSOR = False
 
-#STATICFILES_DIRS = (
+# STATICFILES_DIRS = (
 #	os.path.join(ROOT_PATH, 'static'),
-#)
+# )
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -156,9 +154,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.static',
     'django.core.context_processors.debug',
-    'django.contrib.messages.context_processors.messages',	
+    'django.contrib.messages.context_processors.messages',
 )
-
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -186,7 +183,7 @@ INSTALLED_APPS = (
     'geosite',
 )
 
-#DIRECTORY = getattr(SETTINGS, "FILEBROWSER_DIRECTORY", 'uploads/')
+# DIRECTORY = getattr(SETTINGS, "FILEBROWSER_DIRECTORY", 'uploads/')
 
 YANDEX_MAP_KEY = "AK8Ikk0BAAAAdOLMOgIAjpzOBoj6rXFSZEs52f88oUaPYDAAAAAAAAAAAAB3amaZkCtWNLQzxgaVFWYr-ymltQ==~AFuUaU4BAAAA_nfgKgIA-66Q4jxwCOFrx2v8U1aa6UzHDrYAAAAAAAAAAADAFR7JmJumtVbHoQjeteNT2GZJjA==~AFuUaU4BAAAA_nfgKgIA-66Q4jxwCOFrx2v8U1aa6UzHDrYAAAAAAAAAAADAFR7JmJumtVbHoQjeteNT2GZJjA=="
 
@@ -209,8 +206,8 @@ CACHE_MIDDLEWARE_SECONDS = 60
 
 ALLOWED_HOSTS = ['geosite.ru', '*.geosite.ru', 'www.geosite.ru']
 
-#COMPRESS_ENABLED = True
-#COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSMinFilter']
+# COMPRESS_ENABLED = True
+# COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSMinFilter']
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
