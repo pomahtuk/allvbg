@@ -72,7 +72,7 @@
                             Категории
                         </h3>
 
-						{% full_tree_for_model allvbg.firm as firms %}
+						{% full_tree_for_model geosite.firm as firms %}
 										
 						{% recursetree firms %}
 						    <a data-role="button" data-transition="fade" href="/mobile/{{node.id}}">
@@ -174,12 +174,12 @@
 						var placemark = new YMaps.Placemark(new YMaps.GeoPoint(lat,lng));
 						
 						placemark.name = "Вы тут";
-						placemark.description = "По данным, которое выдаёт ваше устройство";
+						placemark.description = "По данным вашего устройства";
 						
 						map.addOverlay(placemark);
 						
 						// Создание и добавление YMapsML-документа на карту
-						var ml = new YMaps.YMapsML('http://site.ru/mobile-map/?lat='+lat+'&lng='+lng);
+						var ml = new YMaps.YMapsML('/mobile-map/?lat='+lat+'&lng='+lng);
 						map.addOverlay(ml);
 						
 						// Обработчик неудачной загрузки YMapsML

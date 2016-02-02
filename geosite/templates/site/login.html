@@ -1,6 +1,5 @@
 {% extends "site/bootstrap/base.html" %}
 {% load i18n %}
-{% load url from future %}
 
 {% block title %}
 	{% trans "Авторизация" %}
@@ -51,12 +50,12 @@
 			position: relative;
 		}
 	</style>
-	<!--<link rel="stylesheet" href="{{STATIC_URL}}site/bootstrap.min.css">-->
+	<!--<link rel="stylesheet" href="{{STATIC_URL}}bootstrap.min.css">-->
 	<script>
 	   $(".alert").alert()
 	</script>
 	<div class="backround_blured">
-		<img src="{{ STATIC_URL }}geo_site/images/login_bg.jpg" />
+		<img src="{{ STATIC_URL }}images/login_bg.jpg" />
 	</div>
 	<div class="container-fluid">
 		<div class="row-fluid" style="margin-top:200px;">
