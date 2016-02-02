@@ -5,7 +5,8 @@ from tastypie.serializers import Serializer
 from tastypie.authorization import DjangoAuthorization
 from tastypie.cache import SimpleCache
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
-from site.models import Firm, MapStyle
+from geosite.models import Firm, MapStyle
+
 
 class PrettyJSONSerializer(Serializer):
     json_indent = 2
@@ -14,7 +15,8 @@ class PrettyJSONSerializer(Serializer):
         options = options or {}
         data = self.to_simple(data, options)
         return simplejson.dumps(data, cls=json.DjangoJSONEncoder,
-                sort_keys=True, ensure_ascii=False, indent=self.json_indent)
+                                sort_keys=True, ensure_ascii=False, indent=self.json_indent)
+
 
 class MapStyleResource(ModelResource):
     class Meta:
@@ -23,13 +25,15 @@ class MapStyleResource(ModelResource):
         authorization = DjangoAuthorization()
         serializer = PrettyJSONSerializer()
 
+
 class FirmResource(ModelResource):
     map_style = fields.ForeignKey(MapStyleResource, 'map_style')
     parent = fields.ToOneField('self', 'parent', null=True)
+
     class Meta:
         queryset = Firm.objects.all()
         resource_name = 'firm'
-        #excludes = ['isstore', 'ecwid', 'totalvotes', 'raiting', 'rating']
+        # excludes = ['isstore', 'ecwid', 'totalvotes', 'raiting', 'rating']
         authorization = DjangoAuthorization()
         serializer = PrettyJSONSerializer()
         cache = SimpleCache(timeout=360)
