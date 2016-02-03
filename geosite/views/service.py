@@ -6,22 +6,14 @@ from django.db.models import Q
 from geosite.models import Firm
 
 
-def google_ver(request):
-    return render_to_response('agenda/google.html', context_instance=RequestContext(request))
-
-
 def sitemap(request):
-    return render_to_response('site/sitemap.xml', {'zero': 0}, context_instance=RequestContext(request),
+    return render_to_response('site/sitemap.xml', context_instance=RequestContext(request),
                               mimetype="application/xml")
 
 def rss(request):
     firm_list = Firm.objects.order_by('-pub_date')[:20]
     return render_to_response('site/rss.xml', {'firms': firm_list}, context_instance=RequestContext(request),
                               mimetype="application/rss+xml")
-
-def test_page(request):
-    return render_to_response('site/test.html', context_instance=RequestContext(request))
-
 
 def calendar_ajax(request):
     dt = request.GET.get('date')

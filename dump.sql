@@ -276,7 +276,7 @@ UNLOCK TABLES;
 -- Table structure for table `geosite_userprofile`
 --
 
-DROP TABLE IF EXISTS `geosite_userprofile`;
+DROP TABLE IF EXISTS accounts_userprofile;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `geosite_userprofile` (
@@ -296,10 +296,10 @@ CREATE TABLE `geosite_userprofile` (
 -- Dumping data for table `geosite_userprofile`
 --
 
-LOCK TABLES `geosite_userprofile` WRITE;
-/*!40000 ALTER TABLE `geosite_userprofile` DISABLE KEYS */;
-INSERT INTO `geosite_userprofile` VALUES (1,2,555,'2013-09-28 00:00:00','','admin@geosite.ru'),(2,1,8,'2013-06-29 00:00:00','1111','admin@geosite.ru'),(3,3,613,'2022-03-29 00:05:20','',''),(6,13,NULL,'2012-03-29 15:18:20','3e34ca81a8','qwerty@geosite.ru');
-/*!40000 ALTER TABLE `geosite_userprofile` ENABLE KEYS */;
+LOCK TABLES accounts_userprofile WRITE;
+/*!40000 ALTER TABLE accounts_userprofile DISABLE KEYS */;
+INSERT INTO accounts_userprofile VALUES (1,2,555,'2013-09-28 00:00:00','','admin@geosite.ru'),(2,1,8,'2013-06-29 00:00:00','1111','admin@geosite.ru'),(3,3,613,'2022-03-29 00:05:20','',''),(6,13,NULL,'2012-03-29 15:18:20','3e34ca81a8','qwerty@geosite.ru');
+/*!40000 ALTER TABLE accounts_userprofile ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

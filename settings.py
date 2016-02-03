@@ -181,6 +181,7 @@ INSTALLED_APPS = (
     'tastypie',
     'compressor',
     'geosite',
+    'accounts',
 )
 
 # DIRECTORY = getattr(SETTINGS, "FILEBROWSER_DIRECTORY", 'uploads/')

@@ -97,19 +97,7 @@ class MapAdmin(admin.ModelAdmin):
     ordering = ('-title',)
 
 
-admin.site.unregister(User)
 
-
-class UserProfileInline(admin.StackedInline):
-    model = UserProfile
-    raw_id_fields = ("editor_for",)
-
-
-class UserProfileAdmin(UserAdmin):
-    inlines = [UserProfileInline]
-
-
-admin.site.register(User, UserProfileAdmin)
 admin.site.register(Firm, FirmAdmin)
 admin.site.register(Article, ArticleAdmin)
 # admin.site.register(Event, EventAdmin)

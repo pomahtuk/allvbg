@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.shortcuts import get_object_or_404, get_list_or_404, render_to_response, redirect
+from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.http import HttpResponseRedirect
+from geosite.models import Firm
 
-from geosite.models import User, Firm
+from models import User
 from geosite.forms import ProfileForm, FirmUserForm
 
 from datetime import *
