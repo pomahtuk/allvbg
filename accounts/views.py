@@ -26,8 +26,8 @@ def profile_view_id(request, user_id):
 @login_required(login_url='/accounts/login/')
 def profile_edit_firm(request, firm_id):
     firm = Firm.objects.get(pk=firm_id)
-    if request.user.get_profile().editor_for == firm:
-        if request.user.get_profile().paid_till >= datetime.now():
+    if request.user.userprofile.editor_for == firm:
+        if request.user.userprofile.paid_till >= datetime.now():
             firm = Firm.objects.get(pk=firm_id)
             return render_to_response('site/bootstrap/firm_edit.html', {'firm': firm},
                                       context_instance=RequestContext(request))
@@ -52,7 +52,7 @@ def manage_user_profile(request):
 
 @login_required(login_url='/accounts/login/')
 def manage_firm(request):
-    a = request.user.get_profile().editor_for
+    a = request.user.userprofile.editor_for
     if request.method == 'POST':
         f = FirmUserForm(request.POST, request.FILES, instance=a)
         if f.is_valid():
