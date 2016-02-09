@@ -8,7 +8,7 @@ PROJECT_PATH = '/var/www/pman/data/www/allvbgru'
 
 DEBUG = True
 # DEBUG = False
-TEMPLATE_DEBUG = DEBUG
+# TEMPLATE_DEBUG = DEBUG
 
 USE_I18N = True
 
@@ -77,12 +77,37 @@ SECRET_KEY = '^^dirc^_ctl=7w39yq4+%47$kbn3xth7%$(6b=njd7!cpzluz4'
 #	os.path.join(ROOT_PATH, 'static'),
 # )
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'django.template.loaders.eggs.Loader',
-)
+SETTINGS_PATH = os.path.dirname(__file__)
+PROJECT_PATH = os.path.join(SETTINGS_PATH, os.pardir)
+PROJECT_PATH = os.path.abspath(PROJECT_PATH)
+TEMPLATES_PATH = os.path.join(PROJECT_PATH, "templates")
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            TEMPLATES_PATH
+        ],
+        'OPTIONS': {
+            'debug': True,
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.i18n',
+                'django.core.context_processors.request',
+                'django.core.context_processors.media',
+                'django.core.context_processors.static',
+                'django.core.context_processors.debug',
+                'django.contrib.messages.context_processors.messages',
+            ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'django.template.loaders.eggs.Loader',
+            ]
+        },
+    },
+]
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.cache.CacheMiddleware',
@@ -102,15 +127,6 @@ INTERNAL_IPS = (
 
 ROOT_URLCONF = 'urls'
 
-SETTINGS_PATH = os.path.dirname(__file__)
-PROJECT_PATH = os.path.join(SETTINGS_PATH, os.pardir)
-PROJECT_PATH = os.path.abspath(PROJECT_PATH)
-TEMPLATES_PATH = os.path.join(PROJECT_PATH, "templates")
-
-TEMPLATE_DIRS = (
-    TEMPLATES_PATH,
-)
-
 gettext = lambda s: s
 LANGUAGES = (
     ('ru', gettext('Russian')),
@@ -120,16 +136,6 @@ LANGUAGES = (
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 
 MODELTRANSLATION_TRANSLATION_REGISTRY = 'geosite.translation'
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.request',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.debug',
-    'django.contrib.messages.context_processors.messages',
-)
 
 INSTALLED_APPS = (
     'suit',
@@ -144,8 +150,6 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'easy_thumbnails',
     'mptt',
-    'site',
-    'feincms',
     'debug_toolbar',
     'modeltranslation',
     'compressor',

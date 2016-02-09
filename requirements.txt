@@ -13,7 +13,6 @@ django-tastypie==0.13.1
 django-treenav==1.0.0
 easy-thumbnails==2.3
 feedparser==5.2.1
-FeinCMS==1.11.4
 MySQL-python==1.2.5
 Pillow==3.1.0
 python-dateutil==2.4.2
