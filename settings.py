@@ -82,7 +82,6 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
     'django.template.loaders.eggs.Loader',
-    'admin_tools.template_loaders.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -138,15 +137,10 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'admin_tools',
-    'admin_tools.theming',
-    'admin_tools.menu',
-    'admin_tools.dashboard',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'suit_redactor',
-    'filebrowser',
     'django.contrib.admindocs',
     'easy_thumbnails',
     'mptt',
