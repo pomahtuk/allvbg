@@ -20,8 +20,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'geosite',  # Or path to database file if using sqlite3.
         'USER': 'root',  # Not used with sqlite3.
         'PASSWORD': '',  # Not used with sqlite3.
@@ -64,7 +63,7 @@ STATICFILES_FINDERS = (
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-# MEDIA_URL = '/static/'
+MEDIA_URL = '/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -73,30 +72,6 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '^^dirc^_ctl=7w39yq4+%47$kbn3xth7%$(6b=njd7!cpzluz4'
-
-# TINYMCE_JS_URL = 'http://geosite.ru/static/tiny_mce/tiny_mce_src.js'
-# TINYMCE_DEFAULT_CONFIG = {
-#     'plugins': "table,spellchecker,paste,searchreplace",
-#     'theme': "advanced",
-# 	'theme_advanced_toolbar_location' : "top",
-# 	'theme_advanced_toolbar_align' : "left",
-# 	'theme_advanced_buttons1' : "fullscreen,separator,preview,separator,bold,italic,underline,strikethrough,separator,bullist,numlist,outdent,indent,separator,undo,redo,separator,link,unlink,anchor,separator,image,cleanup,help,separator,code",
-# 	'theme_advanced_buttons2' : "",
-# 	'theme_advanced_buttons3' : "",
-# 	'auto_cleanup_word' : "true",
-# 	'plugins' : "table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,searchreplace,print,contextmenu,fullscreen",
-# 	'plugin_insertdate_dateFormat' : "%m/%d/%Y",
-# 	'plugin_insertdate_timeFormat' : "%H:%M:%S",
-# 	'extended_valid_elements' : "a[name|href|target=_blank|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
-# 	'fullscreen_settings' : {
-# 		'theme_advanced_path_location' : "top",
-# 		'theme_advanced_buttons1' : "fullscreen,separator,preview,separator,cut,copy,paste,separator,undo,redo,separator,search,replace,separator,code,separator,cleanup,separator,bold,italic,underline,strikethrough,separator,forecolor,backcolor,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,help",
-# 		'theme_advanced_buttons2' : "removeformat,styleselect,formatselect,fontselect,fontsizeselect,separator,bullist,numlist,outdent,indent,separator,link,unlink,anchor",
-# 		'theme_advanced_buttons3' : "sub,sup,separator,image,insertdate,inserttime,separator,tablecontrols,separator,hr,advhr,visualaid,separator,charmap,emotions,iespell,flash,separator,print"
-# 	}
-# }
-# TINYMCE_SPELLCHECKER = True
-# TINYMCE_COMPRESSOR = False
 
 # STATICFILES_DIRS = (
 #	os.path.join(ROOT_PATH, 'static'),
@@ -158,6 +133,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 INSTALLED_APPS = (
+    'suit',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -169,7 +145,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'tinymce',
+    'suit_redactor',
     'filebrowser',
     'django.contrib.admindocs',
     'easy_thumbnails',
@@ -178,13 +154,10 @@ INSTALLED_APPS = (
     'feincms',
     'debug_toolbar',
     'modeltranslation',
-    'tastypie',
     'compressor',
     'geosite',
     'accounts',
 )
-
-# DIRECTORY = getattr(SETTINGS, "FILEBROWSER_DIRECTORY", 'uploads/')
 
 YANDEX_MAP_KEY = "AK8Ikk0BAAAAdOLMOgIAjpzOBoj6rXFSZEs52f88oUaPYDAAAAAAAAAAAAB3amaZkCtWNLQzxgaVFWYr-ymltQ==~AFuUaU4BAAAA_nfgKgIA-66Q4jxwCOFrx2v8U1aa6UzHDrYAAAAAAAAAAADAFR7JmJumtVbHoQjeteNT2GZJjA==~AFuUaU4BAAAA_nfgKgIA-66Q4jxwCOFrx2v8U1aa6UzHDrYAAAAAAAAAAADAFR7JmJumtVbHoQjeteNT2GZJjA=="
 

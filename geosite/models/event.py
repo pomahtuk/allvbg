@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from tinymce import models as tinymce_models
 
 
 class Event(models.Model):
     name = models.CharField(max_length=50, unique=True, verbose_name='Название')
-    short = tinymce_models.HTMLField(verbose_name='Короткое описание')
+    short = models.TextField(verbose_name='Короткое описание')
     # Полный текст описания фирмы
-    description = tinymce_models.HTMLField(verbose_name='Полный текст')
+    description = models.TextField(verbose_name='Полный текст')
     # дата создания ресурса
     start_date = models.DateTimeField('Дата начала')
     # дата создания ресурса

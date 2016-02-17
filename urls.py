@@ -4,7 +4,6 @@ from django.conf import settings
 from django.conf.urls import url
 from django.views.static import serve
 from admin_tools import urls as admin_tools_urls
-from tinymce import urls as tinymce_urls
 
 from geosite import views
 from geosite import urls as geosite_urls
@@ -20,8 +19,6 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin_tools/', include(admin_tools_urls)),
-
-    url(r'^tinymce/', include(tinymce_urls)),
 
     url(r'payment/result/$', views.result),
     url(r'payment/pay/$', views.pay),

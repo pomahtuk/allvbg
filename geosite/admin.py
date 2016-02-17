@@ -6,9 +6,8 @@ from feincms.admin import tree_editor
 from geosite.widgets import *  # подключаем все свои виджеты
 from django import forms  # зависимость для переопределения полей формы в админке
 # from modeltranslation.admin import TranslationAdmin
-from django.contrib.auth.models import User
-from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
+from suit_redactor.widgets import RedactorWidget
 
 
 class FirmAdmin(tree_editor.TreeEditor):  # класс для админ-панели фирм
@@ -31,11 +30,13 @@ class FirmAdmin(tree_editor.TreeEditor):  # класс для админ-пан�
     class form(forms.ModelForm):  # вот этот кусок кода дополняет полее ввода картинки её превьюхой
         class Meta:
             widgets = {
-                'image1': AdminImageWidget,  # виджет определён в geosite/widgets.py
-                'image2': AdminImageWidget,
-                'image3': AdminImageWidget,
-                'image4': AdminImageWidget,
+                # 'image1': AdminImageWidget,  # виджет определён в geosite/widgets.py
+                # 'image2': AdminImageWidget,
+                # 'image3': AdminImageWidget,
+                # 'image4': AdminImageWidget,
                 'location': LocationWidget,
+                'short': RedactorWidget(editor_options={'lang': 'ru'}),
+                'description': RedactorWidget(editor_options={'lang': 'ru'}),
             }
             ordering = ['tree_id', 'lft']
 
@@ -62,6 +63,15 @@ class ArticleAdmin(admin.ModelAdmin):
         ('Мета', {'fields': ['meta_key'], 'classes': ['collapse']}),
         ('Дата', {'fields': ['pub_date'], 'classes': ['collapse']}),
     ]
+
+    class form(forms.ModelForm):  # вот этот кусок кода дополняет полее ввода картинки её превьюхой
+        class Meta:
+            widgets = {
+
+                'short': RedactorWidget(editor_options={'lang': 'ru'}),
+                'description': RedactorWidget(editor_options={'lang': 'ru'}),
+            }
+
 
 
 class OrdersListAdmin(admin.ModelAdmin):

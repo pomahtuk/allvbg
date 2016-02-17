@@ -2,7 +2,6 @@
 
 from mptt.models import MPTTModel, TreeForeignKey
 from django.db import models
-from tinymce import models as tinymce_models
 from map_style import MapStyle
 from django.utils.timezone import now as tz_now
 
@@ -14,8 +13,8 @@ class Firm(MPTTModel):
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
     container = models.BooleanField(verbose_name='Контейнер?', default=False)
 
-    short = tinymce_models.HTMLField(verbose_name='Короткое описание', null=True, blank=True)
-    description = tinymce_models.HTMLField(verbose_name='Полный текст', null=True, blank=True)
+    short = models.TextField(verbose_name='Короткое описание', null=True, blank=True)
+    description = models.TextField(verbose_name='Полный текст', null=True, blank=True)
 
     image1 = models.ImageField(upload_to='uploads', verbose_name='Изображение 1', null=True, blank=True)
     image2 = models.ImageField(upload_to='uploads', verbose_name='Изображение 2', null=True, blank=True)
