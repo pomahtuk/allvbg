@@ -1,0 +1,17 @@
+INSTALLED_APPS = (
+    'suit',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.admin',
+    'suit_redactor',
+    'django.contrib.admindocs',
+    'easy_thumbnails',
+    'mptt',
+    'debug_toolbar',
+    'geosite',
+    'accounts',
+)
