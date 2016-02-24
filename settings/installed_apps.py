@@ -13,5 +13,6 @@ INSTALLED_APPS = (
     'mptt',
     'debug_toolbar',
     'geosite',
+    'images',
     'accounts',
 )
