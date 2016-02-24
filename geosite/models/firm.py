@@ -37,8 +37,15 @@ class Firm(MPTTModel):
 
     published = models.BooleanField(verbose_name='Опубликовано?', default=False)
 
+    order = models.PositiveIntegerField()
+
     class MPTTMeta:
-        order_insertion_by = ['name']
+        order_insertion_by = ['order']
+
+    # It is required to rebuild tree after save, when using order for mptt-tree
+    def save(self, *args, **kwargs):
+        super(Firm, self).save(*args, **kwargs)
+        Firm.objects.rebuild()
 
     def __unicode__(self):
         return self.name

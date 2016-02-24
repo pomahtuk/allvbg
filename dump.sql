@@ -273,13 +273,13 @@ LOCK TABLES `geosite_tst_r` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `geosite_userprofile`
+-- Table structure for table `accounts_userprofile`
 --
 
 DROP TABLE IF EXISTS accounts_userprofile;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `geosite_userprofile` (
+CREATE TABLE `accounts_userprofile` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `editor_for_id` int(11) DEFAULT NULL,
@@ -288,12 +288,12 @@ CREATE TABLE `geosite_userprofile` (
   `generated_email` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`),
-  KEY `geosite_userprofile_13bdb02d` (`editor_for_id`)
+  KEY `accounts_userprofile_13bdb02d` (`editor_for_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `geosite_userprofile`
+-- Dumping data for table `accounts_userprofile`
 --
 
 LOCK TABLES accounts_userprofile WRITE;

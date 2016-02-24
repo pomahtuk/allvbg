@@ -2,26 +2,26 @@
 
 from geosite.models import *
 from django.contrib import admin
-from feincms.admin import tree_editor
+from suit.admin import SortableModelAdmin
+from mptt.admin import MPTTModelAdmin
 from geosite.widgets import *  # подключаем все свои виджеты
 from django import forms  # зависимость для переопределения полей формы в админке
-# from modeltranslation.admin import TranslationAdmin
 from django.utils.translation import ugettext_lazy as _
 from suit_redactor.widgets import RedactorWidget
 
 
-class FirmAdmin(tree_editor.TreeEditor):  # класс для админ-панели фирм
+class FirmAdmin(MPTTModelAdmin, SortableModelAdmin):  # класс для админ-панели фирм
     list_display = (
-        'name', 'short', 'map_style', 'isstore', 'published_toggle', 'pub_date')  # список полей, выводимых в админке
+        'name', 'short', 'map_style', 'isstore', 'pub_date')  # список полей, выводимых в админке
     list_filter = ['published', 'isstore', 'map_style']  # поле, по которому возможна фильрация
     search_fields = ['name']  # поле, по которому возможен поиск
     ordering = ('-id',)  # поле и порядок сортировки
-    published_toggle = tree_editor.ajax_editable_boolean('published', _('published'))
     fieldsets = [  # наборы полей
                    ('Основное',
                     {'fields': ['name', 'alias', 'parent', 'container', 'short', 'description', 'published']}),
                    ('Изображения', {'fields': ['image1', 'image2', 'image3', 'image4']}),
                    ('Карта', {'fields': ['lat', 'lng', 'location', 'map_style']}),
+                   ('Магазин', {'fields': ['isstore', 'ecwid'], 'classes': ['collapse']}),
                    ('Магазин', {'fields': ['isstore', 'ecwid'], 'classes': ['collapse']}),
                    ('Мета', {'fields': ['meta_key'], 'classes': ['collapse']}),
                    ('Дата', {'fields': ['pub_date'], 'classes': ['collapse']}),

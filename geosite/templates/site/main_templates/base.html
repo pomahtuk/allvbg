@@ -2,7 +2,6 @@
 <html>
   {% load mptt_tags %}
   {% load extras %}
-  {% load compress %}
 
   {% load cache %}
   {% load i18n %}
@@ -27,25 +26,25 @@
     <link rel="alternate" type="application/rss+xml" title="Весь Выборг - Лента обновлений" href="/rss" />
 
     {% block stylesheets %}
-      <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=PT+Serif:400,700&amp;subset=cyrillic'> 
-      {% compress css %}
+      <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=PT+Serif:400,700&amp;subset=cyrillic'>
+
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}main_2.css">
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/anythingslider.css">
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/rateit.css">
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/jquery.fancybox.css" />
-      {% endcompress %}
+
     {% endblock %}
       
     {% block javascripts %}
       <script src="http://api-maps.yandex.ru/2.0/?load=package.full&amp;mode=release&amp;lang=ru-RU&amp;coordorder=longlat" type="text/javascript"></script>
-      {% compress js %}
+
         <script src="{{ STATIC_URL }}js/jquery-1.8.3.js"></script>
         <script src="{{ STATIC_URL }}js/jquery.rateit.min.js"></script>
         <script src="{{ STATIC_URL }}js/jcookie.js"></script>
         <script src="{{ STATIC_URL }}js/jquery.anythingslider.js"></script>
         <script src="{{ STATIC_URL }}js/bootstrap-dropdown.js"></script>
         <script src="{{ STATIC_URL }}js/all_site.js"></script>
-      {% endcompress %}
+
       <script src="{{ STATIC_URL }}js/jquery.fancybox.js"></script>
     {% endblock %}
 
@@ -228,7 +227,7 @@
             <h2>{% trans "Объявления" %}</h2>
               <div id="ads">
                 <ul>
-                  {% get_hello %}
+
                 </ul>
               </div>
           </div>
